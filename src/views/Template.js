@@ -8,6 +8,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
+import GameList from './GameList';
 
 import {
   Route,
@@ -24,7 +25,7 @@ class Template extends Component {
 		<div>
 			<Navbar bg="dark" variant="dark">
 				<button className="d-lg-none toggle-sidebar"><span className="navbar-toggler-icon"></span></button>
-				<Navbar.Brand href="/">LavaLiveStats</Navbar.Brand>
+				<Navbar.Brand href="/">StreamsTracker</Navbar.Brand>
 
 				<span className="hidden-xs text-muted">Global Stats</span>
 
@@ -38,13 +39,14 @@ class Template extends Component {
 								 	<span>Top Companies</span></a>
 								</ListGroup.Item>
 								<ListGroup>
-									<ListGroup className="sub-menu collapse" id="areaCharts">
+									<GameList/>
+									{/* <ListGroup className="sub-menu collapse" id="areaCharts">
 										<ListGroup.Item> <NavLink to="/area-chart">Ubisoft</NavLink></ListGroup.Item>
 										<ListGroup.Item> <NavLink to="/area-chart">Riot</NavLink></ListGroup.Item>
 										<ListGroup.Item> <NavLink to="/area-chart">Blizzard</NavLink></ListGroup.Item>
 										<ListGroup.Item> <NavLink to="/area-chart">Valve</NavLink></ListGroup.Item>
 										<ListGroup.Item> <NavLink to="/area-chart">Mojang</NavLink></ListGroup.Item>
-									</ListGroup>
+									</ListGroup> */}
 								</ListGroup>
 								<ListGroup.Item role="separator" className="divider"></ListGroup.Item>
 								
