@@ -4,15 +4,13 @@ class GameList extends Component {
     state = {
         games: [],
         loading: true,
-        listitems: ["Ubisoft", "Riot", "Blizzard", "Valve", "Mojang"],
-
       };
  
     componentDidMount(){
-        fetch('http://lecalculriche.com:8800/top_games')
+        fetch('http://api.streamstracker.com/top_games')
           .then(res => res.json())
           .then(res => {
-              //console.log(res)
+              console.log(res)
               this.setState({
                   games: res,
                   loading: false
