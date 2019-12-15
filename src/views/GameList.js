@@ -10,7 +10,6 @@ class GameList extends Component {
         fetch('http://api.streamstracker.com/top_games')
           .then(res => res.json())
           .then(res => {
-              console.log(res)
               this.setState({
                   games: res,
                   loading: false

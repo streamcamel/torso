@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
-import Row from 'react-bootstrap/Row';
+import React, { Component } from 'react';
 import Col from 'react-bootstrap/Col';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
-import GameList from './GameList';
-
-import {
-  Route,
-  NavLink,
-  BrowserRouter
-} from "react-router-dom";
-
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
+import { BrowserRouter, Route } from "react-router-dom";
 import AreaChart from "./area charts/Area Chart";
+import CompanyList from './CompanyList';
+
+
+
 
 class Template extends Component {
   
@@ -37,10 +33,10 @@ class Template extends Component {
 							<ListGroup className="nav nav-sidebar flex-sm-column">
 								<ListGroup.Item>
 									<a href="#areaCharts" data-toggle="collapse" aria-expanded="true" className="dropdown-toggle">
-								 	<span>Top Games</span></a>
+								 	<span>Top Companies</span></a>
 								</ListGroup.Item>
 								<ListGroup>
-									<GameList/>
+									<CompanyList/>
 								</ListGroup>
 								<ListGroup.Item role="separator" className="divider"></ListGroup.Item>
 								

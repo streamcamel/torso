@@ -2,7 +2,7 @@ import React, { Component } from "react";
  
 class GameList extends Component {
     state = {
-        games: [],
+        companies: [],
         loading: true,
       };
  
@@ -10,9 +10,8 @@ class GameList extends Component {
         fetch('http://api.streamstracker.com/top_companies')
           .then(res => res.json())
           .then(res => {
-              console.log(res)
               this.setState({
-                  games: res,
+                  companies: res,
                   loading: false
               })
           })
@@ -25,9 +24,10 @@ class GameList extends Component {
       
     return (
       <React.Fragment>
-        {this.state.games.map(game => (
-            <li key={game.id} className="list-group-item list-group-item-primary">
-                {game.name} Viewers: {game.viewers}
+        {this.state.companies.map(company => (
+            <li key={company.id} className="list-group-item list-group-item-primary">
+                {company.name} Viewers: {company.viewers}
+                {company.ticker !== undefined ? 'Ticker'+company.stock_ticker : ''}
             </li>
           ))}
       </React.Fragment>
