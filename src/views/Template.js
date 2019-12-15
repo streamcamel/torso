@@ -28,9 +28,8 @@ class Template extends Component {
 					<span className="navbar-toggler-icon"></span>
 				</button>
 				<Navbar.Brand href="/">StreamsTracker</Navbar.Brand>
-
-				<span className="hidden-xs text-muted">Global Stats</span>
-
+				<Nav.Link href="/games">Companies</Nav.Link>
+				<Nav.Link href="/companies">Games</Nav.Link>
 			  </Navbar>		  
 			  <BrowserRouter>		  
 					<Row>
