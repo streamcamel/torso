@@ -17,8 +17,8 @@ class GameList extends Component {
           })
     }
 
-  render() {
-    if (this.state.loading) {
+    render() {
+      if (this.state.loading) {
         return <div>Loading...</div>
       }
       
@@ -26,8 +26,10 @@ class GameList extends Component {
       <React.Fragment>
         {this.state.companies.map(company => (
             <li key={company.id} className="list-group-item list-group-item-primary">
-                {company.name} Viewers: {company.viewers}
-                {company.ticker !== undefined ? 'Ticker'+company.stock_ticker : ''}
+                <a href={"/companies/" + company.name}>
+                  {company.name} Viewers: {company.viewers}
+                  {company.ticker !== undefined ? 'Ticker'+company.stock_ticker : ''}
+                </a>
             </li>
           ))}
       </React.Fragment>
