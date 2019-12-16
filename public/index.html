@@ -56,17 +56,6 @@
             }
           }
           
-          function toggleSidebar() {
-            if(jQuery(window).innerWidth() <= 992) {
-                jQuery("#sidebar").addClass("invisible");    
-              } else {
-                jQuery("#sidebar").removeClass("invisible");
-              }
-          }
-          toggleSidebar();         
-          jQuery(window).on("resize",function(){
-              toggleSidebar();
-          });
           jQuery(".toggle-sidebar").on("click",function(){
             jQuery("#sidebar").toggleClass("invisible");
           });

@@ -11,21 +11,18 @@ import { BrowserRouter, Route } from "react-router-dom";
 import AreaChart from "./area charts/Area Chart";
 import CompanyList from './CompanyList';
 
-
-
-
 class Template extends Component {
   
   render() {    
     return (
 		<div>
 			<Navbar bg="dark" variant="dark">
-				<button className="d-lg-none toggle-sidebar" class="collapse-navbar collapse">
+				<button className="d-lg-none toggle-sidebar">
 					<span className="navbar-toggler-icon"></span>
 				</button>
 				<Navbar.Brand href="/">StreamsTracker</Navbar.Brand>
-				<Nav.Link href="/games">Companies</Nav.Link>
-				<Nav.Link href="/companies">Games</Nav.Link>
+				<Nav.Link href="/companies">Companies</Nav.Link>
+				<Nav.Link href="/games">Games</Nav.Link>
 			  </Navbar>		  
 			  <BrowserRouter>		  
 					<Row>
@@ -37,19 +34,13 @@ class Template extends Component {
 								</ListGroup.Item>
 								<ListGroup>
 									<CompanyList/>
-								</ListGroup>
-								<ListGroup.Item role="separator" className="divider"></ListGroup.Item>
-								
-								<ListGroup.Item role="separator" className="divider"></ListGroup.Item>
-								
+								</ListGroup>						
 							</ListGroup>
 						</Nav>
 						
 						<Col xl={{ span: 7, offset: 3 }} lg={{ span: 8, offset: 3 }} xs={{ span: 8, offset: 2 }}>
 							<Container>
-								<div className="content">
-									<Route path="/area-chart" component={AreaChart}/>
-								</div>
+								<AreaChart />
 							</Container>
 						</Col>					
 					</Row>			

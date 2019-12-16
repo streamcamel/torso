@@ -3,6 +3,11 @@ import CanvasJSReact from '../../assets/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
 class AreaChart extends Component {
+
+	componentDidMount() {
+		console.log('In Area Charts')
+	}
+
 	render() {
 		const options = {
 			theme: "light2",
@@ -35,6 +40,7 @@ class AreaChart extends Component {
 			}
 			]
 		}
+		
 		
 		return (
 		<div>
