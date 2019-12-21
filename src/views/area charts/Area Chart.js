@@ -4,9 +4,37 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
 class AreaChart extends Component {
 
-	componentDidMount() {
-		console.log('In Area Charts')
-	}
+	state = {
+        viewers: [],
+        loading: true,
+      };
+ 
+    componentDidMount(){
+        var d = new Date();
+        var nowFormatted = d.toISOString();
+
+        d.setHours(d.getHours() - 6);
+        var beforeFormatted = d.toISOString();
+
+        fetch('http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted)
+          .then(res => res.json())
+          .then(res => {
+			  console.log(res)
+			  
+			  const remapped = Object.keys(res).map(key => ({
+				  x: new Date(Date.parse(res[key].time)),
+				  y: res[key].viewers_count
+			  }))
+
+			  console.log(remapped)
+
+              this.setState({
+                  viewers: remapped,
+                  loading: false
+              })
+		  })
+		}
+		  
 
 	render() {
 		const options = {
@@ -26,21 +54,23 @@ class AreaChart extends Component {
 			data: [
 			{
 				type: "area",
-				xValueFormatString: "YYYY",
+				xValueFormatString: "YYYYMMDD",
 				//yValueFormatString: "#,##0.## Million",
-				dataPoints: [
-					{ x: new Date(2019, 11, 30, 9, 0), y: 5000},
-					{ x: new Date(2019, 11, 30, 9, 10), y: 7300},
-					{ x: new Date(2019, 11, 30, 9, 20,), y: 6400},
-					{ x: new Date(2019, 11, 30, 9, 30), y: 6300},
-					{ x: new Date(2019, 11, 30, 9, 40), y: 7500},
-					{ x: new Date(2019, 11, 30, 9, 50), y: 13800},
-					{ x: new Date(2019, 11, 30, 10, 0), y: 16200}
-				]
+				dataPoints: this.state.viewers
+				// dataPoints: [
+				// 	{ x: new Date(2019, 11, 30, 9, 0), y: 5000},
+				// 	{ x: new Date(2019, 11, 30, 9, 10), y: 7300},
+				// 	{ x: new Date(2019, 11, 30, 9, 20), y: 6400},
+				// 	{ x: new Date(2019, 11, 30, 9, 30), y: 6300},
+				// 	{ x: new Date(2019, 11, 30, 9, 40), y: 7500},
+				// 	{ x: new Date(2019, 11, 30, 9, 50), y: 13800},
+				// 	{ x: new Date(2019, 11, 30, 10, 0), y: 16200}
+				// ]
 			}
-			]
+		]
 		}
-		
+
+		console.log(options)
 		
 		return (
 		<div>
