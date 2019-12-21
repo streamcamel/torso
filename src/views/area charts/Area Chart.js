@@ -7,7 +7,12 @@ class AreaChart extends Component {
 	state = {
         viewers: [],
         loading: true,
-      };
+	  };
+	  
+	companyName() {
+		console.log(this.props.company)
+		return (<h1><center>{!this.props.company ? "Global" : this.props.company}</center></h1>)
+	}
  
     componentDidMount(){
         var d = new Date();
@@ -18,15 +23,11 @@ class AreaChart extends Component {
 
         fetch('http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted)
           .then(res => res.json())
-          .then(res => {
-			  console.log(res)
-			  
+          .then(res => { 
 			  const remapped = Object.keys(res).map(key => ({
 				  x: new Date(Date.parse(res[key].time)),
 				  y: res[key].viewers_count
 			  }))
-
-			  console.log(remapped)
 
               this.setState({
                   viewers: remapped,
@@ -54,25 +55,16 @@ class AreaChart extends Component {
 			data: [
 			{
 				type: "area",
-				xValueFormatString: "YYYYMMDD",
+				xValueFormatString: "HH:MM",
 				//yValueFormatString: "#,##0.## Million",
 				dataPoints: this.state.viewers
-				// dataPoints: [
-				// 	{ x: new Date(2019, 11, 30, 9, 0), y: 5000},
-				// 	{ x: new Date(2019, 11, 30, 9, 10), y: 7300},
-				// 	{ x: new Date(2019, 11, 30, 9, 20), y: 6400},
-				// 	{ x: new Date(2019, 11, 30, 9, 30), y: 6300},
-				// 	{ x: new Date(2019, 11, 30, 9, 40), y: 7500},
-				// 	{ x: new Date(2019, 11, 30, 9, 50), y: 13800},
-				// 	{ x: new Date(2019, 11, 30, 10, 0), y: 16200}
-				// ]
 			}
 		]
 		}
 	
 		return (
 		<div>
-			<h1><center>{this.props.company}</center></h1>
+			{this.companyName()}
 			<CanvasJSChart options = {options} 
 				/* onRef={ref => this.chart = ref} */
 			/>
@@ -81,5 +73,7 @@ class AreaChart extends Component {
 		);
 	}
 }
+
+
 
 export default AreaChart;                           
