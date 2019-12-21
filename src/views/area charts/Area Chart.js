@@ -42,7 +42,7 @@ class AreaChart extends Component {
 			animationEnabled: true,
 			exportEnabled: false,
 			title: {
-				text: "Average Viewers"
+				text: "Viewers"
 			},
 			axisY: {
 				title: "Number of viewers",
@@ -69,12 +69,10 @@ class AreaChart extends Component {
 			}
 		]
 		}
-
-		console.log(options)
-		
+	
 		return (
 		<div>
-			<h1><center>Ubisoft</center></h1>
+			<h1><center>{this.props.company}</center></h1>
 			<CanvasJSChart options = {options} 
 				/* onRef={ref => this.chart = ref} */
 			/>
