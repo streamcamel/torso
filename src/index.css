@@ -8,6 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+img {
+  max-width: 100px;
+  max-height: 50px;
+}
+
 html {
   min-height: 100%;
   position: relative;

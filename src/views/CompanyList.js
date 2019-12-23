@@ -27,7 +27,8 @@ class GameList extends Component {
         {this.state.companies.map(company => (
             <li key={company.id} className="list-group-item list-group-item-primary">
                 <a href={(company.name === null) ? "/" : "/company/" + company.name}>
-                  {company.name} Viewers: {company.viewers}
+                  <div id="logo"><img src={company.logo_url}/></div>
+                  {company.name === null ? "Unknown Company" : company.name} Viewers: {company.viewers}
                   {company.ticker !== undefined ? 'Ticker'+company.stock_ticker : ''}
                 </a>
             </li>
