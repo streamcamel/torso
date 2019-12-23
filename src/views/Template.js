@@ -6,14 +6,14 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import AreaChart from "./area charts/Area Chart";
+import ViewerGraph from "./area charts/ViewerGraph"
 import CompanyList from './CompanyList';
 
 function GraphChart() {
   // We can use the `useParams` hook here to access
   // the dynamic pieces of the URL.
   let { companyId } = useParams();
-  return (<AreaChart company={companyId}/>);
+  return (<ViewerGraph company={companyId}/>);
 }
 
 class Template extends Component {
@@ -29,20 +29,20 @@ class Template extends Component {
 				<Nav.Link href="/companies">Companies</Nav.Link>
 				<Nav.Link href="/games">Games</Nav.Link>
 			  </Navbar>		  
-				<span>Top Companies</span>
+				<span>Top Companies Being Watched</span>
 				<ListGroup>
 					<CompanyList/>
 				</ListGroup>
 				<Container>
 					<BrowserRouter>
 						<Switch>
-							<Route exact path="/" component={AreaChart} />
+							<Route exact path="/" component={ViewerGraph} />
 							<Route path="/company/:companyId" children={<GraphChart />} />
 						</Switch>
 					</BrowserRouter>
 				</Container>	
 				<footer>
-					<p>Get in touch, report a bug or incorrect information, suggest a feature.</p>
+					<p>Contact us to report a bug, or suggest a feature.</p>
 					<ul class="list-inline">
 						<li>StreamsTracker © 2019</li>
 						<li><a href="mailto:robin@guibec.com">Contact</a></li>

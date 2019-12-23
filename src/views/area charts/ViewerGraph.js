@@ -10,7 +10,6 @@ class AreaChart extends Component {
 	  };
 	  
 	companyName() {
-		console.log(this.props.company)
 		return (<h1><center>{!this.props.company ? "Global" : this.props.company}</center></h1>)
 	}
  
@@ -18,10 +17,19 @@ class AreaChart extends Component {
         var d = new Date();
         var nowFormatted = d.toISOString();
 
+		// Hard-coded to last 6 hours for now for now
         d.setHours(d.getHours() - 6);
-        var beforeFormatted = d.toISOString();
+		var beforeFormatted = d.toISOString();
+		
+		var companyParameter = '';
+		if (this.props.company) {
+			console.log(this.props.company);
+			companyParameter = '&company=' + this.props.company;
+		}
 
-        fetch('http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted)
+		var apiUrl = 'http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + companyParameter;
+		console.log(apiUrl);
+        fetch(apiUrl)
           .then(res => res.json())
           .then(res => { 
 			  const remapped = Object.keys(res).map(key => ({
@@ -43,7 +51,7 @@ class AreaChart extends Component {
 			animationEnabled: true,
 			exportEnabled: false,
 			title: {
-				text: "Viewers"
+				text: "Viewers (Last 6 Hours)"
 			},
 			axisY: {
 				title: "Number of viewers",
@@ -55,8 +63,7 @@ class AreaChart extends Component {
 			data: [
 			{
 				type: "area",
-				xValueFormatString: "HH:MM",
-				//yValueFormatString: "#,##0.## Million",
+				xValueFormatString: "DDDD, MMM D, h:mm   ",
 				dataPoints: this.state.viewers
 			}
 		]
