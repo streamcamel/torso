@@ -30,13 +30,17 @@ class Template extends Component {
 				<Nav.Link href="/games">Games</Nav.Link>
 			  </Navbar>		  
 				<span>Top Companies Being Watched</span>
-				<ListGroup>
-					<CompanyList/>
-				</ListGroup>
+
+
 				<Container>
 					<BrowserRouter>
 						<Switch>
-							<Route exact path="/" component={ViewerGraph} />
+							<Route exact path="/">
+								<ListGroup>
+									<CompanyList/>
+								</ListGroup>
+								<ViewerGraph/>
+							</Route>
 							<Route path="/company/:companyId" children={<GraphChart />} />
 						</Switch>
 					</BrowserRouter>
