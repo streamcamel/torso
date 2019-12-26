@@ -12,9 +12,11 @@ class AreaChart extends Component {
 	companyName() {
 		return (<h1><center>{!this.props.company ? "Global" : this.props.company}</center></h1>)
 	}
- 
-    componentDidMount(){
-        var d = new Date();
+	
+	fetchData(company) {
+		this.setState( { loading: true });
+
+		var d = new Date();
         var nowFormatted = d.toISOString();
 
 		// Hard-coded to last 6 hours for now for now
@@ -22,9 +24,9 @@ class AreaChart extends Component {
 		var beforeFormatted = d.toISOString();
 		
 		var companyParameter = '';
-		if (this.props.company) {
-			console.log(this.props.company);
-			companyParameter = '&company=' + this.props.company;
+		if (company) {
+			console.log(company);
+			companyParameter = '&company=' + company;
 		}
 
 		var apiUrl = 'http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + companyParameter;
@@ -42,9 +44,18 @@ class AreaChart extends Component {
                   loading: false
               })
 		  })
-		}
-		  
+	}
+ 
+    componentDidMount(){
+		this.fetchData(this.props.company);
+	}
 
+	componentDidUpdate(prevProps) {
+		if (prevProps.company !== this.props.company) {
+			this.fetchData(this.props.company);
+		}
+	}
+		  
 	render() {
 		const options = {
 			theme: "light2",
@@ -69,13 +80,10 @@ class AreaChart extends Component {
 		]
 		}
 	
-		return (
+		return ( this.state.loading ? "Loading" :
 		<div>
 			{this.companyName()}
-			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+			<CanvasJSChart options = {options} />
 		</div>
 		);
 	}
