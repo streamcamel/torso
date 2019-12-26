@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
  
 class GameList extends Component {
     state = {
@@ -7,14 +8,14 @@ class GameList extends Component {
       };
  
     componentDidMount(){
-      var companyParameter = '';
+      var filterParameter = '';
       if (this.props.company) {
-        companyParameter = '?company=' + this.props.company;
+        filterParameter = '?company=' + this.props.company;
+      } else if (this.props.game) {
+        filterParameter = '?game=' + this.props.game;
       }
 
-      console.log(companyParameter)
-
-      fetch('http://api.streamstracker.com/top_games' + companyParameter)
+      fetch('http://api.streamstracker.com/top_games' + filterParameter)
         .then(res => res.json())
         .then(res => {
             this.setState({
@@ -33,7 +34,9 @@ class GameList extends Component {
       <React.Fragment>
         {this.state.games.map(game => (
             <li key={game.id} className="list-group-item list-group-item-primary">
+              <Link to={(game.name === null) ? "/" : "/game/" + game.name}>
                 {game.name} Viewers: {game.viewers}
+              </Link>
 
             </li>
           ))}

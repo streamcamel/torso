@@ -9,11 +9,14 @@ class AreaChart extends Component {
         loading: true,
 	  };
 	  
-	companyName() {
-		return (<h1><center>{!this.props.company ? "Global" : this.props.company}</center></h1>)
+	headerName() {
+		var header = this.props.company ? this.props.company : this.props.game ? this.props.game : "Global";
+
+		return (<h1><center>
+			{header}</center></h1>)
 	}
 	
-	fetchData(company) {
+	fetchData(company, game) {
 		this.setState( { loading: true });
 
 		var d = new Date();
@@ -23,13 +26,15 @@ class AreaChart extends Component {
         d.setHours(d.getHours() - 6);
 		var beforeFormatted = d.toISOString();
 		
-		var companyParameter = '';
+		var filterParameter = '';
 		if (company) {
-			console.log(company);
-			companyParameter = '&company=' + company;
+			filterParameter = '&company=' + company;
+		}
+		if (game) {
+			filterParameter = '&game=' + game;
 		}
 
-		var apiUrl = 'http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + companyParameter;
+		var apiUrl = 'http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
 		console.log(apiUrl);
         fetch(apiUrl)
           .then(res => res.json())
@@ -47,12 +52,12 @@ class AreaChart extends Component {
 	}
  
     componentDidMount(){
-		this.fetchData(this.props.company);
+		this.fetchData(this.props.company, this.props.game);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.company !== this.props.company) {
-			this.fetchData(this.props.company);
+		if ((prevProps.company !== this.props.company) || (prevProps.game !== this.props.game)) {
+			this.fetchData(this.props.company, this.props.game);
 		}
 	}
 		  
@@ -82,7 +87,7 @@ class AreaChart extends Component {
 	
 		return ( this.state.loading ? "Loading" :
 		<div>
-			{this.companyName()}
+			{this.headerName()}
 			<CanvasJSChart options = {options} />
 		</div>
 		);
