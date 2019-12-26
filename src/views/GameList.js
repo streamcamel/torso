@@ -7,14 +7,21 @@ class GameList extends Component {
       };
  
     componentDidMount(){
-        fetch('http://api.streamstracker.com/top_games')
-          .then(res => res.json())
-          .then(res => {
-              this.setState({
-                  games: res,
-                  loading: false
-              })
-          })
+      var companyParameter = '';
+      if (this.props.company) {
+        companyParameter = '?company=' + this.props.company;
+      }
+
+      console.log(companyParameter)
+
+      fetch('http://api.streamstracker.com/top_games' + companyParameter)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                games: res,
+                loading: false
+            })
+        })
     }
 
   render() {
@@ -27,6 +34,7 @@ class GameList extends Component {
         {this.state.games.map(game => (
             <li key={game.id} className="list-group-item list-group-item-primary">
                 {game.name} Viewers: {game.viewers}
+
             </li>
           ))}
       </React.Fragment>
