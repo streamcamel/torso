@@ -40,6 +40,12 @@ class Template extends Component {
 									          <GameList company={companyName} />
 											  <ViewerGraph company={companyName} /> </>;
 								}} />
+							<Route path="/game/:gameName" render={({ match }) => {
+									var gameName = match.params.gameName;
+									return <> 
+									          <span>{gameName}</span>
+											  <ViewerGraph game={gameName} /> </>;
+								}} />
 						</Switch>
 					</BrowserRouter>
 				</Container>	
