@@ -34,7 +34,7 @@ class AreaChart extends Component {
 			filterParameter = '&game=' + game;
 		}
 
-		var apiUrl = 'http://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
+		var apiUrl = 'https://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
 		console.log(apiUrl);
         fetch(apiUrl)
           .then(res => res.json())

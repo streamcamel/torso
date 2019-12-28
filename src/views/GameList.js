@@ -15,7 +15,7 @@ class GameList extends Component {
         filterParameter = '?game=' + this.props.game;
       }
 
-      fetch('http://api.streamstracker.com/top_games' + filterParameter)
+      fetch('https://api.streamstracker.com/top_games' + filterParameter)
         .then(res => res.json())
         .then(res => {
             this.setState({
