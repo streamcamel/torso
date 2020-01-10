@@ -10,7 +10,7 @@ class AreaChart extends Component {
 	  };
 	  
 	headerName() {
-		var header = this.props.company ? this.props.company : this.props.game ? this.props.game : "Global";
+		var header = this.props.company ? this.props.company : this.props.game ? this.props.game : "";
 
 		return (<h1><center>
 			{header}</center></h1>)
@@ -67,14 +67,14 @@ class AreaChart extends Component {
 			animationEnabled: true,
 			exportEnabled: false,
 			title: {
-				text: "Viewers (Last 6 Hours)"
+				text: "Twitch Viewers"
 			},
 			axisY: {
-				title: "Number of viewers",
+				title: "Viewers",
 				includeZero: false,
 			},
 			axisX: {
-				title: "Date"	
+				title: "Time"	
 			},
 			data: [
 			{

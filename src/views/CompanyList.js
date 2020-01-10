@@ -25,7 +25,12 @@ class GameList extends Component {
       
     return (
       <React.Fragment>
-        {this.state.companies.map(company => (
+        { this.state.companies.filter(function(company) {
+          if (company.name === null) {
+            return false;
+          }
+          return true;
+        }).map(company => (
             <li key={company.id} className="list-group-item list-group-item-primary">
               <Link to={(company.name === null) ? "/" : "/company/" + company.name}>
               <div id="logo"><img src={company.logo_url}/></div>
