@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
- 
+import CompanyInfo from "./CompanyInfo";
+import ListGroup from 'react-bootstrap/ListGroup';
+
 class GameList extends Component {
     state = {
         companies: [],
@@ -23,24 +25,27 @@ class GameList extends Component {
         return <div>Loading...</div>
       }
       
-    return (
-      <React.Fragment>
-        { this.state.companies.filter(function(company) {
-          if (company.name === null) {
-            return false;
-          }
-          return true;
-        }).map(company => (
-            <li key={company.id} className="list-group-item list-group-item-primary">
-              <Link to={(company.name === null) ? "/" : "/company/" + company.name}>
-              <div id="logo"><img src={company.logo_url}/></div>
-                  {company.name === null ? "Unknown Company" : company.name} Viewers: {company.viewers}
-                  {company.ticker !== undefined ? 'Ticker'+company.stock_ticker : ''}
-              </Link>
-            </li>
-          ))}
-      </React.Fragment>
-    );
+      return (
+        <React.Fragment>
+          { this.state.companies.filter(function(company) {
+            if (company.name === null) {
+              return false;
+            }
+            return true;
+          }).map(company => (
+              <ListGroup.Item key={company.id} className="list-group-item list-group-item-primary">
+                <ListGroup horizontal>
+                  <Link to={(company.name === null) ? "/" : "/company/" + company.name}>
+                    <CompanyInfo  logo_url={company.logo_url} 
+                                  name={company.name} 
+                                  viewers={company.viewers} 
+                                  stock_ticker={company.stock_ticker}/>
+                  </Link>
+                </ListGroup>
+              </ListGroup.Item>
+            ))}
+        </React.Fragment>
+      );
   }
 }
  
