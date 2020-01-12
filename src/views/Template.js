@@ -27,11 +27,10 @@ class Template extends Component {
 					<BrowserRouter>
 						<Switch>
 							<Route exact path="/">
-								<span>XYZ Viewers</span>
 								<ViewerGraph/>
-								<ListGroup>
-									<CompanyList/>
-								</ListGroup>
+									<ListGroup>
+										<CompanyList/>
+									</ListGroup>
 							</Route>
 							<Route path="/company/:companyName" render={({ match }) => {
 									var companyName = match.params.companyName;

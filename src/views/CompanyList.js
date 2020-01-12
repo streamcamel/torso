@@ -33,16 +33,12 @@ class GameList extends Component {
             }
             return true;
           }).map(company => (
-              <ListGroup.Item key={company.id} className="list-group-item list-group-item-primary">
-                <ListGroup horizontal>
-                  <Link to={(company.name === null) ? "/" : "/company/" + company.name}>
+              <div class="ranked-item">
                     <CompanyInfo  logo_url={company.logo_url} 
                                   name={company.name} 
                                   viewers={company.viewers} 
                                   stock_ticker={company.stock_ticker}/>
-                  </Link>
-                </ListGroup>
-              </ListGroup.Item>
+              </div>
             ))}
         </React.Fragment>
       );

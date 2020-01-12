@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import GameInfo from "./GameInfo";
  
 class GameList extends Component {
     state = {
@@ -33,12 +34,12 @@ class GameList extends Component {
     return (
       <React.Fragment>
         {this.state.games.map(game => (
-            <li key={game.id} className="list-group-item list-group-item-primary">
-              <Link to={(game.name === null) ? "/" : "/game/" + game.name}>
-                {game.name} Viewers: {game.viewers}
-              </Link>
-
-            </li>
+              <div class="ranked-item">
+                <GameInfo     logo_url={game.box_art_url} 
+                              name={game.name} 
+                              viewers={game.viewers} 
+                              game_id={game.game_id}/>
+              </div>
           ))}
       </React.Fragment>
     );
