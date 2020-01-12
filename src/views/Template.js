@@ -33,14 +33,14 @@ class Template extends Component {
 									</ListGroup>
 							</Route>
 							<Route path="/company/:companyName" render={({ match }) => {
-									var companyName = match.params.companyName;
+									var companyName = decodeURIComponent(match.params.companyName);
 									return <> 
 									          <span>Top games from {companyName}</span>
 									          <GameList company={companyName} />
 											  <ViewerGraph company={companyName} /> </>;
 								}} />
 							<Route path="/game/:gameName" render={({ match }) => {
-									var gameName = match.params.gameName;
+									var gameName = decodeURIComponent(match.params.gameName);
 									return <> 
 									          <span>{gameName}</span>
 											  <ViewerGraph game={gameName} /> </>;

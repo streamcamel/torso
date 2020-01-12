@@ -27,12 +27,12 @@ class GameInfo extends Component {
             <img src={this.state.logo_url}/>
         </div>
         <div class="ri-name">
-            <Link to={(this.state.name === null) ? "/" : "/game/" + this.state.name}>
+            <Link to={(this.state.name === null) ? "/" : "/game/" + encodeURIComponent(this.state.name)}>
                 {this.state.name}
             </Link>
         </div>
         <div class="ri-info">
-            <Link to={(this.state.name === null) ? "/" : "/game/" + this.state.name}>
+            <Link to={(this.state.name === null) ? "/" : "/game/" + encodeURIComponent(this.state.name)}>
                 {this.state.viewers}
             </Link>
         </div>
