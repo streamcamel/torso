@@ -21,10 +21,6 @@ class AreaChart extends Component {
 
 		var d = new Date();
         var nowFormatted = d.toISOString();
-
-		// Hard-coded to last 6 hours for now for now
-        d.setHours(d.getHours() - 6);
-		var beforeFormatted = d.toISOString();
 		
 		var filterParameter = '';
 		if (company) {
@@ -33,6 +29,14 @@ class AreaChart extends Component {
 		if (game) {
 			filterParameter = '&game=' + game;
 		}
+
+		if (game) {
+			d.setFullYear(d.getFullYear() - 1);
+		} else {
+			d.setHours(d.getHours() - 6);
+		}
+		
+		var beforeFormatted = d.toISOString();
 
 		var apiUrl = 'https://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
 		console.log(apiUrl);
