@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import CompanyInfo from "./CompanyInfo";
-import ListGroup from 'react-bootstrap/ListGroup';
 
 class GameList extends Component {
     state = {
