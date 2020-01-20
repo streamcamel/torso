@@ -52,6 +52,13 @@ class Template extends Component {
 									          <GameList />
 											  <ViewerGraph /> </>;
 								}} />
+							<Route path="/companies" render={({ match }) => {
+									var gameName = decodeURIComponent(match.params.gameName);
+									return <> 
+									          <span>Top Companies</span>
+									          <CompanyList />
+											  <ViewerGraph /> </>;
+								}} />
 						</Switch>
 					</BrowserRouter>
 				</Container>	

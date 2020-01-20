@@ -30,7 +30,7 @@ class AreaChart extends Component {
 			filterParameter = '&game=' + game;
 		}
 
-		if (game) {
+		if (game || company) {
 			d.setFullYear(d.getFullYear() - 1);
 		} else {
 			d.setHours(d.getHours() - 6);
