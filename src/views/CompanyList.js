@@ -32,7 +32,7 @@ class GameList extends Component {
             return true;
           }).map(company => (
               <div class="ranked-item">
-                    <CompanyInfo  logo_url={company.logo_url} 
+                    <CompanyInfo  logo_url={'https://images.igdb.com/igdb/image/upload/t_cover_small/' + company.image_id + '.png'} 
                                   name={company.name} 
                                   viewers={company.viewers} 
                                   stock_ticker={company.stock_ticker}/>
