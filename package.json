@@ -2,13 +2,14 @@
   "name": "canvasjs-react-samples-1",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://streamstracker.com",
+  "homepage": "http://streamstracker.com",
   "dependencies": {
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
+    "react-ga": "^2.7.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0"
