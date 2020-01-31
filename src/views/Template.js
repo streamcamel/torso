@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
@@ -9,12 +9,28 @@ import Navbar from 'react-bootstrap/Navbar';
 import ViewerGraph from "./area charts/ViewerGraph"
 import CompanyList from './CompanyList';
 import GameList from './GameList';
+import ReactGA from 'react-ga';
+import PrivacyPolicy from './PrivacyPolicy';
+import PrivacyPolicyLink from './PrivacyPolicyLink';
+import Ad from '../Ad';
+import { createBrowserHistory } from 'history';
+
+const trackingId = "UA-85057016-2"; // Replace with your Google Analytics tracking ID
+ReactGA.initialize(trackingId);
+
+
+const history = createBrowserHistory();
+// Initialize google analytics page view tracking
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 class Template extends Component {
-  
   render() {    
     return (
 		<div>
+			<Ad/>
 			<Navbar bg="dark" variant="dark">
 				<button className="d-lg-none toggle-sidebar">
 					<span className="navbar-toggler-icon"></span>
@@ -24,7 +40,7 @@ class Template extends Component {
 				<Nav.Link href="/games">Games</Nav.Link>
 			  </Navbar>		  
 				<Container>
-					<BrowserRouter>
+					<Router history={history}>
 						<Switch>
 							<Route exact path="/">
 								<ViewerGraph/>
@@ -32,6 +48,10 @@ class Template extends Component {
 										<CompanyList/>
 									</ListGroup>
 							</Route>
+							<Route path="/privacy" render={({ match }) => {
+									var companyName = decodeURIComponent(match.params.companyName);
+									return <> <PrivacyPolicy/> </>;
+								}} />
 							<Route path="/company/:companyName" render={({ match }) => {
 									var companyName = decodeURIComponent(match.params.companyName);
 									return <> 
@@ -60,9 +80,10 @@ class Template extends Component {
 											  <ViewerGraph /> </>;
 								}} />
 						</Switch>
-					</BrowserRouter>
+					</Router>
 				</Container>	
 				<footer>
+					<PrivacyPolicyLink/>
 					<p>Contact us to report a bug, or suggest a feature.</p>
 					<ul class="list-inline">
 						<li>StreamsTracker © 2019</li>
