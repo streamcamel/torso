@@ -46,6 +46,7 @@ class Template extends Component {
       			/>
 			  </Navbar>		  
 				<Container>
+					Welcome to StreamsTracker. This Website shows you Live Streaming data from companies, games and streamers.
 					<Router history={history}>
 						<Switch>
 							<Route exact path="/">
