@@ -14,6 +14,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import PrivacyPolicyLink from './PrivacyPolicyLink';
 import Ad from '../Ad';
 import { createBrowserHistory } from 'history';
+import ReactSearchBox from 'react-search-box'
 
 const trackingId = "UA-85057016-2"; // Replace with your Google Analytics tracking ID
 ReactGA.initialize(trackingId);
@@ -38,6 +39,11 @@ class Template extends Component {
 				<Navbar.Brand href="/">StreamsTracker</Navbar.Brand>
 				<Nav.Link href="/companies">Companies</Nav.Link>
 				<Nav.Link href="/games">Games</Nav.Link>
+				<ReactSearchBox placeholder="Search"
+        			value=""
+					data={this.data}
+        			onChange={record => console.log(record)}
+      			/>
 			  </Navbar>		  
 				<Container>
 					<Router history={history}>
