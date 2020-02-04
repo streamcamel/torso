@@ -31,25 +31,26 @@ class Template extends Component {
   render() {    
     return (
 		<div>
-			<Ad/>
+			{/* <Ad/> */}
 			<Navbar bg="dark" variant="dark">
-				<button className="d-lg-none toggle-sidebar">
-					<span className="navbar-toggler-icon"></span>
-				</button>
 				<Navbar.Brand href="/">StreamsTracker</Navbar.Brand>
-				<Nav.Link href="/companies">Companies</Nav.Link>
-				<Nav.Link href="/games">Games</Nav.Link>
-				<ReactSearchBox placeholder="Search"
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
+				<Nav className="mr-auto">
+					<Nav.Link href="/companies">Companies</Nav.Link>
+					<Nav.Link href="/games">Games</Nav.Link>
+					<ReactSearchBox placeholder="Search"
         			value=""
 					data={this.data}
         			onChange={record => console.log(record)}
-      			/>
+      				/>
+				</Nav>
 			  </Navbar>		  
 				<Container>
-					Welcome to StreamsTracker. This Website shows you Live Streaming data from companies, games and streamers.
 					<Router history={history}>
 						<Switch>
 							<Route exact path="/">
+								Welcome to StreamsTracker. This Website shows you Live Streaming data from companies, games and streamers.
 								<ViewerGraph/>
 									<ListGroup>
 										<CompanyList/>
@@ -82,7 +83,7 @@ class Template extends Component {
 							<Route path="/companies" render={({ match }) => {
 									var gameName = decodeURIComponent(match.params.gameName);
 									return <> 
-									          <span>Top Companies</span>
+									          <span>Current Top Companies sorted by Live Viewers</span>
 									          <CompanyList />
 											  <ViewerGraph /> </>;
 								}} />
