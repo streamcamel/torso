@@ -34,6 +34,7 @@ class GameList extends Component {
               <div class="ranked-item">
                     <CompanyInfo  logo_url={'https://images.igdb.com/igdb/image/upload/t_cover_small/' + company.image_id + '.png'} 
                                   name={company.name} 
+                                  slug={company.slug}
                                   viewers={company.viewers} 
                                   stock_ticker={company.stock_ticker}/>
               </div>
