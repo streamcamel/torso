@@ -8,13 +8,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import ViewerGraph from "./area charts/ViewerGraph"
 import CompanyList from './CompanyList';
+import SearchResult from './SearchResult';
 import GameList from './GameList';
 import ReactGA from 'react-ga';
 import PrivacyPolicy from './PrivacyPolicy';
 import PrivacyPolicyLink from './PrivacyPolicyLink';
 import Ad from '../Ad';
 import { createBrowserHistory } from 'history';
-import ReactSearchBox from 'react-search-box'
+// import ReactSearchBox from 'react-search-box'
+import SearchBox from './SearchBox';
 
 const trackingId = "UA-85057016-2"; // Replace with your Google Analytics tracking ID
 ReactGA.initialize(trackingId);
@@ -39,15 +41,12 @@ class Template extends Component {
 				<Nav className="mr-auto">
 					<Nav.Link href="/companies">Companies</Nav.Link>
 					<Nav.Link href="/games">Games</Nav.Link>
-					<ReactSearchBox placeholder="Search"
-        			value=""
-					data={this.data}
-        			onChange={record => console.log(record)}
-      				/>
+					<Nav.Link href="/press/index.php">Press Kit</Nav.Link>
 				</Nav>
 			  </Navbar>		  
 				<Container>
 					<Router history={history}>
+						<SearchBox/>
 						<Switch>
 							<Route exact path="/">
 								Welcome to StreamsTracker. This Website shows you Live Streaming data from companies, games and streamers.
@@ -87,6 +86,12 @@ class Template extends Component {
 									          <CompanyList />
 											  <ViewerGraph /> </>;
 								}} />
+							<Route path="/search/:query" render={({ match }) => {
+								var query = decodeURIComponent(match.params.query);
+								return <> 
+											<span>Stub Search Result Page</span>
+											<SearchResult query={query} /> </>;
+							}} />
 						</Switch>
 					</Router>
 				</Container>	
