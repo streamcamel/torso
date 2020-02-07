@@ -15,6 +15,7 @@ class GameInfo extends Component {
             logo_url: image,
             game_id: this.props.game_id,
             name: this.props.name,
+            slug: this.props.slug,
             viewers: this.props.viewers
         });
     }
@@ -27,12 +28,12 @@ class GameInfo extends Component {
             <img src={this.state.logo_url}/>
         </div>
         <div class="ri-name">
-            <Link to={(this.state.name === null) ? "/" : "/game/" + encodeURIComponent(this.state.name)}>
+            <Link to={(this.state.slug === null) ? "/" : "/game/" + encodeURIComponent(this.state.slug)}>
                 {this.state.name}
             </Link>
         </div>
         <div class="ri-info">
-            <Link to={(this.state.name === null) ? "/" : "/game/" + encodeURIComponent(this.state.name)}>
+            <Link to={(this.state.slug === null) ? "/" : "/game/" + encodeURIComponent(this.state.slug)}>
                 {this.state.viewers}
             </Link>
         </div>

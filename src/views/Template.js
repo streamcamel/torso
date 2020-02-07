@@ -7,6 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import ViewerGraph from "./area charts/ViewerGraph"
+import GameHeader from "./GameHeader";
 import CompanyHeader from "./CompanyHeader"
 import CompanyList from './CompanyList';
 import SearchResult from './SearchResult';
@@ -67,11 +68,11 @@ class Template extends Component {
 									          <GameList company={companySlug} />
 											  <ViewerGraph company={companySlug} /> </>;
 								}} />
-							<Route path="/game/:gameName" render={({ match }) => {
-									var gameName = decodeURIComponent(match.params.gameName);
+							<Route path="/game/:gameSlug" render={({ match }) => {
+									var gameSlug = decodeURIComponent(match.params.gameSlug);
 									return <> 
-									          <span>{gameName}</span>
-											  <ViewerGraph game={gameName} /> </>;
+									          <GameHeader game={gameSlug} />
+											  <ViewerGraph game={gameSlug} /> </>;
 								}} />
 							<Route path="/games" render={({ match }) => {
 									var gameName = decodeURIComponent(match.params.gameName);
