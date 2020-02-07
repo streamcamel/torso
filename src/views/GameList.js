@@ -37,6 +37,7 @@ class GameList extends Component {
               <div class="ranked-item">
                 <GameInfo     logo_url={game.box_art_url} 
                               name={game.name} 
+                              slug={game.slug}
                               viewers={game.viewers} 
                               game_id={game.game_id}/>
               </div>
