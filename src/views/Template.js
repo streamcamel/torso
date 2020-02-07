@@ -7,6 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import ViewerGraph from "./area charts/ViewerGraph"
+import CompanyHeader from "./CompanyHeader"
 import CompanyList from './CompanyList';
 import SearchResult from './SearchResult';
 import GameList from './GameList';
@@ -59,12 +60,12 @@ class Template extends Component {
 									var companyName = decodeURIComponent(match.params.companyName);
 									return <> <PrivacyPolicy/> </>;
 								}} />
-							<Route path="/company/:companyName" render={({ match }) => {
-									var companyName = decodeURIComponent(match.params.companyName);
+							<Route path="/company/:companySlug" render={({ match }) => {
+									var companySlug = decodeURIComponent(match.params.companySlug);
 									return <> 
-									          <span>Top games from {companyName}</span>
-									          <GameList company={companyName} />
-											  <ViewerGraph company={companyName} /> </>;
+											  <CompanyHeader company={companySlug} />
+									          <GameList company={companySlug} />
+											  <ViewerGraph company={companySlug} /> </>;
 								}} />
 							<Route path="/game/:gameName" render={({ match }) => {
 									var gameName = decodeURIComponent(match.params.gameName);
