@@ -33,7 +33,7 @@ class AreaChart extends Component {
 		if (game || company) {
 			d.setFullYear(d.getFullYear() - 1);
 		} else {
-			d.setHours(d.getHours() - 6);
+			d.setHours(d.getHours() - 24 * 7);
 		}
 		
 		var beforeFormatted = d.toISOString();
