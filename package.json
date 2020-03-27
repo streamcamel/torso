@@ -2,7 +2,7 @@
   "name": "canvasjs-react-samples-1",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://streamstracker.com",
+  "homepage": "http://streamcamel.com",
   "dependencies": {
     "bootstrap": "^4.4.1",
     "formik": "^2.1.3",

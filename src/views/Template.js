@@ -12,6 +12,7 @@ import CompanyHeader from "./CompanyHeader"
 import CompanyList from './CompanyList';
 import SearchResult from './SearchResult';
 import GameList from './GameList';
+import queryString from 'query-string';
 import ReactGA from 'react-ga';
 import PrivacyPolicy from './PrivacyPolicy';
 import PrivacyPolicyLink from './PrivacyPolicyLink';
@@ -51,7 +52,7 @@ class Template extends Component {
 						<SearchBox/>
 						<Switch>
 							<Route exact path="/">
-								Welcome to StreamsTracker. This Website shows you Live Streaming data from companies, games and streamers.
+								Welcome to Stream Camel. This Website shows you Live Streaming data from companies, games and streamers.
 								<ViewerGraph/>
 									<ListGroup>
 										<CompanyList/>
@@ -88,11 +89,11 @@ class Template extends Component {
 									          <CompanyList />
 											  <ViewerGraph /> </>;
 								}} />
-							<Route path="/search/:query" render={({ match }) => {
-								var query = decodeURIComponent(match.params.query);
+							<Route path="/search/:search" render={({ match }) => {
+								var search = decodeURIComponent(match.params.search);
 								return <> 
-											<span>Stub Search Result Page</span>
-											<SearchResult query={query} /> </>;
+											<span>Search Result Page for {search}</span>
+											<SearchResult query={search}/> </>;
 							}} />
 						</Switch>
 					</Router>
@@ -101,7 +102,7 @@ class Template extends Component {
 					<PrivacyPolicyLink/>
 					<p>Contact us to report a bug, or suggest a feature.</p>
 					<ul class="list-inline">
-						<li>StreamsTracker © 2019</li>
+						<li>Stream Camel © 2019-2020</li>
 						<li><a href="mailto:robin@guibec.com">Contact</a></li>
 					</ul>
 				</footer>				

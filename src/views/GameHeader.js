@@ -7,7 +7,7 @@ class GameHeader extends Component {
       };
  
     componentDidMount(){
-        fetch('https://api.streamstracker.com/games/' + this.props.game)
+        fetch('https://api.streamcamel.com/games/' + this.props.game)
         .then(res => res.json())
         .then(res => {
             this.setState({

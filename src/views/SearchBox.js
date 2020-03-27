@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-	withRouter
-} from 'react-router-dom';
+import { Route , withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom";
 
@@ -19,7 +17,7 @@ class SearchBox extends Component {
   
     handleSubmit(event) {
        event.preventDefault();
-       //this.props.history.push('/search?q=someQuery')
+       this.props.history.push('/search/' + this.state.search )
     }
   
     render() {
@@ -34,4 +32,4 @@ class SearchBox extends Component {
     }
   }
 
-  export default SearchBox;
+  export default withRouter(SearchBox);

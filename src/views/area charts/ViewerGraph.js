@@ -38,7 +38,7 @@ class AreaChart extends Component {
 		
 		var beforeFormatted = d.toISOString();
 
-		var apiUrl = 'https://api.streamstracker.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
+		var apiUrl = 'https://api.streamcamel.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
 		console.log(apiUrl);
         fetch(apiUrl)
           .then(res => res.json())
