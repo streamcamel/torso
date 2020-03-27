@@ -8,7 +8,7 @@ class GameList extends Component {
       };
  
     componentDidMount(){
-        fetch('https://api.streamstracker.com/top_companies')
+        fetch('https://api.streamcamel.com/top_companies')
           .then(res => res.json())
           .then(res => {
               this.setState({

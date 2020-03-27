@@ -8,7 +8,7 @@ class CompanyHeader extends Component {
       };
  
     componentDidMount(){
-        fetch('https://api.streamstracker.com/companies/' + this.props.company)
+        fetch('https://api.streamcamel.com/companies/' + this.props.company)
         .then(res => res.json())
         .then(res => {
             this.setState({

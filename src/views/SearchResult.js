@@ -15,7 +15,7 @@ class SearchResult extends Component {
         filterParameter = '?q=' + this.props.query;
       }
 
-      fetch('https://api.streamstracker.com/search_companies' + filterParameter)
+      fetch('https://api.streamcamel.com/search_companies' + filterParameter)
           .then(res => res.json())
           .then(res => {
               this.setState({
@@ -41,6 +41,7 @@ class SearchResult extends Component {
               <div class="ranked-item">
                     <CompanyInfo  logo_url={'https://images.igdb.com/igdb/image/upload/t_cover_small/' + company.image_id + '.png'} 
                                   name={company.name} 
+                                  slug={company.slug}
                                   viewers={company.viewers} 
                                   stock_ticker={company.stock_ticker}/>
               </div>
