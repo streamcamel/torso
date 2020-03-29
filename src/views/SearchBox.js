@@ -16,7 +16,7 @@ class SearchBox extends Component {
       }
   
     handleSubmit(event) {
-       event.preventDefault();
+       //event.preventDefault();
        this.props.history.push('/search/' + this.state.search )
     }
   
