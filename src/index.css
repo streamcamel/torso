@@ -1286,13 +1286,7 @@ table.tops .stream-status{
   width:70px;
   background-color:#f2f6f9
 }
-.ranked-item:hover .ri-image img{
-  position:absolute;
-  z-index:2;
-  width:92px;
-  box-shadow:0 0 10px 0 #000;
-  border:1px solid #f3f2f3
-}
+
 .ri-name{
   flex:1 1;
   display:flex;
