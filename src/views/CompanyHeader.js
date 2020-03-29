@@ -26,7 +26,9 @@ class CompanyHeader extends Component {
 
     return (
       <>
-        This is the Company Header for { this.state.company.name } - Great Company!
+        <h2> { this.state.company.name }</h2>
+        {/* <img class="cover" src={this.state.game.box_art_url.replace("{width}", "280").replace("{height}", "210")}/>
+  */}
       </>
     )
   }

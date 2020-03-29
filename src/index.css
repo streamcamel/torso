@@ -7,6 +7,18 @@
   background-color: #fff;
 }
 
+.cover {
+  box-shadow: 0 0 5px 0 #717171;
+}
+
+img {
+  vertical-align: middle;
+}
+
+img {
+  border: 0;
+}
+
 .ranked-list h2{
   font-weight:700;
   text-transform:uppercase;
