@@ -12,6 +12,7 @@ class CompanyInfo extends Component {
  
     componentDidMount(){
         this.setState({
+            position: this.props.position,
             logo_url: this.props.logo_url,
             name: this.props.name,
             slug: this.props.slug,
@@ -20,27 +21,37 @@ class CompanyInfo extends Component {
         });
     }
 
+  fetchCompanyDetails = () => {
+    console.log("You click on me!!");
+  }
+
 
   render() {
     return (
       <>
-      
+        <div class="ri-position hidden-xxs" title="" data-original-title="Ranking Position"></div>
+
         <div class="ri-image">
-          <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>  
+          <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>
             <img src={this.state.logo_url}/>
           </Link>
+      
         </div>
         <div class="ri-name">
             <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>
                 {this.state.name}
             </Link>
         </div>
-        <div class="ri-info">
+        <div class="ri-value">
             <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>
                 {this.state.viewers}
             </Link>
         </div>
-        {this.state.stock_ticker}
+        <div class="ri-value">
+          <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>
+            {this.state.stock_ticker}
+          </Link>
+        </div>
       </>
     )
   }

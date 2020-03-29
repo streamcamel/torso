@@ -52,7 +52,9 @@ class Template extends Component {
 						<SearchBox/>
 						<Switch>
 							<Route exact path="/">
-								Welcome to Stream Camel. This Website shows you Live Streaming data from companies, games and streamers.
+								Welcome to Stream Camel. 
+								<h2>MOST WATCHED COMPANIES ON TWITCH</h2>
+								<p class="text-center">Ranked by live concurrent viewers</p>
 								<ViewerGraph/>
 									<ListGroup>
 										<CompanyList/>

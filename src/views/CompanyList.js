@@ -25,14 +25,17 @@ class GameList extends Component {
       
       return (
         <React.Fragment>
-          { this.state.companies.filter(function(company) {
+          { 
+            
+            this.state.companies.filter(function(company) {
             if (company.name === null) {
               return false;
             }
             return true;
           }).map(company => (
               <div class="ranked-item">
-                    <CompanyInfo  logo_url={'https://images.igdb.com/igdb/image/upload/t_cover_small/' + company.image_id + '.png'} 
+                    <CompanyInfo  position='#1' // TODO: Fix me
+                                  logo_url={'https://images.igdb.com/igdb/image/upload/t_cover_small/' + company.image_id + '.png'} 
                                   name={company.name} 
                                   slug={company.slug}
                                   viewers={company.viewers} 
