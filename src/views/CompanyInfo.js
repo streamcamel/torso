@@ -24,8 +24,11 @@ class CompanyInfo extends Component {
   render() {
     return (
       <>
+      
         <div class="ri-image">
+          <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>  
             <img src={this.state.logo_url}/>
+          </Link>
         </div>
         <div class="ri-name">
             <Link to={(this.state.slug === null) ? "/" : "/company/" + this.state.slug}>

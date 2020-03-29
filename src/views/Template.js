@@ -38,7 +38,7 @@ class Template extends Component {
 		<div>
 			{/* <Ad/> */}
 			<Navbar bg="dark" variant="dark">
-				<Navbar.Brand href="/">StreamsTracker</Navbar.Brand>
+				<Navbar.Brand href="/">Stream Camel</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
 				<Nav className="mr-auto">
