@@ -91,7 +91,7 @@ class AreaChart extends Component {
 	
 		return ( this.state.loading ? "Loading" :
 		<div>
-			{this.headerName()}
+
 			<CanvasJSChart options = {options} />
 		</div>
 		);
