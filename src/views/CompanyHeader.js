@@ -8,9 +8,21 @@ class CompanyHeader extends Component {
       };
  
     componentDidMount(){
-      var companyUrl = 'https://api.streamcamel.com/companies/' + this.props.company;
-      var viewerUrl = 'https://api.streamcamel.com/viewers?before=' + '2020-04-01T01:42:05.947Z&after=2019-04-01T01:42:05.947Z&company=epic-games';
 
+      const MaxDays = 7;  
+
+      var d = new Date();
+      var nowFormatted = d.toISOString();
+  
+      var filterParameter = '&company=' + this.props.company;
+  
+      d.setHours(d.getHours() - 24 * MaxDays);
+  
+      var beforeFormatted = d.toISOString();
+      var viewerUrl = 'https://api.streamcamel.com/viewers?before=' + nowFormatted + '&after=' + beforeFormatted + filterParameter;
+
+      var companyUrl = 'https://api.streamcamel.com/companies/' + this.props.company;
+     
       var fetchData = () => {
         const urls = [
           companyUrl,
@@ -65,7 +77,7 @@ class CompanyHeader extends Component {
         <img class="cover" src={ "https:" + this.state.company.url.replace("/t_thumb/", "/t_logo_med/")}/>
         <h3>Last Week</h3>
         <p>Hours Streamed: </p>
-        <p>Average Viewers: { Math.ceil(this.averageViewers(7)) }</p>
+        <p>Average Viewers: { Number(Math.ceil(this.averageViewers(7))).toLocaleString() }</p>
         <p>Peak Viewers: </p>
         <p>Hours Watched: </p>
       </>
