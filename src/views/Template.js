@@ -12,7 +12,6 @@ import CompanyHeader from "./CompanyHeader"
 import CompanyList from './CompanyList';
 import SearchResult from './SearchResult';
 import GameList from './GameList';
-import queryString from 'query-string';
 import ReactGA from 'react-ga';
 import PrivacyPolicy from './PrivacyPolicy';
 import PrivacyPolicyLink from './PrivacyPolicyLink';
