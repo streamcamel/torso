@@ -8,7 +8,7 @@ class GameList extends Component {
       };
  
     componentDidMount(){
-        fetch('https://api.streamcamel.com/top_companies')
+        fetch('https://api.streamcamel.com/top_companies?period=1w')
           .then(res => res.json())
           .then(res => {
               this.setState({
@@ -25,6 +25,7 @@ class GameList extends Component {
       
       return (
         <React.Fragment>
+          Average Viewers Last Week
           { 
             
             this.state.companies.filter(function(company) {
@@ -38,7 +39,7 @@ class GameList extends Component {
                                   logo_url={'https://images.igdb.com/igdb/image/upload/t_cover_small/' + company.image_id + '.png'} 
                                   name={company.name} 
                                   slug={company.slug}
-                                  viewers={company.viewers} 
+                                  viewers={company.viewer_count_average} 
                                   stock_ticker={company.stock_ticker}/>
               </div>
             ))}
