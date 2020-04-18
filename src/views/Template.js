@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
+import Admin from '../admin/Admin';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
@@ -60,6 +61,10 @@ class Template extends Component {
 										<CompanyList/>
 									</ListGroup>
 							</Route>
+							<Route path="/admin/:companySlug" render={({ match }) => {
+									var companySlug = decodeURIComponent(match.params.companySlug);
+									return <> <Admin company={companySlug}/> </>;
+								}} />
 							<Route path="/privacy" render={({ match }) => {
 									var companyName = decodeURIComponent(match.params.companyName);
 									return <> <PrivacyPolicy/> </>;
