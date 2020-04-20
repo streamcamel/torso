@@ -1,26 +1,16 @@
 {
-  "name": "canvasjs-react-samples-1",
+  "name": "streamcamel",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://streamcamel.com",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "1.2.0",
-    "@fortawesome/free-regular-svg-icons": "5.1.0",
-    "@fortawesome/free-solid-svg-icons": "5.1.0",
-    "@fortawesome/react-fontawesome": "0.1.0",
-    "bootstrap": "^4.4.1",
-    "formik": "^2.1.3",
-    "jquery": "^3.4.1",
-    "react": "^16.12.0",
-    "react-bootstrap": "^1.0.0-beta.16",
-    "react-dom": "^16.12.0",
-    "react-fontawesome": "^1.7.1",
-    "react-ga": "^2.7.0",
-    "react-json-to-table": "^0.1.5",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.3.0",
-    "react-search-box": "^2.0.2"
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-google-charts": "^3.0.15",
+    "react-scripts": "3.4.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,10 +21,16 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
