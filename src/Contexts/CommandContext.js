@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import { createContext } from 'react';
 
 const CommandContext = createContext({commandID:0, command:'', commandData:null});
 
