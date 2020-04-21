@@ -2,6 +2,8 @@
   text-align: center;
   background-color: #262626;
   color: #FFF;
+  font-size: 1em;
+  width: 100%;
 }
 
 .PageHeader {
@@ -12,7 +14,12 @@
   padding-left: 0.5em;
   text-align: left;
   margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
+
+
+
 
 .PageFooter {
   background-color: #000;
@@ -47,11 +54,15 @@
 }
 
 
+
+
+
 .MainToolbar {
   background-color: #191919;
   height: 2em;
   margin: 0;
   text-align: right;
+  width: 100%;
 }
 
 .MainToolbarSectionTitle {
@@ -64,6 +75,12 @@
   margin-right: 1em;
 }
 
+
+
+
+
+
+
 .MainBodyWrapper {
   display: flex;
   justify-content: center;
@@ -71,13 +88,26 @@
 
 .MainBody{
   margin: 0;
-  width: 1000px;
+  width: 90%;
+  max-width: 1000px;
 }
 
 .SectionTitle {
   color: #0091FF;
   text-align: left;
   font-weight: 400;
+}
+
+
+
+
+
+
+
+.companies {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .CompaniesGrid {
@@ -91,6 +121,7 @@
   width: 150px;
   float: left;
   margin-bottom: 1em;
+  overflow: hidden;
 }
 
 .CompanyTileIconWrapper {
@@ -120,9 +151,6 @@
   text-align: left;
   font-size: 0.75em;
 }
-
-
-
 
 .GameTile {
   width: 150px;
@@ -157,3 +185,54 @@
   text-align: left;
   font-size: 0.75em;
 }
+
+
+
+
+.MainChart
+{
+  width: 90%;
+  max-width: 1000px;
+}
+
+
+
+
+@media screen and (max-width:800px) {
+  .App{
+    font-size: 0.8em;
+  }
+
+  .MainBody{
+    margin: 0;
+    width: 100%;
+  }
+
+  .companies {
+    padding: 1em;
+  }
+  
+  .CompanyTile {
+    width: 90px;
+    float: left;
+    margin-bottom: 1em;
+  }
+  
+  .CompanyTileIconWrapper {
+    width: 90px;
+    height: 90px;
+    margin-top:3px;
+  }
+
+  .GameTile {
+    width: 90px;
+    float: left;
+    margin-bottom: 1em;
+  }  
+  
+  .CompanyTileIcon {
+    max-width: 80px;
+    max-height: 80px;
+    margin-top: 5px;
+  }
+  }
