@@ -187,12 +187,16 @@
 }
 
 
-
+.ChartArea {
+  width: 100%;
+}
 
 .MainChart
 {
-  width: 90%;
+  width: 100%;
   max-width: 1000px;
+  height: 25%;
+  max-heigh: 500px;
 }
 
 
@@ -235,4 +239,7 @@
     max-height: 80px;
     margin-top: 5px;
   }
-  }
+}
+
+
+
