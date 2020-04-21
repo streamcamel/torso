@@ -41,7 +41,7 @@ const App = () => {
             <div className="MainBodyWrapper">
                 <div className="MainBody">
                     <CommandContext.Provider value={appCommand}>
-                        <Companies />
+                        <Companies className="Companies" />
                     </CommandContext.Provider>
                 </div>
             </div>

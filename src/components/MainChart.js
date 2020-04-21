@@ -43,9 +43,7 @@ const MainChart = (props) => {
     return (
         <div className="ChartArea">
         <h2 className="SectionTitle">Viewers</h2>
-        <Chart 
-            width={'1000px'}
-            height={'400px'}
+        <Chart className="MainChart"
             chartType="AreaChart"
             loader={<div>Loading Chart</div>}
             formatters={[{type:'', column:0},]}
