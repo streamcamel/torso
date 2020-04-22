@@ -4,7 +4,7 @@ import CompanyTile from './CompanyTile'
 import GameTile from './GameTile'
 import GamePage from './GamePage'
 import MainChart from './MainChart'
-import CommandContext from '../Contexts/CommandContext'
+import CommandContext from '../contexts/CommandContext'
 
 
 const Companies = (props) => {
