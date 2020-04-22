@@ -2,7 +2,7 @@ import React , { useState, createContext } from 'react';
 import './App.css';
 import Companies from './components/Companies'
 import MainToolbar from './components/MainToolbar'
-import CommandContext from './CommandContex'
+import CommandContext from './contexts/CommandContex'
 
 // Function component
 const PageHeader = ({ title, onGoHome }) => {
