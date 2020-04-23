@@ -1,117 +1,166 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useLocation, useHistory, } from "react-router-dom";
+
 import * as appConfig from '../config'
+import * as utils from '../utils'
+
 import CompanyTile from './CompanyTile'
 import GameTile from './GameTile'
 import GamePage from './GamePage'
 import MainChart from './MainChart'
-import CommandContext from '../contexts/CommandContext'
+
 
 
 const Companies = (props) => {
-    const [options, setOptions] = useState({mode:'companies', data:''});
-    const [data, setData] = useState([]); // Data state for the companies/games
-    const [title, setTitle] = useState('Top Companies'); 
-    const [lastCommand, setLastCommand] = useState(0);
+    let location = useLocation();
+    let history = useHistory();
 
-     const commandContext = useContext(CommandContext);
+    const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
+    const [dataCompanies, setDataCompanies] = useState([]); // Data state for the companies/games
+    const [prevPath, setPrevPath] = useState('');
 
-    const onCompanyTileClick = (data) => {
-        console.log('a COMPANY child was clicked')
-        setOptions({mode:'singlecompany', data:data})
-        setTitle(data.name + "'s Top Games");
-        setData([]);
-    }
+    const getGameFromDataGames = (gameSlug) => {
+        if(dataGames.length == 0) 
+            return null;
 
-    const onGameTileClick = (data) => {
-        console.log('a GAME child was clicked')
-        setOptions({mode:'game', data:data})
-        setTitle(data.name)
-    }
+        for(let i = 0; i < dataGames.length; i++){
+            if(dataGames[i].slug === gameSlug)
+                return dataGames[i];
+        }
+        return null;
+    };
+
+    const getCompanyFromDataCompanies = (companySlug) => {
+        if(dataCompanies.length == 0) 
+            return null;
+
+        for(let i = 0; i < dataCompanies.length; i++){
+            if(dataCompanies[i].slug === companySlug)
+                return dataCompanies[i];
+        }
+        return null;
+    };
+
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-        console.log('useEffect')
+        console.log('useEffect **************************')
+        console.log(location)
+        console.log(history)
+        console.log(utils.pathToCommand(location.pathname))
 
-        if(lastCommand !== commandContext.commandID) {
-            console.log("GOT A COMMAND")
-            setData([]);
-            setLastCommand(commandContext.commandID);
-
-            switch(commandContext.command) {
-                case 'reset':
-                    setOptions({mode:'companies', data:''})
-                    break;
-                case 'search':
-                    setOptions({mode:'companies', data:commandContext.commandData})
-                    break;
-            }
-        }
-        else
-        {   
+        if(prevPath != location.pathname)
+        {
+            let command = utils.pathToCommand(location.pathname);
+            let slug = utils.pathToSlug(location.pathname);
             let url = '';
+            switch(command) {
+                case 'company':
+                    setDataGames([])
+                    url = appConfig.backendURL('/top_games?company='+slug);
+                    fetch(url)
+                    .then(res => res.json())
+                    .then(res => setDataGames(res))
 
-            if(options.mode === 'companies') {
-                
-                if(options.data === '') {
-                    setTitle('Top Company');
+                    if(getCompanyFromDataCompanies(slug) === null) {
+                        setDataCompanies([])
+                        url = appConfig.backendURL('/companies/'+slug);
+                        fetch(url)
+                        .then(res => res.json())
+                        .then(res => setDataCompanies(res))
+                    }
+                    break;
+
+                case 'game':
+                    setDataCompanies([])
+                    if(getGameFromDataGames(slug) === null){
+                        url = appConfig.backendURL('/games/'+slug);
+                        fetch(url)
+                        .then(res => res.json())
+                        .then(res => setDataGames(res))
+                    }
+                    break;
+
+                case 'search':
+                    setDataGames([])
+                    url = appConfig.backendURL('/search_companies?q=' + slug);
+                    fetch(url)
+                    .then(res => res.json())
+                    .then(res => setDataCompanies(res))
+                    break;
+
+                default:
                     url = appConfig.backendURL('/top_companies?period=1w');
-                } else {
-                    setTitle('Search Results');
-                    url = appConfig.backendURL('/search_companies?q=' + options.data);
-                }
-
-            } else if(options.mode === 'singlecompany') {
-                url = appConfig.backendURL('/top_games?company='+options.data.slug);
+                    fetch(url)
+                    .then(res => res.json())
+                    .then(res => setDataCompanies(res))
+                    break;
             }
-
-            console.log('fecting : ' + url)
-
-            if(url !== '') {
-                fetch(url)
-                .then(res => res.json())
-                .then(res => setData(res))
-            }
+            setPrevPath(location.pathname);
         }
-    }, [options.mode, options.data, commandContext]);
-    // }, [options.mode, options.data, props.command.commandID]);
+    }, [location, dataCompanies, dataGames]);
     
-    console.log('COMPANIES : ' + options.mode)
-    console.log(props)
-    console.log(options)
-    console.log(data) 
-    console.log(commandContext)
-
-
+    let command = utils.pathToCommand(location.pathname);
+    let slug = utils.pathToSlug(location.pathname);
     let tileGrid = null;
     let singlePage = null;
+    let title = '';
 
-    if(options.mode === 'companies') {
-        let tiles = [];
-        data.forEach(acompany => {
-            let key = 'companykey'+lastCommand+'-'+acompany.id
-            tiles.push(
-                <CompanyTile key={key} company={acompany} onClick={onCompanyTileClick} />
-            );
-        });
-        tileGrid = <div className="CompaniesGrid"> {tiles} </div>
+    if (command === 'company') {
+        // Show a single company 
+        // Show global viewers for that company
+        // Show a list of the games of that company
 
-    } else if (options.mode === 'singlecompany') {
+        let acompany = getCompanyFromDataCompanies(slug);
+        if(acompany !== null){
+            title = acompany.name
+        }
+
         let tiles = []
-        data.forEach(agame => {
-            let key = 'gamekey'+lastCommand+'-'+agame.game_id
+        dataGames.forEach(agame => {
+            let key = 'gamekey'+agame.game_id
             tiles.push(
-                <GameTile key={key} game={agame} onClick={onGameTileClick} />
+                <GameTile key={key} game={agame}/>
             );
         });
         tileGrid = <div className="CompaniesGrid"> {tiles} </div>
 
-    } else if (options.mode === 'game') {
-        singlePage = <GamePage game={options.data} />
+    } else if (command === 'game') {
+        // Show a single game 
+        // Show viewers of that game only
+        // Show a box art of that game
+
+        console.log('GAME PAGE') 
+        let agame = getGameFromDataGames(slug);
+        if(agame !== null){
+            title = agame.name;
+            singlePage = <GamePage game={agame} />
+        }
+
+    } else {
+        // Show a multiple companies
+        // Show global viewers NOT tied to the selected companies
+        // Show a list of the companies
+        // Get here from homepage or from search
+        if(command === 'search'){
+            title = 'Search results'
+        } else {
+            title = 'Top companies'
+        }
+
+        let tiles = [];
+        dataCompanies.forEach(acompany => {
+            let key = 'companykey'+acompany.id
+            tiles.push(
+                <CompanyTile key={key} company={acompany}/>
+            );
+        });
+        tileGrid = <div className="CompaniesGrid"> {tiles} </div>
     }
 
     return (
         <div className="companies">
-            <MainChart options={options} />
+            <MainChart />
             <h2 className="SectionTitle">{title}</h2>
             {tileGrid}
             {singlePage}

@@ -1,38 +1,39 @@
-import React , { useState, createContext } from 'react';
+import React , { useState, useEffect } from 'react';
+
 import './App.css';
-import Companies from './components/Companies'
-import MainToolbar from './components/MainToolbar'
-import CommandContext from './contexts/CommandContex'
 
-// Function component
-const PageHeader = ({ title, onGoHome }) => {
-    return <div className="PageHeader" onClick={onGoHome} > { title } </div>    
-};
+import Companies from './components/Companies';
+import MainToolbar from './components/MainToolbar';
+import { PageHeader, PageFooter } from './components/StaticCompnents';
 
-const PageFooter = () => {
-    return (
-        <div className="PageFooter">
-            <a href="/privacy" className="FooterLink FooterLeft">Privacy</a>
-            <span className="FooterCenter">Stream Camel © 2020</span>
-            <a href="mailto://robin@guibec.com" className="FooterLink FooterRight">Contact</a>
-        </div>
-    );
-}
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    useLocation,
+    useHistory, 
+} from "react-router-dom";
+  
+
+// Valid Routes
+//    /
+//    /search/companySlug
+//    /company/companySlug
+//    /game/gameSlug
+//    /privacy
+
 
 const App = () => {
-    // This is to force update on ourself when we get an action
-    const [appCommand, setAppCommand] = useState({commandID:0, command:'', commandData:null});
+    let location = useLocation();
+    let history = useHistory();
 
     const onGoHome = () => {
-        setAppCommand({commandID:appCommand.commandID+1, command:'reset', commandData:null})
-    }
+        history.push('/');
+    };
     
     const onSearch = (keyword) => {
-        console.log('APPs on search: ' + keyword)
-        setAppCommand({commandID:appCommand.commandID+1, command:'search', commandData:keyword})
+        history.push('/search/' + keyword);
     };
-
-    // <Companies command={appCommand} />
 
     return (
         <div className="App">
@@ -40,9 +41,7 @@ const App = () => {
             <MainToolbar parentOnSearch={onSearch} />
             <div className="MainBodyWrapper">
                 <div className="MainBody">
-                    <CommandContext.Provider value={appCommand}>
-                        <Companies className="Companies" />
-                    </CommandContext.Provider>
+                    <Companies className="Companies" />
                 </div>
             </div>
             <PageFooter />

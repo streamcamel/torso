@@ -12,7 +12,7 @@ const PageFooter = () => {
         <div className="PageFooter">
             <a href="/privacy" className="FooterLink FooterLeft">Privacy</a>
             <span className="FooterCenter">Stream Camel © 2020</span>
-            <a href="mailto://robin@guibec.com" className="FooterLink FooterRight">Contact</a>
+            <a href="mailto://contact@streamcamel.com" className="FooterLink FooterRight">Contact</a>
         </div>
     );
 }
