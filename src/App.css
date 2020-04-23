@@ -199,6 +199,21 @@
 }
 
 
+.ModalPolicy {
+  font-size: 1em;
+}
+
+.ModalPolicyTitle {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.ModalPolicyCloseButton {
+  font-size: 2em;
+  position: absolute;
+  right: 1em;
+}
+
 
 
 @media screen and (max-width:800px) {
@@ -243,6 +258,11 @@
   {
     height: 200px;
   }
+
+  .ModalPolicy {
+    font-size: 0.7em;
+  }
+  
 }
 
 
