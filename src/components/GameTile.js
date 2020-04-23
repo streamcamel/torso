@@ -1,12 +1,13 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 
 const GameTile = (props) => {
+    let history = useHistory();
 
     const onClick = (e) => {
         e.preventDefault();
-        console.log('The link was clicked.');
-        props.onClick(props.game);
+        history.push('/game/'+props.game.slug)
     }
 
     let iconurl = ""         
