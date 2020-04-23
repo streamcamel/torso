@@ -195,8 +195,7 @@
 {
   width: 100%;
   max-width: 1000px;
-  height: 40%;
-  max-height: 500px;
+  height: 400px;
 }
 
 
@@ -238,6 +237,11 @@
     max-width: 80px;
     max-height: 80px;
     margin-top: 5px;
+  }
+
+  .MainChart
+  {
+    height: 200px;
   }
 }
 
