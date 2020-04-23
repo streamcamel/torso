@@ -7,10 +7,15 @@ const PageHeader = ({ title, onGoHome }) => {
 
 
 
-const PageFooter = () => {
+const PageFooter = (props) => {
+
+    const onShowPrivacy = () => {
+        props.onShowPrivacy(true);
+    }
+
     return (
         <div className="PageFooter">
-            <a href="/privacy" className="FooterLink FooterLeft">Privacy</a>
+            <span className="FooterLink FooterLeft" onClick={onShowPrivacy}>Privacy</span>
             <span className="FooterCenter">Stream Camel © 2020</span>
             <a href="mailto://contact@streamcamel.com" className="FooterLink FooterRight">Contact</a>
         </div>

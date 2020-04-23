@@ -25,6 +25,9 @@ const App = () => {
     let location = useLocation();
     let history = useHistory();
 
+    const [showPrivacy, setShowPrivacy] = useState(false);
+
+
 
     useEffect(() => {
         console.log('Sending GA analytics : ' + location.pathname);        
@@ -41,6 +44,14 @@ const App = () => {
         history.push('/search/' + keyword);
     };
 
+    const onShowPrivacy = () => {
+        setShowPrivacy(true);
+    };
+
+    const onHidePrivacy = () => {
+        setShowPrivacy(false);
+    };
+
     return (
         <div className="App">
             <PageHeader title="Stream Camel" onGoHome={onGoHome}/>
@@ -50,17 +61,17 @@ const App = () => {
                     <Companies className="Companies" />
                 </div>
             </div>
-            <PageFooter />
+            <PageFooter onShowPrivacy={onShowPrivacy}/>
 
             <Modal
-                isOpen={true}
+                isOpen={showPrivacy}
                 //   onAfterOpen={afterOpenModal}
-                //   onRequestClose={closeModal}
+                //onRequestClose={onHidePrivacy}
                 style="" // {customStyles}
                 contentLabel="Example Modal">
  
                 <div className="ModalPolicy">
-                    <span className="ModalPolicyTitle">Privacy Policy</span><span className="ModalPolicyCloseButton">X</span>
+                    <span className="ModalPolicyTitle">Privacy Policy</span><span className="ModalPolicyCloseButton" onClick={onHidePrivacy}>X</span>
                     <div className="ModalPolicyText">
                         <p>Stream Camel is a technology company focused on delivering knowledge through vivid, contextually-rich presentations, called Stream Camel Visualizations. These Stream Camel Visualizations put data into context for researchers, journalists and enterprise. This Privacy Policy exists to explain how this data and your information may be collected, used, and protected. This Privacy Policy may be updated by us from time to time in which case we will provide notice of material changes to this Privacy Policy by posting a notification on the Stream Camel website.</p>
 
