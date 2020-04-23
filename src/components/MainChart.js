@@ -1,36 +1,51 @@
 import React , { useState, useEffect } from 'react';
 import { Chart } from "react-google-charts";
+import { useLocation } from "react-router-dom";
 import * as appConfig from '../config'
+import * as utils from '../utils'
 
 
 const MainChart = (props) => {
+    let location = useLocation();
+
     const [data, setData] = useState([]);
     const [durationMinutes, setDuratationMinutes] = useState(7*20*60);
+    const [prevPath, setPrevPath] = useState('');
+
 
     useEffect(() => {
+        if(prevPath != location.pathname)
+        {
+            let command = utils.pathToCommand(location.pathname);
+            let slug = utils.pathToSlug(location.pathname);
 
-        let datenow = new Date()
-        let datethen = new Date()
-        datethen.setMinutes(datethen.getMinutes() - (7*24*60))
 
-        let request = `/viewers?before=${datenow.toISOString()}&after=${datethen.toISOString()}`;
-        let addRequest = '';
+            let datenow = new Date()
+            let datethen = new Date()
+            datethen.setMinutes(datethen.getMinutes() - (7*24*60))
 
-        if(props.options.mode === 'singlecompany') {
-            addRequest = '&company=' + props.options.data.slug;
-        } else if (props.options.mode === 'game') {
-            addRequest = '&game=' + props.options.data.slug;
-        } 
+            let request = `/viewers?before=${datenow.toISOString()}&after=${datethen.toISOString()}`;
 
-        request += addRequest;
-        let url = appConfig.backendURL(request);
+            switch(command) {
+                case 'company':
+                    request += '&company=' + slug;
+                    break;
 
-        console.log('chart fetching : ' + url)
+                case 'game':
+                    request += '&game=' + slug;
+                    break;
 
-        fetch(url)
-        .then(res => res.json())
-        .then(res => setData(res))
-    }, [props.options.mode, props.options.data, durationMinutes]);
+            }
+
+            let url = appConfig.backendURL(request);
+
+            fetch(url)
+            .then(res => res.json())
+            .then(res => setData(res))
+
+            setPrevPath(location.pathname);
+        }
+    }, [location, data, durationMinutes]);
 
 
     let chartData = []
