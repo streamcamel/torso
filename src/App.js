@@ -3,10 +3,11 @@ import ReactGA from 'react-ga';
 
 import './App.css';
 
-import Companies from './components/Carousel';
+import PageHeader from './components/PageHeader';
+import PageFooter from './components/PageFooter';
+import Carousel from './components/Carousel';
 import MainToolbar from './components/MainToolbar';
 import Privacy from './components/Privacy';
-import { PageHeader, PageFooter } from './components/StaticCompnents';
 import { useLocation, useHistory, } from "react-router-dom";
 
 import * as appConfig from './config'
@@ -46,7 +47,7 @@ const App = () => {
             <MainToolbar parentOnSearch={onSearch} />
             <div className="MainBodyWrapper">
                 <div className="MainBody">
-                    <Companies className="Companies" />
+                    <Carousel className="Carousel" />
                 </div>
             </div>
             <PageFooter />
