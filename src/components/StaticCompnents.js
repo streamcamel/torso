@@ -1,16 +1,25 @@
 import React from 'react';
+import { useLocation, useHistory, } from "react-router-dom";
+
 
 // Function component
 const PageHeader = ({ title, onGoHome }) => {
     return <div className="PageHeader" onClick={onGoHome} > { title } </div>    
 };
 
-
-
-const PageFooter = (props) => {
+const PageFooter = () => {
+    let location = useLocation();
+    let history = useHistory();
 
     const onShowPrivacy = () => {
-        props.onShowPrivacy(true);
+        console.log(location)
+        if(location.pathname.search("privacy=1")==-1) {
+            if(location.pathname.search('\\?')==-1){
+                history.push(location.pathname+'?privacy=1');
+            } else {
+                history.push(location.pathname+'&privacy=1');
+            }
+        }
     }
 
     return (
