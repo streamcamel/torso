@@ -26,7 +26,6 @@ const Privacy = () => {
 
         <Modal 
         isOpen={showPrivacy}
-        style="" // {customStyles}
         contentLabel="Example Modal">
 
         <div className="ModalPolicy">

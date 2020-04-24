@@ -40,6 +40,10 @@
   margin: 0;
 }
 
+.FooterLink {
+  cursor: pointer;
+}
+
 .FooterLink:link, .FooterLink:visited, .FooterLink:hover, .FooterLink:active {
   text-decoration: none;
 }

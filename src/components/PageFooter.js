@@ -7,8 +7,8 @@ const PageFooter = () => {
 
     const onShowPrivacy = () => {
         console.log(location)
-        if(location.pathname.search("privacy=1")==-1) {
-            if(location.pathname.search('\\?')==-1){
+        if(location.pathname.search("privacy=1")===-1) {
+            if(location.pathname.search('\\?')===-1){
                 history.push(location.pathname+'?privacy=1');
             } else {
                 history.push(location.pathname+'&privacy=1');

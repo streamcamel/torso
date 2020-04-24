@@ -14,7 +14,7 @@ const GamePage = () => {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
 
-        if(prevPath != location.pathname)
+        if(prevPath !== location.pathname)
         {
             let slug = utils.pathToSlug(location.pathname);
 
