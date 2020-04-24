@@ -3,7 +3,7 @@ import ReactGA from 'react-ga';
 
 import './App.css';
 
-import Companies from './components/Companies';
+import Companies from './components/Carousel';
 import MainToolbar from './components/MainToolbar';
 import Privacy from './components/Privacy';
 import { PageHeader, PageFooter } from './components/StaticCompnents';
