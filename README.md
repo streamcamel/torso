@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## How to publish
+
+- `npm run build`
+- Run your favorite SSH Client (e.g. WinSCP: https://winscp.net/eng/download.php)
+  - hostname: streamstracker.com
+  - username: ubuntu
+  - password: (public-key)
+- Upload the content of the local `build` folder to `/var/www/streamcamel.com`
+- You may delete the previous precache-manifest.* files
+
 ## Available Scripts
 
 In the project directory, you can run:
