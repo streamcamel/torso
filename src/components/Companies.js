@@ -11,7 +11,7 @@ import MainChart from './MainChart'
 
 
 
-const Companies = (props) => {
+const Companies = () => {
     let location = useLocation();
     let history = useHistory();
 
