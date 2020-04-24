@@ -1,12 +1,6 @@
 import React from 'react';
 import { useLocation, useHistory, } from "react-router-dom";
 
-
-// Function component
-const PageHeader = ({ title, onGoHome }) => {
-    return <div className="PageHeader" onClick={onGoHome} > { title } </div>    
-};
-
 const PageFooter = () => {
     let location = useLocation();
     let history = useHistory();
@@ -31,7 +25,4 @@ const PageFooter = () => {
     );
 }
 
-export {
-    PageHeader,
-    PageFooter
-}
+export default PageFooter;

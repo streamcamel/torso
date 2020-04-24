@@ -9,6 +9,7 @@
 .PageHeader {
   background-color: #0B0B0B;
   font-size: 3em;
+  line-height: 2em;
   font-weight: 700;
   padding: 0.1em;
   padding-left: 0.5em;
@@ -16,6 +17,14 @@
   margin: 0;
   width: 100%;
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+.PageHeaderLogo {
+  display: inline-block;
+  height: 1.5em;
+  width: auto;
+  vertical-align: middle;
 }
 
 
@@ -131,6 +140,7 @@
   background-color: #545454;
   border-radius: 10px;
   margin-bottom: 0.5em;
+  cursor: pointer;
 }
 
 .CompanyTileIcon {
@@ -139,6 +149,7 @@
   width: auto;
   height: auto;
   margin-top:15px;
+  cursor: pointer;
 }
 
 .CompanyTileName {
@@ -165,6 +176,7 @@
   background-color: #2d405e;
   border-radius: 10px;
   margin-bottom: 0.5em;
+  cursor: pointer;
 }
 
 .GameTileIcon {
@@ -173,6 +185,7 @@
   width: auto;
   height: auto;
   margin-top:15px;
+  cursor: pointer;
 }
 
 .GameTileName {
