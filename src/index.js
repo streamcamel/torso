@@ -7,8 +7,6 @@ import * as serviceWorker from './serviceWorker';
 
 import {
   BrowserRouter as Router,
-  Switch,
-  useLocation
 } from "react-router-dom";
 
 

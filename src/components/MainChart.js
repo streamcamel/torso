@@ -14,7 +14,7 @@ const MainChart = (props) => {
 
 
     useEffect(() => {
-        if(prevPath != location.pathname)
+        if(prevPath !== location.pathname)
         {
             let command = utils.pathToCommand(location.pathname);
             let slug = utils.pathToSlug(location.pathname);
@@ -22,7 +22,7 @@ const MainChart = (props) => {
 
             let datenow = new Date()
             let datethen = new Date()
-            datethen.setMinutes(datethen.getMinutes() - (7*24*60))
+            datethen.setMinutes(datethen.getMinutes() - durationMinutes)
 
             let request = `/viewers?before=${datenow.toISOString()}&after=${datethen.toISOString()}`;
 
@@ -34,7 +34,8 @@ const MainChart = (props) => {
                 case 'game':
                     request += '&game=' + slug;
                     break;
-
+                default:
+                    break;
             }
 
             let url = appConfig.backendURL(request);

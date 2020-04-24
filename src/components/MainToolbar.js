@@ -1,12 +1,14 @@
 import React from 'react';
+import { useLocation, useHistory, } from "react-router-dom";
 
 // class MainToolbar extends React.Component {
-const MainToolbar = (props) => {
+const MainToolbar = () => {
+    let history = useHistory();
 
-    const onSearch = event => {
+    const onSearch = (event) => {
         if(event.key === 'Enter') {
             event.preventDefault();
-            props.parentOnSearch(event.target.value)
+            history.push('/search/' + event.target.value);
             event.target.value = "";
         }
     }
