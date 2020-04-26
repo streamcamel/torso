@@ -1,26 +1,19 @@
-import React , { useState, useEffect } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
-import { useLocation, useHistory, } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
+import { URLSearchGetQueryInt, URLSearchRemoveQuery } from '../utils';
 
 const Privacy = () => {
     let location = useLocation();
     let history = useHistory();
 
-    const [showPrivacy, setShowPrivacy] = useState(false);
-
     const onHidePrivacy = () => {
         if(location.search.search('privacy=1') !== -1){
-            history.push(location.pathname)
+            history.push({pathname:location.pathname, search:URLSearchRemoveQuery(location.search, 'privacy')});
         }
     }
 
-    useEffect(() => {
-        if(location.search.search('privacy=1') !== -1){
-            setShowPrivacy(true);
-        } else {
-            setShowPrivacy(false);
-        }
-    }, [location]);
+    let showPrivacy = (URLSearchGetQueryInt(location.search, 'privacy') === 1);
     
     return (
 

@@ -1,19 +1,13 @@
 import React from 'react';
 import { useLocation, useHistory, } from "react-router-dom";
+import { URLSearchAddQuery } from '../utils'
 
 const PageFooter = () => {
     let location = useLocation();
     let history = useHistory();
 
     const onShowPrivacy = () => {
-        console.log(location)
-        if(location.pathname.search("privacy=1")===-1) {
-            if(location.pathname.search('\\?')===-1){
-                history.push(location.pathname+'?privacy=1');
-            } else {
-                history.push(location.pathname+'&privacy=1');
-            }
-        }
+        history.push({pathname:location.pathname, search:URLSearchAddQuery(location.search, 'privacy', 1)});
     }
 
     return (
