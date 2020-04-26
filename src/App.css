@@ -216,6 +216,25 @@
   height: 400px;
 }
 
+.MainChartButtons {
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.MainChartButton
+{
+  display: inline-block;
+  width: 5em;
+  padding: 0.5em;
+  margin: 0em 1em;
+  background-color: #000;
+  border-radius: 0.75em;
+}
+
+.MainChartButtonSelected {
+  background-color: #0091FF;
+}
+
 
 .ModalPolicy {
   font-size: 1em;

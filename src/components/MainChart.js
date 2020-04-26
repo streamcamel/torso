@@ -1,52 +1,56 @@
 import React , { useState, useEffect } from 'react';
 import { Chart } from "react-google-charts";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 
 
 const MainChart = (props) => {
     let location = useLocation();
+    let history = useHistory();
 
     const [data, setData] = useState([]);
-    const [durationMinutes, setDuratationMinutes] = useState(7*20*60);
     const [prevPath, setPrevPath] = useState('');
 
+    const onChangeRange = (minutes) => {
+        history.push({pathname:location.pathname, search:utils.URLSearchAddQuery(location.search, 'chartduration', minutes)});
+    }
 
     useEffect(() => {
-        if(prevPath !== location.pathname)
+        if(prevPath !== (location.pathname+location.search))
         {
             let command = utils.pathToCommand(location.pathname);
             let slug = utils.pathToSlug(location.pathname);
 
-
+            let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
             let datenow = new Date()
             let datethen = new Date()
             datethen.setMinutes(datethen.getMinutes() - durationMinutes)
 
-            let request = `/viewers?before=${datenow.toISOString()}&after=${datethen.toISOString()}`;
+            let request = utils.URLSearchAddQuery('', 'before', datenow.toISOString());
+            request = utils.URLSearchAddQuery(request, 'after', datethen.toISOString());
 
             switch(command) {
                 case 'company':
-                    request += '&company=' + slug;
+                    request = utils.URLSearchAddQuery(request, 'company', slug);
                     break;
 
                 case 'game':
-                    request += '&game=' + slug;
+                    request = utils.URLSearchAddQuery(request, 'game', slug);
                     break;
                 default:
                     break;
             }
 
-            let url = appConfig.backendURL(request);
+            let url = appConfig.backendURL('/viewers' + request);
 
             fetch(url)
             .then(res => res.json())
             .then(res => setData(res))
 
-            setPrevPath(location.pathname);
+            setPrevPath(location.pathname+location.search);
         }
-    }, [location, data, durationMinutes]);
+    }, [location, data]);
 
 
     let chartData = []
@@ -56,31 +60,64 @@ const MainChart = (props) => {
     });
     chartData.unshift([{type:'date', label:'Date'}, "Viewers"])
 
+    let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
+    let button01Selected = '';
+    let button02Selected = '';
+    let button03Selected = '';
+    let button04Selected = '';
+    let button05Selected = '';
+    switch(durationMinutes){
+        case (8*60):
+            button01Selected = 'MainChartButtonSelected'
+            break;
+        case (24*60):
+            button02Selected = 'MainChartButtonSelected'
+            break;
+        case (7*24*60):
+            button03Selected = 'MainChartButtonSelected'
+            break;
+        case (30*24*60):
+            button04Selected = 'MainChartButtonSelected'
+            break;
+        case (3*30*24*60):
+            button05Selected = 'MainChartButtonSelected'
+            break;
+    }
+
     return (
         <div className="ChartArea">
-        <h2 className="SectionTitle">Viewers</h2>
-        <Chart className="MainChart"
-            chartType="AreaChart"
-            loader={<div>Loading Chart</div>}
-            formatters={[{type:'', column:0},]}
-            data={
-                chartData
-            }
-            options={{
-            backgroundColor: '#000',
-            fontName: 'montserrat',
-            legend: {position: 'none'},
-            hAxis: {
-                textStyle:{color: '#FFF'},
-                gridlines:{color: 'transparent'}
-            },
-            vAxis: {
-                textStyle:{color: '#FFF'}
-            },
-            chartArea:{'width': '90%', 'height': '65%', 'right':0}
-            }}
-            rootProps={{ 'data-testid': '1' }}
-        />
+            <h2 className="SectionTitle">Viewers</h2>
+
+            <Chart className="MainChart"
+                chartType="AreaChart"
+                loader={<div>Loading Chart</div>}
+                formatters={[{type:'', column:0},]}
+                data={
+                    chartData
+                }
+                options={{
+                backgroundColor: '#000',
+                fontName: 'montserrat',
+                legend: {position: 'none'},
+                hAxis: {
+                    textStyle:{color: '#FFF'},
+                    gridlines:{color: 'transparent'}
+                },
+                vAxis: {
+                    textStyle:{color: '#FFF'}
+                },
+                chartArea:{'width': '90%', 'height': '65%', 'right':0}
+                }}
+                rootProps={{ 'data-testid': '1' }}
+            />
+
+            <div className="MainChartButtons">
+                <div className={"MainChartButton " + button01Selected}  onClick={() => onChangeRange(8*60)}>8 Hours</div>
+                <div className={"MainChartButton " + button02Selected}  onClick={() => onChangeRange(24*60)}>1 Day</div>
+                <div className={"MainChartButton " + button03Selected}  onClick={() => onChangeRange(7*24*60)}>7 Days</div>
+                <div className={"MainChartButton " + button04Selected}  onClick={() => onChangeRange(30*24*60)}>1 Month</div>
+                <div className={"MainChartButton " + button05Selected}  onClick={() => onChangeRange(3*30*24*60)}>3 Months</div>
+            </div>
         </div>
     )
 }
