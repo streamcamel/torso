@@ -115,13 +115,6 @@
 
 
 
-
-.companies {
-  width: 100%;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .CompaniesGrid {
   display: flex;
   flex-wrap: wrap;
@@ -227,6 +220,7 @@
   margin: 0em 1em;
   background-color: #000;
   border-radius: 0.75em;
+  cursor: pointer;
 }
 
 .MainChartButtonSelected {
