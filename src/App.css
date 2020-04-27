@@ -6,6 +6,18 @@
   width: 100%;
 }
 
+
+
+.PageFixedTop {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+}
+
+
+
+
 .PageHeader {
   background-color: #0B0B0B;
   font-size: 3em;
@@ -26,6 +38,8 @@
   width: auto;
   vertical-align: middle;
 }
+
+
 
 
 
@@ -96,6 +110,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 2em;
+  margin-top: 8em;
 }
 
 .MainBody{
