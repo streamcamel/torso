@@ -292,7 +292,7 @@
     width: 100%;
   }
 
-  .companies {
+  .Carousel {
     padding: 1em;
   }
   
@@ -307,18 +307,32 @@
     height: 90px;
     margin-top:3px;
   }
-
-  .GameTile {
-    width: 90px;
-    float: left;
-    margin-bottom: 1em;
-  }  
   
   .CompanyTileIcon {
     max-width: 80px;
     max-height: 80px;
     margin-top: 5px;
   }
+
+
+  .GameTile {
+    width: 90px;
+    float: left;
+    margin-bottom: 1em;
+  }  
+
+  .GameTileIconWrapper {
+    width: 90px;
+    height: 90px;
+    margin-top: 3px;
+  }
+
+  .GameTileIcon {
+    max-width: 80px;
+    max-height: 80px;
+    margin-top:5px;
+  }
+
 
   .MainChart
   {
