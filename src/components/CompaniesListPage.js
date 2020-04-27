@@ -5,13 +5,18 @@ import * as appConfig from '../config'
 import * as utils from '../utils'
 
 import CompanyTile from './CompanyTile'
+import LoadMore from './LoadMore'
 
 const Carousel = () => {
     let location = useLocation();
 
     const [data, setData] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
+    const [itemCountMax, setItemCountMax] = useState(18);
 
+    const onLoadMore = () => {
+        setItemCountMax(itemCountMax+18);
+    };
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
@@ -50,18 +55,24 @@ const Carousel = () => {
     }
 
     let tiles = [];
-    data.forEach(acompany => {
+    for(var i = 0; i < data.length; i++){
+        if(i === itemCountMax)
+            break;
+
+        let acompany = data[i];
         let key = 'companykey'+acompany.id
         tiles.push(
             <CompanyTile key={key} company={acompany}/>
         );
-    });
+    }
     tileGrid = <div className="CompaniesGrid"> {tiles} </div>
 
     return (
         <div className="CompaniesListPage">
             <h2 className="SectionTitle">{title}</h2>
             {tileGrid}
+
+            <LoadMore onLoadMore={onLoadMore} />
         </div>
     );
 };
