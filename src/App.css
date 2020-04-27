@@ -159,6 +159,10 @@
   font-size: 0.75em;
 }
 
+
+
+
+
 .GameTile {
   width: 150px;
   float: left;
@@ -196,6 +200,21 @@
 }
 
 
+
+
+
+.LoadMoreButton{
+  display: inline-block;
+  padding: 0.5em;
+  margin: 0em 1em;
+  background-color: #0091FF;
+  border-radius: 0.75em;
+  cursor: pointer;
+}
+
+
+
+
 .ChartArea {
   width: 100%;
 }
@@ -227,7 +246,6 @@
   background-color: #0091FF;
 }
 
-
 .ModalPolicy {
   font-size: 1em;
 }
@@ -242,6 +260,10 @@
   position: absolute;
   right: 1em;
 }
+
+
+
+
 
 
 
