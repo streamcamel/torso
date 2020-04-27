@@ -36,8 +36,10 @@ const App = () => {
 
     return (
         <div className="App">
-            <PageHeader />
-            <MainToolbar />
+            <div className="PageFixedTop">
+                <PageHeader />
+                <MainToolbar />
+            </div>
             <div className="MainBodyWrapper">
                 <div className="MainBody">
                     <Carousel className="Carousel" />

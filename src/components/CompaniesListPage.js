@@ -8,14 +8,17 @@ import CompanyTile from './CompanyTile'
 import LoadMore from './LoadMore'
 
 const Carousel = () => {
+    
     let location = useLocation();
 
     const [data, setData] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
-    const [itemCountMax, setItemCountMax] = useState(18);
+    
+    const itemCountIncrement = 18;
+    const [itemCountMax, setItemCountMax] = useState(itemCountIncrement);
 
     const onLoadMore = () => {
-        setItemCountMax(itemCountMax+18);
+        setItemCountMax(itemCountMax+itemCountIncrement);
     };
     
     // Similar to componentDidMount and componentDidUpdate:
@@ -41,6 +44,7 @@ const Carousel = () => {
                     break;
             }
             setPrevPath(location.pathname);
+            setItemCountMax(itemCountIncrement);
         }
     }, [location, data]);
     
