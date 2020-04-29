@@ -52,7 +52,7 @@ const MainChart = (props) => {
         }
     }, [location, data]);
 
-    if(data.lenght === 0) {
+    if(data.length === 0) {
         // To prevent chart error, skipping the render
         return (<div className="ChartArea"> <h2 className="SectionTitle">Viewers</h2></div>);
     }
