@@ -52,12 +52,18 @@ const MainChart = (props) => {
         }
     }, [location, data]);
 
+    if(data.lenght === 0) {
+        // To prevent chart error, skipping the render
+        return (<div className="ChartArea"> <h2 className="SectionTitle">Viewers</h2></div>);
+    }
 
     let chartData = []
     data.forEach(d => {
         let adate = new Date(Date.parse(d.time));
         chartData.unshift([adate, d.viewers_count])
     });
+
+
     chartData.unshift([{type:'date', label:'Date'}, "Viewers"])
 
     let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
