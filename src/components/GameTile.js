@@ -7,6 +7,12 @@ const GameTile = (props) => {
 
     const onClick = (e) => {
         e.preventDefault();
+
+        const selection = window.getSelection();
+        if (selection.toString()) {
+            return;
+        }
+
         history.push('/game/'+props.game.slug)
     }
 
