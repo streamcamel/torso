@@ -1,9 +1,10 @@
 import React , { useState, useEffect } from 'react';
-import { Chart } from "react-google-charts";
 import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 
 const MainChart = (props) => {
     let location = useLocation();
@@ -62,9 +63,52 @@ const MainChart = (props) => {
         let adate = new Date(Date.parse(d.time));
         chartData.unshift([adate, d.viewers_count])
     });
+    //chartData.unshift([{type:'date', label:'Date'}, "Viewers"])
 
 
-    chartData.unshift([{type:'date', label:'Date'}, "Viewers"])
+    const options = {
+        chart: {
+            type: 'area',
+            backgroundColor: '#000000',
+            style: {
+                fontFamily: 'montserrat',
+                fontSize: '0.8em'
+            }            
+        },
+        title: {
+          text: ''
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+            type: 'datetime',
+            title: {
+                text: ''
+            },
+            labels: {
+                style:{
+                    fontFamily: 'montserrat',
+                    fontSize: '1.5em'
+                }
+            }            
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            labels: {
+                style:{
+                    fontFamily: 'montserrat',
+                    fontSize: '1.5em'
+                }
+            }            
+        },
+        series: [{
+          data: chartData
+        }]
+    }
+       
 
     let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
     let button01Selected = '';
@@ -94,7 +138,14 @@ const MainChart = (props) => {
         <div className="ChartArea">
             <h2 className="SectionTitle">Viewers</h2>
 
-            <Chart className="MainChart"
+            <HighchartsReact
+                className="MainChart"
+                highcharts={Highcharts}
+                options={options}
+            />
+
+
+            {/* <Chart className="MainChart"
                 chartType="AreaChart"
                 loader={<div>Loading Chart</div>}
                 formatters={[{type:'', column:0},]}
@@ -115,7 +166,7 @@ const MainChart = (props) => {
                 chartArea:{'width': '90%', 'height': '65%', 'right':0}
                 }}
                 rootProps={{ 'data-testid': '1' }}
-            />
+            /> */}
 
             <div className="MainChartButtons">
                 <div className={"MainChartButton " + button01Selected}  onClick={() => onChangeRange(8*60)}>8 Hours</div>
