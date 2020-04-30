@@ -61,10 +61,8 @@ const MainChart = (props) => {
     let chartData = []
     data.forEach(d => {
         let adate = new Date(Date.parse(d.time));
-        chartData.unshift([adate, d.viewers_count])
+        chartData.unshift([adate.getTime(), d.viewers_count])
     });
-    //chartData.unshift([{type:'date', label:'Date'}, "Viewers"])
-
 
     const options = {
         chart: {
@@ -73,7 +71,7 @@ const MainChart = (props) => {
             style: {
                 fontFamily: 'montserrat',
                 fontSize: '0.8em'
-            }            
+            },
         },
         title: {
           text: ''
@@ -104,8 +102,18 @@ const MainChart = (props) => {
                 }
             }            
         },
+        tooltip: {
+            crosshairs: {
+                color: '#FFF',
+                dashStyle: 'solid'
+            },
+            shared: true
+        },
         series: [{
-          data: chartData
+            name: 'Viewers',
+            color: 'rgba(0, 145, 255, 0.85)',
+            fillColor: 'rgba(0, 145, 255, 0.85)',
+            data: chartData
         }]
     }
        
