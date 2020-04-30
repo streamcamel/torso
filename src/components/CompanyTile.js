@@ -6,6 +6,12 @@ const CompanyTile = (props) => {
 
     const onClick = (e) => {
         e.preventDefault();
+
+        const selection = window.getSelection();
+        if (selection.toString()) {
+            return;
+        }
+        
         history.push('/company/'+props.company.slug)
     }
 
