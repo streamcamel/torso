@@ -152,30 +152,6 @@ const MainChart = (props) => {
                 options={options}
             />
 
-
-            {/* <Chart className="MainChart"
-                chartType="AreaChart"
-                loader={<div>Loading Chart</div>}
-                formatters={[{type:'', column:0},]}
-                data={
-                    chartData
-                }
-                options={{
-                backgroundColor: '#000',
-                fontName: 'montserrat',
-                legend: {position: 'none'},
-                hAxis: {
-                    textStyle:{color: '#FFF'},
-                    gridlines:{color: 'transparent'}
-                },
-                vAxis: {
-                    textStyle:{color: '#FFF'}
-                },
-                chartArea:{'width': '90%', 'height': '65%', 'right':0}
-                }}
-                rootProps={{ 'data-testid': '1' }}
-            /> */}
-
             <div className="MainChartButtons">
                 <div className={"MainChartButton " + button01Selected}  onClick={() => onChangeRange(8*60)}>8 Hours</div>
                 <div className={"MainChartButton " + button02Selected}  onClick={() => onChangeRange(24*60)}>1 Day</div>
