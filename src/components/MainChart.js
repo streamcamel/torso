@@ -157,12 +157,14 @@ const MainChart = (props) => {
         <div className="ChartArea">
             <h2 className="SectionTitle">Viewers</h2>
 
-            <HighchartsReact
-                className="MainChart"
-                ref={refChart}
-                highcharts={Highcharts}
-                options={options}
-            />
+            <div className="MainChart">
+                <HighchartsReact
+                    ref={refChart}
+                    highcharts={Highcharts}
+                    options={options}
+                    containerProps={{ style: { height: "100%" } }}
+                />
+            </div>
 
             <div className="MainChartButtons">
                 <div className={"MainChartButton " + button01Selected}  onClick={() => onChangeRange(8*60)}>8 Hours</div>
