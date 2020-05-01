@@ -40,7 +40,7 @@ const GamePage = () => {
         <div className="GamePage">
             <h2 className="SectionTitle">{title}</h2>
             <div className="GamePageIconWrapper">
-                <img src={iconurl} alt={title} className="GamePageIcon" />
+                <img className="GamePageIcon" src={iconurl} alt={title} className="GamePageIcon" />
             </div>
         </div>
     );
