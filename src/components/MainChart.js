@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState, useEffect, useRef } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
@@ -12,9 +12,29 @@ const MainChart = (props) => {
 
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
+    const refChart = useRef(null);
+
 
     const onChangeRange = (minutes) => {
         history.push({pathname:location.pathname, search:utils.URLSearchAddQuery(location.search, 'chartduration', minutes)});
+    }
+
+    const onNewData = (newdata) => {
+        setData(newdata);
+
+        if(refChart && refChart.current && refChart.current.chart) {
+            refChart.current.chart.series[0].update(convertDataToChartData(newdata));
+        }
+    }
+
+    const convertDataToChartData = (toconvert) => {
+        let chartData = []
+        toconvert.forEach(d => {
+            let adate = new Date(Date.parse(d.time));
+            chartData.unshift([adate.getTime(), d.viewers_count])
+        });
+
+        return chartData;
     }
 
     useEffect(() => {
@@ -47,22 +67,13 @@ const MainChart = (props) => {
 
             fetch(url)
             .then(res => res.json())
-            .then(res => setData(res))
+            .then(res => onNewData(res))
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, data]);
+    }, [location]);
 
-    if(data.length === 0) {
-        // To prevent chart error, skipping the render
-        return (<div className="ChartArea"> <h2 className="SectionTitle">Viewers</h2></div>);
-    }
-
-    let chartData = []
-    data.forEach(d => {
-        let adate = new Date(Date.parse(d.time));
-        chartData.unshift([adate.getTime(), d.viewers_count])
-    });
+    let chartData = convertDataToChartData(data);
 
     const options = {
         chart: {
@@ -148,6 +159,7 @@ const MainChart = (props) => {
 
             <HighchartsReact
                 className="MainChart"
+                ref={refChart}
                 highcharts={Highcharts}
                 options={options}
             />
