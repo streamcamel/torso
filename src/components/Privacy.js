@@ -22,7 +22,7 @@ const Privacy = () => {
         contentLabel="Example Modal">
 
         <div className="ModalPolicy">
-            <span className="ModalPolicyTitle">Privacy Policy</span><span className="ModalPolicyCloseButton" onClick={onHidePrivacy}>X</span>
+            <span className="ModalPolicyTitle">Privacy Policy</span><span title="X" className="ModalPolicyCloseButton" onClick={onHidePrivacy}>X</span>
             <div className="ModalPolicyText">
                 <p>Stream Camel is a technology company focused on delivering knowledge through vivid, contextually-rich presentations, called Stream Camel Visualizations. These Stream Camel Visualizations put data into context for researchers, journalists and enterprise. This Privacy Policy exists to explain how this data and your information may be collected, used, and protected. This Privacy Policy may be updated by us from time to time in which case we will provide notice of material changes to this Privacy Policy by posting a notification on the Stream Camel website.</p>
 
@@ -62,5 +62,9 @@ const Privacy = () => {
         </Modal>
     ); 
 };
+
+if(process.env.NODE_ENV === 'test') {
+    Modal.setAppElement('body');
+}
 
 export default Privacy;
