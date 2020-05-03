@@ -10,7 +10,7 @@ import SingleCompanyPage from './SingleCompanyPage'
 const Carousel = () => {
 
     return (
-        <div className="Carousel">
+        <div title="Carousel" className="Carousel">
             <MainChart />
             <Switch>
                 <Route exact path="/">

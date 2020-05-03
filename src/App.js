@@ -12,7 +12,7 @@ import Privacy from './components/Privacy';
 
 import * as appConfig from './config'
 
-ReactGA.initialize(appConfig.trackingId);
+ReactGA.initialize(appConfig.trackingId, { testMode: process.env.NODE_ENV === 'test'});
 
 
 // Valid Routes
@@ -23,19 +23,14 @@ ReactGA.initialize(appConfig.trackingId);
 
 const App = () => {
     let location = useLocation();
-    let history = useHistory();
 
     useEffect(() => {
         ReactGA.set({page: location.pathname});
         ReactGA.pageview(location.pathname); // Record a pageview for the given page
     }, [location]);
     
-    const onSearch = (keyword) => {
-        history.push('/search/' + keyword);
-    };
-
     return (
-        <div className="App">
+        <div title="App" className="App">
             <div className="PageFixedTop">
                 <PageHeader />
                 <MainToolbar />
