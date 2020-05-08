@@ -18,7 +18,9 @@ const GameTile = (props) => {
 
     let iconurl = ""         
     if(props.game.box_art_url != null) {
+        // box size ration is 3:4
         iconurl = props.game.box_art_url.replace('-{width}x{height}', '')
+        // iconurl = props.game.box_art_url.replace('-{width}x{height}', '-90x120')
     }
 
     return (
