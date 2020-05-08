@@ -14,7 +14,10 @@ const Carousel = () => {
     const [data, setData] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
     
-    const itemCountIncrement = 18;
+    let itemCountIncrement = 18;
+    if(window.innerWidth <= 800) {
+        itemCountIncrement = 9;
+    }
     const [itemCountMax, setItemCountMax] = useState(itemCountIncrement);
 
     const onLoadMore = () => {
