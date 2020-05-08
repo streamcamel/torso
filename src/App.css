@@ -116,7 +116,7 @@
 .MainBody{
   margin: 0;
   width: 90%;
-  max-width: 1000px;
+  max-width: 1200px;
 }
 
 .SectionTitle {
@@ -138,28 +138,33 @@
 }
 
 .CompanyTile {
-  width: 150px;
+  width: 15%;
   float: left;
   margin-bottom: 1em;
   overflow: hidden;
 }
 
 .CompanyTileIconWrapper {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  padding-bottom: 100%;
   background-color: #545454;
   border-radius: 10px;
   margin-bottom: 0.5em;
   cursor: pointer;
+  position: relative;
 }
 
 .CompanyTileIcon {
-  max-width: 120px;
-  max-height: 120px;
-  width: auto;
-  height: auto;
-  margin-top:15px;
-  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  position: absolute;
 }
 
 .CompanyTileName {
@@ -179,27 +184,33 @@
 
 
 .GameTile {
-  width: 150px;
+  width: 15%;
   float: left;
   margin-bottom: 1em;
+  overflow: hidden;
 }
 
 .GameTileIconWrapper {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  padding-bottom: 100%;
   background-color: #2d405e;
   border-radius: 10px;
   margin-bottom: 0.5em;
   cursor: pointer;
+  position: relative;
 }
 
 .GameTileIcon {
-  max-width: 120px;
-  max-height: 120px;
-  width: auto;
-  height: auto;
-  margin-top:15px;
-  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  position: absolute;
 }
 
 .GameTileName {
@@ -213,6 +224,10 @@
   text-align: left;
   font-size: 0.75em;
 }
+
+
+
+
 
 .GamePageIconWrapper {
   max-width: 100%;
@@ -246,8 +261,8 @@
 .MainChart
 {
   width: 100%;
-  max-width: 1000px;
-  height: 400px;
+  max-width: 1200px;
+  height: calc(100vh / 3);
 }
 
 .MainChartButtons {
@@ -289,9 +304,7 @@
 
 
 
-
-
-@media screen and (max-width:800px) {
+@media only screen and (max-width:800px) {
   .App{
     font-size: 0.8em;
   }
@@ -304,55 +317,23 @@
   .Carousel {
     padding: 1em;
   }
-  
+
   .CompanyTile {
-    width: 90px;
-    float: left;
-    margin-bottom: 1em;
-  }
-  
-  .CompanyTileIconWrapper {
-    width: 90px;
-    height: 90px;
-    margin-top:3px;
-  }
-  
-  .CompanyTileIcon {
-    max-width: 80px;
-    max-height: 80px;
-    margin-top: 5px;
-  }
-
-
-  .GameTile {
-    width: 90px;
-    float: left;
-    margin-bottom: 1em;
+    width: 30%;
   }  
 
-  .GameTileIconWrapper {
-    width: 90px;
-    height: 90px;
-    margin-top: 3px;
-  }
-
-  .GameTileIcon {
-    max-width: 80px;
-    max-height: 80px;
-    margin-top:5px;
-  }
-
-
-  .MainChart
-  {
-    height: 200px;
-  }
+  .GameTile {
+    width: 30%;
+  }  
 
   .ModalPolicy {
     font-size: 0.7em;
-  }
-  
+  } 
 }
 
 
-
+@media only screen and (max-width:400px) {
+  .App{
+    font-size: 0.7em;
+  }
+}
