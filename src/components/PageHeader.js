@@ -7,7 +7,7 @@ const PageHeader = () => {
     let history = useHistory();
 
     const onGoHome = () => {
-        history.push('/push');
+        history.push('/');
     };
 
     return (

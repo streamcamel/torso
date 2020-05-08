@@ -38,5 +38,5 @@ test('PageHeader component: Return home when clicking on container', () => {
     // Navigate home
     fireEvent.click(getByTitle('PageHeader'));
 
-    expect(history.location.pathname).toEqual('/push');
+    expect(history.location.pathname).toEqual('/');
 });
