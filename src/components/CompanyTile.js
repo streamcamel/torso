@@ -19,7 +19,13 @@ const CompanyTile = (props) => {
     if(props.company.url != null) {
         if(props.company.url !== ".jpg") {
             let iconurl = props.company.url.replace('t_thumb', 't_logo_med')
-            iconurl = iconurl.replace('.jpg', '.png')
+
+            if(props.company.alpha_channel === 1) {
+                iconurl = iconurl.replace('.jpg', '.png')
+            }
+
+            iconurl = iconurl.replace(/^\/\// , 'https://')
+
             icon = <img src={iconurl} alt={props.company.name} className="CompanyTileIcon" />
         } else {
             console.log("Missing company icon : " + props.company.name);
