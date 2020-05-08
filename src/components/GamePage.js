@@ -33,7 +33,7 @@ const GamePage = () => {
 
     if(data.length > 0){
         title = data[0].name;
-        iconurl = data[0].box_art_url.replace('-{width}x{height}', '')
+        iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
     }
 
     return (
