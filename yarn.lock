@@ -912,6 +912,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.9.6":
+  version "7.9.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
+  integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.4.0", "@babel/template@^7.8.3", "@babel/template@^7.8.6":
   version "7.8.6"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.8.6.tgz#86b22af15f828dfb086474f964dcc3e39c43ce2b"
@@ -1729,6 +1736,11 @@ acorn@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.1.tgz#e35668de0b402f359de515c5482a1ab9f89a69bf"
   integrity sha512-add7dgA5ppRPxCFJoAGfMDi7PIBXq1RtGo7BhbLaxwrXPOmw8gq48Y9ozT01hUKy9byMjlR20EJhu5zlkErEkg==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
 
 address@1.1.2, address@^1.0.1:
   version "1.1.2"
@@ -4848,10 +4860,10 @@ highcharts-react-official@^3.0.0:
   resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.0.0.tgz#f2e81ed59d299c3473a0dd5ba5df24028875226a"
   integrity sha512-VefJgDY2hkT9gfppsQGrRF2g5u8d9dtfHGcx2/xqiP+PkZXCqalw9xOeKVCRvJKTOh0coiDFwvVjOvB7KaGl4A==
 
-highcharts@^8.0.4:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-8.0.4.tgz#a717434012bd5f9b82b94b737d62acec501d360c"
-  integrity sha512-RD86/w7VNwuY96c2Pv16dtZujJ4vg5viiVjbFF/TCrvFpmtQRzBIECG90ww0JtiK6+6TKlwCYf0an+kgQshnRw==
+highcharts@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-8.1.0.tgz#f93adaf8d53b0f83c74c9854f0ad10baec010d97"
+  integrity sha512-4KXq9t2/PU0cqKUtET7om9Kh5AyOinIn4vYi62oYVsb4ql5wyUYW06f9Si/ERG2Thoy/rcwNmR77upKjg8xhqQ==
 
 history@^4.9.0:
   version "4.10.1"

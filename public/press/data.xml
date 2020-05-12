@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<game>	
+	<title>Stream Camel</title>
+	<founding-date>March 1st, 2019</founding-date>
+	<website>http://www.streamcamel.com/</website>
+	<based-in>La Honda, California</based-in>
+	
+	<press-contact>contact@streamcamel.com</press-contact>
+	<phone>1-415-716-9821</phone>
+	<address>
+		<line>1116 Bur Oak Dr</line>
+		<line>Flower Mound, TX, 75028</line>
+		<line>USA</line>
+	</address>
+
+	<socials>
+		<social>
+			<name>twitter.com/MyCompanyName</name>
+			<link>twitter.com/MyCompanyName</link>
+		</social>
+		<social>
+			<name>facebook.com/MyCompanyName</name>
+			<link>facebook.com/MyCompanyName</link>
+		</social>
+	</socials>
+
+	<description>	
+	    We are gamers, and we love stats.
+	</description>
+		
+	<histories>
+		<history>
+			<header>Early history</header>
+			<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel nisi dolor. Pellentesque vitae eros velit, quis venenatis orci. Phasellus elit urna, semper ut gravida et, porta non dui. Aliquam erat volutpat. Aenean porta volutpat imperdiet. Maecenas venenatis, tellus eget vehicula vulputate, augue erat elementum quam, tincidunt laoreet magna orci et mauris. Proin porttitor pharetra nisi, accumsan sollicitudin neque varius a. Aenean ut massa ipsum, id hendrerit lacus. Maecenas posuere egestas nunc at cursus. Etiam mollis libero vel eros pulvinar aliquam. Sed vitae turpis sed nibh venenatis dictum. Sed suscipit orci justo, at sagittis ante. Sed leo nisl, ultricies in fermentum id, aliquam id dolor. Ut laoreet, felis id posuere bibendum, arcu ipsum lacinia est, eu lobortis velit enim eget mi. In ullamcorper ullamcorper enim ut gravida. Vivamus rutrum lacus mollis risus malesuada iaculis.</text>
+		</history>
+		<history>
+			<header>After that</header>
+			<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sem dui, volutpat eu adipiscing sed, rutrum aliquam lacus. Proin sollicitudin consequat dolor id dignissim. Aliquam sem turpis, sagittis lobortis viverra eget, varius vitae nunc. Proin ac lacus porttitor dui sollicitudin elementum. Nulla ut hendrerit est. Fusce vitae arcu erat, vel molestie est. Proin et placerat justo. Proin placerat arcu massa, eu blandit leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam eu lorem sed massa lobortis hendrerit vitae vel odio. Maecenas eget pulvinar tortor. Nunc vitae nisl ac odio bibendum luctus ac a leo. Suspendisse auctor elit et velit sagittis vehicula. Maecenas faucibus blandit rutrum. Duis et sem nibh. Vestibulum placerat elit et dui rhoncus accumsan.</text>
+		</history>
+	</histories>
+		
+	<trailers>
+		<trailer>
+			<name>This video is nice</name>
+			<youtube>7jQbITg0MSk</youtube>
+		</trailer>
+		<trailer>
+			<name>This one too</name>
+			<youtube>0CevOaYrYDA</youtube>
+			<vimeo>12536488</vimeo>
+		</trailer>
+	</trailers>
+	
+	<quotes>
+		<quote>
+			<description>This is a rather insignificant quote by a highly important person.</description>
+			<name>Person Name</name>
+			<website>Website</website>
+			<link>http://www.website.com/</link>
+		</quote>
+		<quote>
+			<description>An extremely positive quote from a rather insignificant person. Also great.</description>
+			<name>Some Guy</name>
+			<website>This Page Is Visited By 12 Visitors A Month</website>
+			<link>http://geocities.blog.com/</link>
+		</quote>
+		<quote>
+			<description>I pretend to love this game even though I do not actually understand it.</description>
+			<name>Pretentious Bastard</name>
+			<website>Artsy Page</website>
+			<link>http://art.tumblr.com/</link>
+		</quote>
+		<quote>
+			<description>HOLY SHIT SO AMAZING</description>
+			<name>Caps Guy</name>
+			<website>Angry Review</website>
+			<link>http://thispage.net/angrytube</link>
+		</quote>
+	</quotes>
+	
+	<press-can-request-copy>TRUE</press-can-request-copy> <!-- can be true or false -->
+	<monetization-permission>monetize</monetization-permission> <!-- can be: 	false (no video allowed),
+																			 	ask (permission on case-per-case basis),
+																			 	non-commercial (no monetization allowed),
+																			 	monetize (full permission) -->	
+	<additionals>
+		<additional>
+			<title>Implicit Conversions LLC</title>
+			<description>Business Company</description>
+			<link>https://www.implicitconversions.com</link>
+		</additional>
+	</additionals>
+	
+	<credits>
+		<credit>
+			<person>Robin Lavallee</person>
+			<role>Engineer, Co-Founder</role>
+		</credit>
+		<credit>
+			<person>Jacob P. Stine</person>
+			<role>Engineer, Co-Founder</role>
+		</credit>
+		<credit>
+			<person>Patrick Allaire</person>
+			<website>www.pallaire.com</website>
+			<role>Full-Stack Engineer, Designer</role>
+		</credit>
+		<credit>
+			<person>Jean-Sebastien Royer</person>
+			<website>www.jsr-productions.com</website>
+			<role>Moral Support - Engineer Extraordinaire</role>
+		</credit>
+	</credits>
+	
+	<contacts>
+		<contact>
+			<name>Inquiries</name>
+			<mail>contact@streamcamel.com</mail>
+		</contact>
+		<contact>
+			<name>Twitter</name>
+			<link>http://twitter.com/MyCompanyName</link>
+		</contact>
+		<contact>
+			<name>Facebook</name>
+			<link>http://facebook.com/MyCompanyName</link>
+		</contact>
+		<contact>
+			<name>Web</name>
+			<link>https://www.streamcamel.com</link>
+		</contact>
+	</contacts>
+</game>
