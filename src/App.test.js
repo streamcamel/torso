@@ -1,9 +1,21 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import { Router } from 'react-router-dom'
+import { createMemoryHistory} from 'history'
+import { screen } from '@testing-library/dom'
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('App component: Creation', () => {
+    const history = createMemoryHistory()
+
+    const { getByTitle } = render(
+        <Router history={history}>
+            <App />
+        </Router>
+    );
+
+    expect(getByTitle('PageHeader')).toBeTruthy();
+    expect(getByTitle('MainToolbar')).toBeTruthy();
+    expect(getByTitle('Carousel')).toBeTruthy();
+    expect(getByTitle('PageFooter')).toBeTruthy();
 });

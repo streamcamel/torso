@@ -33,14 +33,14 @@ const GamePage = () => {
 
     if(data.length > 0){
         title = data[0].name;
-        iconurl = data[0].box_art_url.replace('-{width}x{height}', '')
+        iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
     }
 
     return (
         <div className="GamePage">
             <h2 className="SectionTitle">{title}</h2>
             <div className="GamePageIconWrapper">
-                <img src={iconurl} alt={title} className="GamePageIcon" />
+                <img className="GamePageIcon" src={iconurl} alt={title} className="GamePageIcon" />
             </div>
         </div>
     );
