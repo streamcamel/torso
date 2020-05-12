@@ -11,7 +11,7 @@ const PageHeader = () => {
     };
 
     return (
-        <div className="PageHeader" onClick={onGoHome} > 
+        <div title="PageHeader" className="PageHeader" onClick={onGoHome} > 
             <img src={require("../images/pagelogo.png")} alt="logo" className="PageHeaderLogo" />
             <span>Stream Camel</span> 
         </div>

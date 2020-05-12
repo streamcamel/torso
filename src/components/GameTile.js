@@ -7,12 +7,19 @@ const GameTile = (props) => {
 
     const onClick = (e) => {
         e.preventDefault();
+
+        const selection = window.getSelection();
+        if (selection.toString()) {
+            return;
+        }
+
         history.push('/game/'+props.game.slug)
     }
 
     let iconurl = ""         
     if(props.game.box_art_url != null) {
-        iconurl = props.game.box_art_url.replace('-{width}x{height}', '')
+        // box size ration is 3:4
+        iconurl = props.game.box_art_url.replace('-{width}x{height}', '-90x120')
     }
 
     return (
