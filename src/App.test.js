@@ -5,7 +5,14 @@ import { createMemoryHistory} from 'history'
 import { screen } from '@testing-library/dom'
 import App from './App';
 
+jest.mock('react-chartjs-2', () => ({
+    Line: () => null,
+}))
+
+
 test('App component: Creation', () => {
+
+          
     const history = createMemoryHistory()
 
     const { getByTitle } = render(
