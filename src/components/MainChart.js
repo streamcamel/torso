@@ -3,8 +3,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
+import {Line} from 'react-chartjs-2';
 
 const MainChart = (props) => {
     let location = useLocation();
@@ -12,26 +11,19 @@ const MainChart = (props) => {
 
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
-    const refChart = useRef(null);
-
 
     const onChangeRange = (minutes) => {
         history.push({pathname:location.pathname, search:utils.URLSearchAddQuery(location.search, 'chartduration', minutes)});
     }
 
-    const onNewData = (newdata) => {
-        setData(newdata);
-
-        if(refChart && refChart.current && refChart.current.chart) {
-            refChart.current.chart.series[0].update(convertDataToChartData(newdata));
-        }
-    }
-
     const convertDataToChartData = (toconvert) => {
         let chartData = []
+        chartData.unshift([])
+        chartData.unshift([])
         toconvert.forEach(d => {
             let adate = new Date(Date.parse(d.time));
-            chartData.unshift([adate.getTime(), d.viewers_count])
+            chartData[0].unshift(adate)
+            chartData[1].unshift(d.viewers_count)
         });
 
         return chartData;
@@ -67,68 +59,13 @@ const MainChart = (props) => {
 
             fetch(url)
             .then(res => res.json())
-            .then(res => onNewData(res))
+            .then(res => setData(res))
 
             setPrevPath(location.pathname+location.search);
         }
     }, [location]);
 
-    let chartData = convertDataToChartData(data);
-
-    const options = {
-        chart: {
-            type: 'area',
-            backgroundColor: '#000000',
-            style: {
-                fontFamily: 'montserrat',
-                fontSize: '0.8em'
-            },
-        },
-        title: {
-          text: ''
-        },
-        legend: {
-            enabled: false
-        },
-        xAxis: {
-            type: 'datetime',
-            title: {
-                text: ''
-            },
-            labels: {
-                style:{
-                    fontFamily: 'montserrat',
-                    fontSize: '1.5em'
-                }
-            }            
-        },
-        yAxis: {
-            title: {
-                text: ''
-            },
-            labels: {
-                style:{
-                    fontFamily: 'montserrat',
-                    fontSize: '1.5em'
-                }
-            }            
-        },
-        tooltip: {
-            crosshairs: {
-                color: '#FFF',
-                dashStyle: 'solid'
-            },
-            shared: true
-        },
-        series: [{
-            name: 'Viewers',
-            color: 'rgba(0, 145, 255, 0.85)',
-            fillColor: 'rgba(0, 145, 255, 0.85)',
-            data: chartData
-        }]
-    }
-       
-
+    let timeUnit = '';
     let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
     let button01Selected = '';
     let button02Selected = '';
@@ -138,19 +75,79 @@ const MainChart = (props) => {
     switch(durationMinutes){
         case (8*60):
             button01Selected = 'MainChartButtonSelected'
+            timeUnit = 'hour';
             break;
         case (24*60):
             button02Selected = 'MainChartButtonSelected'
+            timeUnit = 'hour';
             break;
         case (7*24*60):
             button03Selected = 'MainChartButtonSelected'
+            timeUnit = 'day';
             break;
         case (30*24*60):
             button04Selected = 'MainChartButtonSelected'
+            timeUnit = 'day';
             break;
         case (3*30*24*60):
             button05Selected = 'MainChartButtonSelected'
+            timeUnit = 'week';
             break;
+    }
+
+    let chartData = convertDataToChartData(data);
+    const testdata = {
+        labels: chartData[0],
+        datasets: [{
+            label: 'Viewers',
+            backgroundColor: 'rgba(0, 145, 255, 0.5)',
+            borderColor: 'rgba(0, 145, 255, 0.85)',
+            borderCapStyle: 'round',
+            borderJoinStyle: 'round',
+            pointBorderColor: 'rgba(0, 145, 255, 0.85)',
+            pointBackgroundColor: 'rgba(0, 145, 255, 0.85)',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(0, 145, 255, 0.85)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: chartData[1]
+          }
+        ]
+    };
+
+    const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false
+        },
+        tooltip:{
+            mode: 'index',
+            intersect: false,
+        },
+        hover:{
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: timeUnit
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value, index, values) {
+                        return value.toLocaleString();
+                    }
+                }
+            }]
+        }
     }
 
     return (
@@ -158,12 +155,7 @@ const MainChart = (props) => {
             <h2 className="SectionTitle">Viewers</h2>
 
             <div className="MainChart">
-                <HighchartsReact
-                    ref={refChart}
-                    highcharts={Highcharts}
-                    options={options}
-                    containerProps={{ style: { height: "100%" } }}
-                />
+                <Line data={testdata} options={options} />
             </div>
 
             <div className="MainChartButtons">
