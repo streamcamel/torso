@@ -3,8 +3,6 @@ import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 
-// import Highcharts from 'highcharts'
-// import HighchartsReact from 'highcharts-react-official'
 import {Line} from 'react-chartjs-2';
 
 const MainChart = (props) => {
@@ -13,19 +11,9 @@ const MainChart = (props) => {
 
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
-    // const refChart = useRef(null);
-
 
     const onChangeRange = (minutes) => {
         history.push({pathname:location.pathname, search:utils.URLSearchAddQuery(location.search, 'chartduration', minutes)});
-    }
-
-    const onNewData = (newdata) => {
-        setData(newdata);
-
-        // if(refChart && refChart.current && refChart.current.chart) {
-        //     refChart.current.chart.series[0].update(convertDataToChartData(newdata));
-        // }
     }
 
     const convertDataToChartData = (toconvert) => {
@@ -71,7 +59,7 @@ const MainChart = (props) => {
 
             fetch(url)
             .then(res => res.json())
-            .then(res => onNewData(res))
+            .then(res => setData(res))
 
             setPrevPath(location.pathname+location.search);
         }
@@ -107,12 +95,10 @@ const MainChart = (props) => {
             break;
     }
 
-
     let chartData = convertDataToChartData(data);
     const testdata = {
         labels: chartData[0],
-        datasets: [
-          {
+        datasets: [{
             label: 'Viewers',
             backgroundColor: 'rgba(0, 145, 255, 0.5)',
             borderColor: 'rgba(0, 145, 255, 0.85)',
@@ -130,55 +116,43 @@ const MainChart = (props) => {
             data: chartData[1]
           }
         ]
-      };
+    };
 
-        const options = {
-            maintainAspectRatio: false,
-            responsive: true,
-            legend: {
-                display: false
-            },
-            tooltip:{
-                mode: 'index',
-                intersect: false,
-            },
-            hover:{
-                mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        unit: timeUnit
+    const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false
+        },
+        tooltip:{
+            mode: 'index',
+            intersect: false,
+        },
+        hover:{
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: timeUnit
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value, index, values) {
+                        return value.toLocaleString();
                     }
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        callback: function(value, index, values) {
-                            return value.toLocaleString();
-                        }
-                    }
-                }]
-            }
+                }
+            }]
         }
-
-
+    }
 
     return (
         <div className="ChartArea">
             <h2 className="SectionTitle">Viewers</h2>
-
-            {/* <div className="MainChart">
-                <HighchartsReact
-                    ref={refChart}
-                    highcharts={Highcharts}
-                    options={options}
-                    containerProps={{ style: { height: "100%" } }}
-                />
-            </div> */}
-
 
             <div className="MainChart">
                 <Line data={testdata} options={options} />
