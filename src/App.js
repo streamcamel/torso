@@ -1,5 +1,5 @@
 import React , { useEffect } from 'react';
-import { useLocation, useHistory, } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ReactGA from 'react-ga';
 
 import './App.css';

@@ -26,7 +26,7 @@ const GamePage = () => {
             setPrevPath(location.pathname);
         }
 
-    }, [location, data]);
+    }, [location, data, prevPath]);
     
     let title = '';
     let iconurl = '';
@@ -40,7 +40,7 @@ const GamePage = () => {
         <div className="GamePage">
             <h2 className="SectionTitle">{title}</h2>
             <div className="GamePageIconWrapper">
-                <img className="GamePageIcon" src={iconurl} alt={title} className="GamePageIcon" />
+                <img className="GamePageIcon" src={iconurl} alt={title} />
             </div>
         </div>
     );

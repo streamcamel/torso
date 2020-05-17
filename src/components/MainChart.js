@@ -1,4 +1,4 @@
-import React , { useState, useEffect, useRef } from 'react';
+import React , { useState, useEffect } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
@@ -63,7 +63,7 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location]);
+    }, [location, prevPath]);
 
     let timeUnit = '';
     let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
@@ -90,6 +90,7 @@ const MainChart = (props) => {
             timeUnit = 'day';
             break;
         case (3*30*24*60):
+        default:
             button05Selected = 'MainChartButtonSelected'
             timeUnit = 'week';
             break;
