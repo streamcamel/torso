@@ -41,7 +41,11 @@
 
 
 
-
+.helperVerticalCenter {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 
 
 .PageFooter {
@@ -52,19 +56,29 @@
   margin: 0;
 }
 
+.PageFooterLogo {
+  width: auto;
+  height: 1.5em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
 .FooterLink {
   cursor: pointer;
 }
 
 .FooterLink:link, .FooterLink:visited, .FooterLink:hover, .FooterLink:active {
+  color: #0091FF;
   text-decoration: none;
 }
 
 .FooterLeft {
-  color: #0091FF;
+  color: #4D4D4D;
   position: absolute;
   left: 0;
   margin-left: 1em;
+  line-height: 2em;
+  display: flex;
 }
 
 .FooterRight {
@@ -72,14 +86,10 @@
   position: absolute;
   right: 0;
   margin-right: 1em;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
 }
-
-.FooterCenter {
-  color: #545454;
-}
-
-
-
 
 
 .MainToolbar {
