@@ -35,7 +35,7 @@ const SingleCompanyPage = () => {
 
             setPrevPath(location.pathname);
         }
-    }, [location, dataGames, dataCompanies]);
+    }, [location, dataGames, dataCompanies, prevPath]);
     
 
     let tileGrid = null;

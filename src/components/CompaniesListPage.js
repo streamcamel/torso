@@ -49,7 +49,7 @@ const Carousel = () => {
             setPrevPath(location.pathname);
             setItemCountMax(itemCountIncrement);
         }
-    }, [location, data]);
+    }, [location, data, itemCountIncrement, prevPath]);
     
     let command = utils.pathToCommand(location.pathname);
     let tileGrid = null;
