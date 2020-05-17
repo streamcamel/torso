@@ -292,6 +292,20 @@
   background-color: #0091FF;
 }
 
+.ModalPolicyDialog {
+    position: absolute;
+    top: 10em;
+    left: 2em;
+    right: 2em;
+    bottom: 2em;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 2em;
+}
+
 .ModalPolicy {
   font-size: 1em;
 }
@@ -305,6 +319,7 @@
   font-size: 2em;
   position: absolute;
   right: 1em;
+  cursor: pointer;
 }
 
 
@@ -332,6 +347,10 @@
   .GameTile {
     width: 30%;
   }  
+
+  .ModalPolicyDialog {
+    top: 8em;
+  }
 
   .ModalPolicy {
     font-size: 0.7em;
