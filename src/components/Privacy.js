@@ -19,7 +19,7 @@ const Privacy = () => {
 
         <Modal 
         isOpen={showPrivacy}
-        contentLabel="Example Modal">
+        className="ModalPolicyDialog">
 
         <div className="ModalPolicy">
             <span className="ModalPolicyTitle">Privacy Policy</span><span title="X" className="ModalPolicyCloseButton" onClick={onHidePrivacy}>X</span>

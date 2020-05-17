@@ -12,9 +12,18 @@ const PageFooter = () => {
 
     return (
         <div title="PageFooter" className="PageFooter">
-            <span className="FooterLink FooterLeft" onClick={onShowPrivacy}>Privacy</span>
-            <span className="FooterCenter">Stream Camel © 2020</span>
-            <a href="mailto://contact@streamcamel.com" className="FooterLink FooterRight">Contact</a>
+            <div className="FooterLeft">
+                <span className=".helperVerticalCenter">
+                    <img src={require("../images/pagelogotiny.png")} alt="logo" className="PageFooterLogo" />
+                </span>
+                <span>Stream Camel © 2020</span>
+            </div>
+
+            <div className="FooterRight">
+                <span className="FooterLink" onClick={onShowPrivacy}>Privacy</span>
+                <a href="/press/index.php" className="FooterLink">Press</a>
+                <a href="mailto://contact@streamcamel.com" className="FooterLink">Contact</a>
+            </div>
         </div>
     );
 }
