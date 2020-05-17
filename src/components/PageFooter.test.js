@@ -17,6 +17,7 @@ test('PageFooter component: Creation', () => {
     expect(getByText(/Privacy/)).toBeTruthy();
     expect(getByText(/Stream Camel © 2020/)).toBeTruthy();
     expect(getByText(/Contact/)).toBeTruthy();
+    expect(getByText(/About Us/)).toBeTruthy();
     expect(getByText(/Contact/).closest('a')).toHaveAttribute('href', 'mailto://contact@streamcamel.com');
 });
 
