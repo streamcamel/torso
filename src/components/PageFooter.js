@@ -21,7 +21,7 @@ const PageFooter = () => {
 
             <div className="FooterRight">
                 <span className="FooterLink" onClick={onShowPrivacy}>Privacy</span>
-                <a href="/press/index.php" className="FooterLink">Press</a>
+                <a href="/press/index.php" className="FooterLink">About Us</a>
                 <a href="mailto://contact@streamcamel.com" className="FooterLink">Contact</a>
             </div>
         </div>
