@@ -17,7 +17,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-        <Route exact path="/public/press/index.php" render={reload} />
+        <Route exact path="/press/index.php" render={reload} />
         <Route path="/">
           <App />
         </Route>
