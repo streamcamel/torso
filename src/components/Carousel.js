@@ -5,6 +5,7 @@ import CompaniesListPage from './CompaniesListPage'
 import GamePage from './GamePage'
 import MainChart from './MainChart'
 import SingleCompanyPage from './SingleCompanyPage'
+import TopGames from './TopGames'
 
 
 const Carousel = () => {
@@ -24,6 +25,9 @@ const Carousel = () => {
                 </Route>
                 <Route path="/game">
                     <GamePage />
+                </Route>
+                <Route path="/topgames">
+                    <TopGames />
                 </Route>
             </Switch>
         </div>
