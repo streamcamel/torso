@@ -12,6 +12,8 @@ const GameTile = (props) => {
         if (selection.toString()) {
             return;
         }
+        
+        console.log(props.game);
 
         history.push('/game/'+props.game.slug)
     }

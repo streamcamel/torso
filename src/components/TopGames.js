@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 
 import * as appConfig from '../config'
-import * as utils from '../utils'
 
-import CompanyTile from './CompanyTile'
+import GameTile from './GameTile'
 import LoadMore from './LoadMore'
 
 const Carousel = () => {
@@ -33,62 +32,42 @@ const Carousel = () => {
             return;
         }
         
-        history.push('/topgames');
+        history.push('/');
     }
+    
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         if(prevPath !== location.pathname)
         {
-            let command = utils.pathToCommand(location.pathname);
-            let slug = utils.pathToSlug(location.pathname);
-            let url = '';
-            switch(command) {
-                case 'search':
-                    url = appConfig.backendURL('/search_companies?q=' + slug);
-                    fetch(url)
-                    .then(res => res.json())
-                    .then(res => setData(res))
-                    break;
+            let url = appConfig.backendURL('/top_games?limit=100');
+            fetch(url)
+                .then(res => res.json())
+                .then(res => setData(res))
 
-                default:
-                    url = appConfig.backendURL('/top_companies?period=1w');
-                    fetch(url)
-                    .then(res => res.json())
-                    .then(res => setData(res))
-                    break;
-            }
             setPrevPath(location.pathname);
             setItemCountMax(itemCountIncrement);
         }
     }, [location, data, itemCountIncrement, prevPath]);
     
-    let command = utils.pathToCommand(location.pathname);
     let tileGrid = null;
-    let title = '';
-
-    if(command === 'search'){
-        title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Search Results</span></h2>
-    } else {
-        title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Games</span></h2>
-    }
 
     let tiles = [];
     for(var i = 0; i < data.length; i++){
         if(i === itemCountMax)
             break;
 
-        let acompany = data[i];
-        let key = 'companykey'+acompany.id
+        let agame = data[i];
+        let key = 'gamekey'+agame.game_id;
         tiles.push(
-            <CompanyTile key={key} company={acompany}/>
+            <GameTile key={key} game={agame}/>
         );
     }
     tileGrid = <div className="CompaniesGrid"> {tiles} </div>
 
     return (
-        <div className="CompaniesListPage">
-            {title}
+        <div className="TopGamePage">
+            <h2 className="SectionTitle"><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleSelected">Top Games</span></h2>
             {tileGrid}
 
             <LoadMore onLoadMore={onLoadMore} />
