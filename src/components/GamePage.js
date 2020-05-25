@@ -30,17 +30,22 @@ const GamePage = () => {
     
     let title = '';
     let iconurl = '';
+    let description = '';
 
     if(data.length > 0){
         title = data[0].name;
         iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
+        description = data[0].storyline;
     }
 
     return (
         <div className="GamePage">
             <h2 className="SectionTitle">{title}</h2>
-            <div className="GamePageIconWrapper">
-                <img className="GamePageIcon" src={iconurl} alt={title} />
+            <div className="GamePageXContent">
+                <div className="GamePageIconWrapper">
+                    <img className="GamePageIcon" src={iconurl} alt={title} />
+                </div>
+                <div className="GamePageDescription">{description}</div>
             </div>
         </div>
     );
