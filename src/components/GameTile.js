@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
+import { numberWithCommas } from '../utils';
+
+
 
 const GameTile = (props) => {
     let history = useHistory();
@@ -30,7 +33,7 @@ const GameTile = (props) => {
                 <img src={iconurl} alt={props.game.name} className="GameTileIcon" />
             </div>
             <div className="GameTileName">{props.game.name}</div>
-            <div className="GameTileViewsCount">{props.game.viewers} viewers</div>
+            <div className="GameTileViewsCount">{ numberWithCommas(props.game.viewers) } viewers</div>
         </div>
     );
 };
