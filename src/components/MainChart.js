@@ -11,9 +11,11 @@ const MainChart = (props) => {
 
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
+    const [duration, setDuration] = useState(0);
 
     const onChangeRange = (minutes) => {
         history.push({pathname:location.pathname, search:utils.URLSearchAddQuery(location.search, 'chartduration', minutes)});
+        setDuration(minutes);
     }
 
     const convertDataToChartData = (toconvert) => {
@@ -28,14 +30,24 @@ const MainChart = (props) => {
 
         return chartData;
     }
+    
+    const safeGetDuration = () => {
+        if(duration === 0) {
+            let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
+            setDuration(durationMinutes);
+            return durationMinutes;
+        } 
+        
+        return duration;
+    }
 
     useEffect(() => {
         if(prevPath !== (location.pathname+location.search))
         {
             let command = utils.pathToCommand(location.pathname);
             let slug = utils.pathToSlug(location.pathname);
-
-            let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
+            let durationMinutes = safeGetDuration();
+            
             let datenow = new Date()
             let datethen = new Date()
             datethen.setMinutes(datethen.getMinutes() - durationMinutes)
@@ -63,10 +75,10 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, prevPath]);
+    }, [location, prevPath, duration]);
 
     let timeUnit = '';
-    let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
+    let durationMinutes = safeGetDuration();
     let button01Selected = '';
     let button02Selected = '';
     let button03Selected = '';
