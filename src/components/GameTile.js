@@ -16,9 +16,9 @@ const GameTile = (props) => {
             return;
         }
         
-        console.log(props.game);
-
-        history.push('/game/'+props.game.slug)
+        if(props.game.slug !== null) {
+            history.push('/game/'+props.game.slug)
+        }
     }
 
     let iconurl = ""         

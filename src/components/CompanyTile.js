@@ -14,7 +14,9 @@ const CompanyTile = (props) => {
             return;
         }
         
-        history.push('/company/'+props.company.slug)
+        if(props.company.slug !== null) {
+            history.push('/company/'+props.company.slug)
+        }
     }
 
     let icon = null         
