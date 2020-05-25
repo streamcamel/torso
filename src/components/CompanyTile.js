@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
+import { numberWithCommas } from '../utils';
+
 const CompanyTile = (props) => {
     let history = useHistory();
 
@@ -41,7 +43,7 @@ const CompanyTile = (props) => {
                 {icon}
             </div>
             <div className="CompanyTileName">{props.company.name}</div>
-            <div className="CompanyTileViewsCount">{props.company.viewer_count_average} viewers</div>
+            <div className="CompanyTileViewsCount">{numberWithCommas(props.company.viewer_count_average)} viewers</div>
         </div>
     );
 };
