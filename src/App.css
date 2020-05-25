@@ -246,8 +246,15 @@
 
 
 
+.GamePageDescription {
+  width: 60%;
+  float: right;
+  text-align: justify;
+}
+
 .GamePageIconWrapper {
-  max-width: 100%;
+  display: inline-block;
+  max-width: 30%;
 }
 
 .GamePageIcon {
