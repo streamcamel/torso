@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import { numberWithCommas } from '../utils';
 
@@ -7,6 +7,7 @@ import { numberWithCommas } from '../utils';
 
 const GameTile = (props) => {
     let history = useHistory();
+    let location = useLocation();
 
     const onClick = (e) => {
         e.preventDefault();
@@ -17,7 +18,7 @@ const GameTile = (props) => {
         }
         
         if(props.game.slug !== null) {
-            history.push('/game/'+props.game.slug)
+            history.push({pathname:('/game/'+props.game.slug), search:location.search});
         }
     }
 

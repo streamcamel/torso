@@ -33,7 +33,7 @@ const Carousel = () => {
             return;
         }
         
-        history.push('/topgames');
+        history.push({pathname:'/topgames', search:location.search});
     }
     
     // Similar to componentDidMount and componentDidUpdate:
