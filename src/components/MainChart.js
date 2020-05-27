@@ -48,9 +48,14 @@ const MainChart = (props) => {
             let slug = utils.pathToSlug(location.pathname);
             let durationMinutes = safeGetDuration();
             
-            let datenow = new Date()
-            let datethen = new Date()
-            datethen.setMinutes(datethen.getMinutes() - durationMinutes)
+            let datenow = new Date();
+            let datethen = new Date();
+            
+            if(durationMinutes === -1) {
+                datethen = new Date('2020-01-01');
+            } else {
+                datethen.setMinutes(datethen.getMinutes() - durationMinutes);
+            }
 
             let request = utils.URLSearchAddQuery('', 'before', datenow.toISOString());
             request = utils.URLSearchAddQuery(request, 'after', datethen.toISOString());
@@ -84,7 +89,12 @@ const MainChart = (props) => {
     let button03Selected = '';
     let button04Selected = '';
     let button05Selected = '';
+    let button06Selected = '';
     switch(durationMinutes){
+        case -1:
+            button06Selected = 'MainChartButtonSelected'
+            timeUnit = 'day';
+            break;
         case (8*60):
             button01Selected = 'MainChartButtonSelected'
             timeUnit = 'hour';
@@ -104,7 +114,7 @@ const MainChart = (props) => {
         case (3*30*24*60):
         default:
             button05Selected = 'MainChartButtonSelected'
-            timeUnit = 'week';
+            timeUnit = 'day';
             break;
     }
 
@@ -177,6 +187,7 @@ const MainChart = (props) => {
                 <div className={"MainChartButton " + button03Selected}  onClick={() => onChangeRange(7*24*60)}>7 Days</div>
                 <div className={"MainChartButton " + button04Selected}  onClick={() => onChangeRange(30*24*60)}>1 Month</div>
                 <div className={"MainChartButton " + button05Selected}  onClick={() => onChangeRange(3*30*24*60)}>3 Months</div>
+                <div className={"MainChartButton " + button06Selected}  onClick={() => onChangeRange(-1)}>All</div>
             </div>
         </div>
     )
