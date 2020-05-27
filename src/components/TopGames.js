@@ -32,7 +32,7 @@ const Carousel = () => {
             return;
         }
         
-        history.push('/');
+        history.push({pathname:'/', search:location.search});
     }
     
     

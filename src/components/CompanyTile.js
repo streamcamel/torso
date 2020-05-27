@@ -1,10 +1,11 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import { numberWithCommas } from '../utils';
 
 const CompanyTile = (props) => {
     let history = useHistory();
+    let location = useLocation();
 
     const onClick = (e) => {
         e.preventDefault();
@@ -15,7 +16,7 @@ const CompanyTile = (props) => {
         }
         
         if(props.company.slug !== null) {
-            history.push('/company/'+props.company.slug)
+            history.push({pathname:('/company/'+props.company.slug), search:location.search});
         }
     }
 
