@@ -10,6 +10,9 @@ const GameTile = (props) => {
     let location = useLocation();
 
     const onClick = (e) => {
+        
+        console.log('CLICK')
+        
         e.preventDefault();
 
         const selection = window.getSelection();
@@ -27,14 +30,16 @@ const GameTile = (props) => {
         // box size ration is 3:4
         iconurl = props.game.box_art_url.replace('-{width}x{height}', '-90x120')
     }
+    
+    let viewers = numberWithCommas(props.game.viewers);
 
     return (
         <div className="GameTile" onClick={onClick}>
             <div className="GameTileIconWrapper">
-                <img src={iconurl} alt={props.game.name} className="GameTileIcon" />
+                <img src={iconurl} alt={'boximg-'+props.game.slug} className="GameTileIcon" />
             </div>
             <div className="GameTileName">{props.game.name}</div>
-            <div className="GameTileViewsCount">{ numberWithCommas(props.game.viewers) } viewers</div>
+            <div className="GameTileViewsCount">{ viewers } viewers</div>
         </div>
     );
 };
