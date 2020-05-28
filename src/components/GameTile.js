@@ -10,9 +10,6 @@ const GameTile = (props) => {
     let location = useLocation();
 
     const onClick = (e) => {
-        
-        console.log('CLICK')
-        
         e.preventDefault();
 
         const selection = window.getSelection();
