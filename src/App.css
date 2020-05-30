@@ -147,6 +147,8 @@
 }
 
 
+
+
 .CompaniesGrid {
   display: flex;
   flex-wrap: wrap;
@@ -196,6 +198,10 @@
   font-size: 0.75em;
 }
 
+.CompanyDescription {
+  text-align: justify;
+  margin-bottom: 2em;  
+}
 
 
 
@@ -241,7 +247,6 @@
   text-align: left;
   font-size: 0.75em;
 }
-
 
 
 
