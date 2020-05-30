@@ -4,9 +4,8 @@ import { Route, Switch } from "react-router-dom";
 import CompaniesListPage from './CompaniesListPage'
 import GamePage from './GamePage'
 import MainChart from './MainChart'
-import SingleCompanyPage from './SingleCompanyPage'
+import GamesListPage from './GamesListPage'
 import TopGames from './TopGames'
-
 
 const Carousel = () => {
 
@@ -21,7 +20,7 @@ const Carousel = () => {
                     <CompaniesListPage />
                 </Route>
                 <Route path="/company">
-                    <SingleCompanyPage />
+                    <GamesListPage />
                 </Route>
                 <Route path="/game">
                     <GamePage />
