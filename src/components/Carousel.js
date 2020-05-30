@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from "react-router-dom";
 
 import CompaniesListPage from './CompaniesListPage'
-import GamePage from './GamePage'
+import SingleGamePage from './SingleGamePage'
 import MainChart from './MainChart'
 import GamesListPage from './GamesListPage'
 import TopGames from './TopGames'
@@ -23,7 +23,7 @@ const Carousel = () => {
                     <GamesListPage />
                 </Route>
                 <Route path="/game">
-                    <GamePage />
+                    <SingleGamePage />
                 </Route>
                 <Route path="/topgames">
                     <TopGames />

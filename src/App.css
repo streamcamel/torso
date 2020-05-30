@@ -251,18 +251,18 @@
 
 
 
-.GamePageDescription {
+.SingleGamePageDescription {
   width: 60%;
   float: right;
   text-align: justify;
 }
 
-.GamePageIconWrapper {
+.SingleGamePageIconWrapper {
   display: inline-block;
   max-width: 30%;
 }
 
-.GamePageIcon {
+.SingleGamePageIcon {
   max-width: 100%;
 }
 
