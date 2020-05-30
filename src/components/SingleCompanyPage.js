@@ -40,9 +40,21 @@ const SingleCompanyPage = () => {
 
     let tileGrid = null;
     let title = '';
-
     if(dataCompanies.length > 0){
         title = dataCompanies[0].name
+    }
+    
+    let description = '';
+    if(dataCompanies.length>0 && dataCompanies[0].description !== null) {
+        let lines = utils.textToParagraphs(dataCompanies[0].description);
+        let paragraphs = [];
+        for(let aline of lines) {
+            paragraphs.push(
+                <p>{aline}</p>
+            );
+        }
+        
+        description = <div className="CompanyDescription">{paragraphs}</div>
     }
 
     let tiles = []
@@ -57,6 +69,7 @@ const SingleCompanyPage = () => {
     return (
         <div className="SingleCompanyPage">
             <h2 className="SectionTitle">{title}</h2>
+            {description}
             {tileGrid}
         </div>
     );

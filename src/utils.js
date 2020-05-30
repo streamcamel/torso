@@ -104,3 +104,19 @@ export function URLSearchGetQueryInt(queryString, getQueryKey, defaultValue=NaN)
 export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export function textToParagraphs(str) {
+    let res = [];
+    
+    if(str!==undefined && str!==null && str.length>0) {
+        let lines = str.split(/\r?\n/);
+        for(let aline of lines) {
+            aline = aline.trim();
+            if(aline.length >0) {
+                res.push(aline);
+            }
+        }
+    }
+    
+    return res;
+}
