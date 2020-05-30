@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 
 import * as appConfig from '../config'
@@ -14,6 +14,10 @@ const Carousel = () => {
 
     const [data, setData] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
+    const [filter, setFilter] = useState('');
+    
+    const refInput = useRef(null);
+
     
     let itemCountIncrement = 18;
     if(window.innerWidth <= 800) {
@@ -35,6 +39,11 @@ const Carousel = () => {
         
         history.push({pathname:'/topgames', search:location.search});
     }
+    
+    const onFilter = (event) => {
+        setFilter(event.target.value.toLocaleLowerCase());
+    }
+    
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
@@ -61,7 +70,7 @@ const Carousel = () => {
             setPrevPath(location.pathname);
             setItemCountMax(itemCountIncrement);
         }
-    }, [location, data, itemCountIncrement, prevPath]);
+    }, [location, data, itemCountIncrement, prevPath, filter]);
     
     let command = utils.pathToCommand(location.pathname);
     let tileGrid = null;
@@ -75,10 +84,15 @@ const Carousel = () => {
 
     let tiles = [];
     for(var i = 0; i < data.length; i++){
-        if(i === itemCountMax)
-            break;
-
         let acompany = data[i];
+
+        if(i >= itemCountMax)
+            break;
+        
+        if(filter!=='' && acompany.name.toLocaleLowerCase().indexOf(filter)===-1){
+            continue;
+        }
+        
         let key = 'companykey'+acompany.id
         tiles.push(
             <CompanyTile key={key} company={acompany}/>
@@ -88,7 +102,13 @@ const Carousel = () => {
 
     return (
         <div className="CompaniesListPage">
-            {title}
+            <div className="TileListHeader">
+                {title}
+                <div className="TileListSearch">
+                    <span className="TileListTitle">Filter </span>
+                    <input ref={refInput} type="text" onChange={onFilter} />
+                </div>
+            </div>
             {tileGrid}
 
             <LoadMore onLoadMore={onLoadMore} />
