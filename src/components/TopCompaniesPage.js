@@ -5,7 +5,7 @@ import * as appConfig from '../config'
 import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
 
-const CompaniesListPage = () => {
+const TopCompaniesPage = () => {
     
     let location = useLocation();
     let history = useHistory();
@@ -38,17 +38,8 @@ const CompaniesListPage = () => {
         {
             let command = utils.pathToCommand(location.pathname);
             let slug = utils.pathToSlug(location.pathname);
-            let url = '';
-            switch(command) {
-                case 'search':
-                    url = appConfig.backendURL('/search_companies?q=' + slug);
-                    break;
+            let url = appConfig.backendURL('/top_companies?period=1w');
 
-                default:
-                    url = appConfig.backendURL('/top_companies?period=1w');
-                    break;
-            }
-            
             fetch(url)
                 .then(res => res.json())
                 .then(res => setData(res))
@@ -58,16 +49,10 @@ const CompaniesListPage = () => {
     }, [location, data, prevPath, filter]);
     
     let command = utils.pathToCommand(location.pathname);
-    let title = '';
-
-    if(command === 'search'){
-        title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Search Results</span></h2>
-    } else {
-        title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Games</span></h2>
-    }
+    let title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Games</span></h2>
 
     return (
-        <div className="CompaniesListPage">
+        <div className="TopCompaniesPage">
             <div className="TileListHeader">
                 {title}
                 <div className="TileListSearch">
@@ -81,4 +66,4 @@ const CompaniesListPage = () => {
     );
 };
 
-export default CompaniesListPage;
+export default TopCompaniesPage;

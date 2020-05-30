@@ -6,7 +6,7 @@ import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
 
 
-const GamesListPage = () => {
+const SingleCompanyPage = () => {
     let location = useLocation();
 
     const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
@@ -55,7 +55,7 @@ const GamesListPage = () => {
     }
 
     return (
-        <div className="GamesListPage">
+        <div className="SingleCompanyPage">
             <h2 className="SectionTitle">{title}</h2>
             {description}
             <CompaniesAndGamesList data={dataGames} />
@@ -63,4 +63,4 @@ const GamesListPage = () => {
     );
 };
 
-export default GamesListPage;
+export default SingleCompanyPage;
