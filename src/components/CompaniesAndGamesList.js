@@ -35,13 +35,11 @@ const CompaniesAndGamesList = (props) => {
             
             if( ('company_id' in anObject) || ('game_id' in anObject)) {
                 //this is a game tile
-                console.log('game tile')
                 tiles.push(
                     <GameTile key={'game_'+anObject.game_id} game={anObject}/>
                 );
             } else {
                 //this is a company tile
-                console.log('company tile')
                 tiles.push(
                     <CompanyTile key={'company_'+anObject.id} company={anObject}/>
                 );
