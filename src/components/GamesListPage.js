@@ -3,11 +3,10 @@ import { useLocation } from "react-router-dom";
 
 import * as appConfig from '../config'
 import * as utils from '../utils'
+import CompaniesAndGamesList from './CompaniesAndGamesList'
 
-import GameTile from './GameTile'
 
-
-const SingleCompanyPage = () => {
+const GamesListPage = () => {
     let location = useLocation();
 
     const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
@@ -23,22 +22,20 @@ const SingleCompanyPage = () => {
 
             setDataGames([])
             url = appConfig.backendURL('/top_games?company='+slug);
-            fetch(url)
-            .then(res => res.json())
-            .then(res => setDataGames(res))
+                fetch(url)
+                .then(res => res.json())
+                .then(res => setDataGames(res))
 
             setDataCompanies([])
             url = appConfig.backendURL('/companies/'+slug);
-            fetch(url)
-            .then(res => res.json())
-            .then(res => setDataCompanies(res))
+                fetch(url)
+                .then(res => res.json())
+                .then(res => setDataCompanies(res))
 
             setPrevPath(location.pathname);
         }
     }, [location, dataGames, dataCompanies, prevPath]);
     
-
-    let tileGrid = null;
     let title = '';
     if(dataCompanies.length > 0){
         title = dataCompanies[0].name
@@ -57,22 +54,13 @@ const SingleCompanyPage = () => {
         description = <div className="CompanyDescription">{paragraphs}</div>
     }
 
-    let tiles = []
-    dataGames.forEach(agame => {
-        let key = 'gamekey'+agame.game_id
-        tiles.push(
-            <GameTile key={key} game={agame}/>
-        );
-    });
-    tileGrid = <div className="CompaniesGrid"> {tiles} </div>
-
     return (
-        <div className="SingleCompanyPage">
+        <div className="GamesListPage">
             <h2 className="SectionTitle">{title}</h2>
             {description}
-            {tileGrid}
+            <CompaniesAndGamesList data={dataGames} />
         </div>
     );
 };
 
-export default SingleCompanyPage;
+export default GamesListPage;

@@ -3,11 +3,9 @@ import { useLocation, useHistory } from "react-router-dom";
 
 import * as appConfig from '../config'
 import * as utils from '../utils'
+import CompaniesAndGamesList from './CompaniesAndGamesList'
 
-import CompanyTile from './CompanyTile'
-import LoadMore from './LoadMore'
-
-const Carousel = () => {
+const CompaniesListPage = () => {
     
     let location = useLocation();
     let history = useHistory();
@@ -18,17 +16,6 @@ const Carousel = () => {
     
     const refInput = useRef(null);
 
-    
-    let itemCountIncrement = 18;
-    if(window.innerWidth <= 800) {
-        itemCountIncrement = 9;
-    }
-    const [itemCountMax, setItemCountMax] = useState(itemCountIncrement);
-
-    const onLoadMore = () => {
-        setItemCountMax(itemCountMax+itemCountIncrement);
-    };
-    
     const onClickSectionTitle = (e) => {
         e.preventDefault();
 
@@ -55,25 +42,22 @@ const Carousel = () => {
             switch(command) {
                 case 'search':
                     url = appConfig.backendURL('/search_companies?q=' + slug);
-                    fetch(url)
-                    .then(res => res.json())
-                    .then(res => setData(res))
                     break;
 
                 default:
                     url = appConfig.backendURL('/top_companies?period=1w');
-                    fetch(url)
-                    .then(res => res.json())
-                    .then(res => setData(res))
                     break;
             }
+            
+            fetch(url)
+                .then(res => res.json())
+                .then(res => setData(res))
+            
             setPrevPath(location.pathname);
-            setItemCountMax(itemCountIncrement);
         }
-    }, [location, data, itemCountIncrement, prevPath, filter]);
+    }, [location, data, prevPath, filter]);
     
     let command = utils.pathToCommand(location.pathname);
-    let tileGrid = null;
     let title = '';
 
     if(command === 'search'){
@@ -81,24 +65,6 @@ const Carousel = () => {
     } else {
         title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Games</span></h2>
     }
-
-    let tiles = [];
-    for(var i = 0; i < data.length; i++){
-        let acompany = data[i];
-
-        if(i >= itemCountMax)
-            break;
-        
-        if(filter!=='' && acompany.name.toLocaleLowerCase().indexOf(filter)===-1){
-            continue;
-        }
-        
-        let key = 'companykey'+acompany.id
-        tiles.push(
-            <CompanyTile key={key} company={acompany}/>
-        );
-    }
-    tileGrid = <div className="CompaniesGrid"> {tiles} </div>
 
     return (
         <div className="CompaniesListPage">
@@ -109,11 +75,10 @@ const Carousel = () => {
                     <input ref={refInput} type="text" onChange={onFilter} />
                 </div>
             </div>
-            {tileGrid}
-
-            <LoadMore onLoadMore={onLoadMore} />
+    
+            <CompaniesAndGamesList data={data} filter={filter} />
         </div>
     );
 };
 
-export default Carousel;
+export default CompaniesListPage;
