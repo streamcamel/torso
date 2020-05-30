@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
-import GamePage from './GamePage';
+import SingleGamePage from './SingleGamePage';
 
 import fetch from 'node-fetch';
 global.fetch = fetch;
@@ -23,7 +23,7 @@ const data = [{
 
 
 
-test('GamePage component: Creation', () => {
+test('SingleGamePage component: Creation', () => {
 
 
     const history = createMemoryHistory()
@@ -32,7 +32,7 @@ test('GamePage component: Creation', () => {
     act(() => {
     const { getByText, getByRole} = render(
         <Router history={history}>
-            <GamePage />
+            <SingleGamePage />
         </Router>
     );
 

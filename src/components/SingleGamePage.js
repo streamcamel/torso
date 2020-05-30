@@ -5,7 +5,7 @@ import * as appConfig from '../config'
 import * as utils from '../utils'
 
 
-const GamePage = () => {
+const SingleGamePage = () => {
     let location = useLocation();
 
     const [data, setData] = useState([]); // Data state for the companies/games
@@ -39,16 +39,16 @@ const GamePage = () => {
     }
 
     return (
-        <div className="GamePage">
+        <div className="SingleGamePage">
             <h2 className="SectionTitle">{title}</h2>
-            <div className="GamePageXContent">
-                <div className="GamePageIconWrapper">
-                    <img className="GamePageIcon" src={iconurl} alt={title} />
+            <div className="SingleGamePageXContent">
+                <div className="SingleGamePageIconWrapper">
+                    <img className="SingleGamePageIcon" src={iconurl} alt={title} />
                 </div>
-                <div className="GamePageDescription">{description}</div>
+                <div className="SingleGamePageDescription">{description}</div>
             </div>
         </div>
     );
 };
 
-export default GamePage
+export default SingleGamePage
