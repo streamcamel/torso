@@ -129,10 +129,23 @@
   max-width: 1200px;
 }
 
+
+.SectionHeader{
+  position: relative;
+  width: 100%;
+  height: 2em;
+  line-height: 2em;
+  padding: 1em 0 1em;
+}
+
 .SectionTitle {
   color: #0091FF;
   text-align: left;
   font-weight: 400;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  margin: 0;
 }
 
 .SectionTitleClickable{
@@ -146,6 +159,12 @@
   margin-right: 0.7em;
 }
 
+.SectionHeaderFilter{
+  color: #0091FF;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
 
 
 

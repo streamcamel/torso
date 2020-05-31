@@ -51,7 +51,7 @@ const CompaniesAndGamesList = (props) => {
     }
     
     return (
-        <div className="CompaniesListPage">
+        <div className="CompaniesAndGamesList">
             {tileGrid}
             <LoadMore onLoadMore={onLoadMore} />
         </div>
