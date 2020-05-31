@@ -3,6 +3,7 @@ import { useLocation, useHistory } from "react-router-dom";
 
 import * as appConfig from '../config'
 import * as utils from '../utils'
+import SectionHeader from './SectionHeader'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
 
 const TopCompaniesPage = () => {
@@ -27,8 +28,8 @@ const TopCompaniesPage = () => {
         history.push({pathname:'/topgames', search:location.search});
     }
     
-    const onFilter = (event) => {
-        setFilter(event.target.value.toLocaleLowerCase());
+    const onFilter = (str) => {
+        setFilter(str);
     }
     
     
@@ -49,18 +50,25 @@ const TopCompaniesPage = () => {
     }, [location, data, prevPath, filter]);
     
     let command = utils.pathToCommand(location.pathname);
-    let title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Games</span></h2>
+            // let title = <h2 className="SectionTitle"><span className="SectionTitleSelected">Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Games</span></h2>
+    
+            // <div className="TileListHeader">
+            //     {title}
+            //     <div className="TileListSearch">
+            //         <span className="TileListTitle">Filter </span>
+            //         <input ref={refInput} type="text" onChange={onFilter} />
+            //     </div>
+            // </div>
+            
+    
+    let headers = [ {title:'Top Companies', selected:true, path:'/'},
+                    {title:'Top Games', selected:false, path:'/topgames'},
+                    ];
+    
 
     return (
         <div className="TopCompaniesPage">
-            <div className="TileListHeader">
-                {title}
-                <div className="TileListSearch">
-                    <span className="TileListTitle">Filter </span>
-                    <input ref={refInput} type="text" onChange={onFilter} />
-                </div>
-            </div>
-    
+            <SectionHeader headers={headers} onFilter={onFilter}/>    
             <CompaniesAndGamesList data={data} filter={filter} />
         </div>
     );
