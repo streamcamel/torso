@@ -135,6 +135,16 @@
   font-weight: 400;
 }
 
+.SectionTitleClickable{
+  color: #666;
+  cursor: pointer;
+}
+
+.SectionTitleSplit{
+  color: #333;
+  margin-left: 0.7em;
+  margin-right: 0.7em;
+}
 
 
 .CompaniesGrid {
@@ -236,8 +246,15 @@
 
 
 
+.GamePageDescription {
+  width: 60%;
+  float: right;
+  text-align: justify;
+}
+
 .GamePageIconWrapper {
-  max-width: 100%;
+  display: inline-block;
+  max-width: 30%;
 }
 
 .GamePageIcon {

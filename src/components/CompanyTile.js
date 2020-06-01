@@ -1,8 +1,11 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
+
+import { numberWithCommas } from '../utils';
 
 const CompanyTile = (props) => {
     let history = useHistory();
+    let location = useLocation();
 
     const onClick = (e) => {
         e.preventDefault();
@@ -12,7 +15,9 @@ const CompanyTile = (props) => {
             return;
         }
         
-        history.push('/company/'+props.company.slug)
+        if(props.company.slug !== null) {
+            history.push({pathname:('/company/'+props.company.slug), search:location.search});
+        }
     }
 
     let icon = null         
@@ -41,7 +46,7 @@ const CompanyTile = (props) => {
                 {icon}
             </div>
             <div className="CompanyTileName">{props.company.name}</div>
-            <div className="CompanyTileViewsCount">{props.company.viewer_count_average} viewers</div>
+            <div className="CompanyTileViewsCount">{numberWithCommas(props.company.viewer_count_average)} viewers</div>
         </div>
     );
 };
