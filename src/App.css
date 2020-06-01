@@ -401,6 +401,27 @@
   .ModalPolicy {
     font-size: 0.7em;
   } 
+
+  .SectionHeader {
+    height: 4em;
+  }
+
+  .SectionTitle {
+    text-align: center;
+    position: inherit;
+  }
+
+  .SectionHeaderFilter{
+    position: inherit;
+  }
+
+  .MainChart {
+    height: calc(100vh / 4);
+  }
+
+  .MainChartButton{
+      margin-bottom: 0.5em;
+  }
 }
 
 
