@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import * as appConfig from '../config';
 import CompaniesAndGamesList from './CompaniesAndGamesList';
+import SectionHeader from './SectionHeader';
 
 
-const TopGames = () => {
+const TopGamesPage = () => {
     
     let location = useLocation();
-    let history = useHistory();
 
     const [data, setData] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
-    
-    const onClickSectionTitle = (e) => {
-        e.preventDefault();
+    const [filter, setFilter] = useState('');
 
-        const selection = window.getSelection();
-        if (selection.toString()) {
-            return;
-        }
-        
-        history.push({pathname:'/', search:location.search});
+    const onFilter = (str) => {
+        setFilter(str);
     }
     
     useEffect(() => {
@@ -33,14 +27,18 @@ const TopGames = () => {
 
             setPrevPath(location.pathname);
         }
-    }, [location, data, prevPath]);
+    }, [location, data, prevPath, filter]);
+
+    let headers = [ {title:'Top Companies', selected:false, path:'/'},
+                    {title:'Top Games', selected:true, path:'/topgames'},
+                    ];
     
     return (
         <div className="TopGamePage">
-            <h2 className="SectionTitle"><span className="SectionTitleClickable" onClick={onClickSectionTitle}>Top Companies</span><span className="SectionTitleSplit">|</span><span className="SectionTitleSelected">Top Games</span></h2>
-            <CompaniesAndGamesList data={data} />
+            <SectionHeader headers={headers} onFilter={onFilter}/>    
+            <CompaniesAndGamesList data={data} filter={filter}/>
         </div>
     );
 };
 
-export default TopGames;
+export default TopGamesPage;

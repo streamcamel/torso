@@ -148,11 +148,6 @@
   margin: 0;
 }
 
-.SectionTitleClickable{
-  color: #666;
-  cursor: pointer;
-}
-
 .SectionTitleSplit{
   color: #333;
   margin-left: 0.7em;
@@ -164,6 +159,11 @@
   display: inline-block;
   position: absolute;
   right: 0;
+}
+
+.SectionTitleClickable:link, .SectionTitleClickable:visited, .SectionTitleClickable:hover, .SectionTitleClickable:active {
+  color: #666;
+  text-decoration: none;
 }
 
 
@@ -363,6 +363,11 @@
   cursor: pointer;
 }
 
+.ChartTitle {
+  color: #0091FF;
+  text-align: left;
+  font-weight: 400;
+}
 
 
 

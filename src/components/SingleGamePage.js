@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-
 import * as appConfig from '../config'
 import * as utils from '../utils'
-
+import SectionHeader from './SectionHeader';
 
 const SingleGamePage = () => {
     let location = useLocation();
@@ -38,9 +37,11 @@ const SingleGamePage = () => {
         description = utils.textToParagraphs(data[0].storyline);
     }
 
+    let headers = [ {title:title, selected:true} ];
+
     return (
         <div className="SingleGamePage">
-            <h2 className="SectionTitle">{title}</h2>
+            <SectionHeader headers={headers} />    
             <div className="SingleGamePageXContent">
                 <div className="SingleGamePageIconWrapper">
                     <img className="SingleGamePageIcon" src={iconurl} alt={title} />

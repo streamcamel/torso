@@ -175,7 +175,7 @@ const MainChart = (props) => {
 
     return (
         <div className="ChartArea">
-            <h2 className="SectionTitle">Viewers</h2>
+            <h2 className="ChartTitle">Viewers</h2>
 
             <div className="MainChart">
                 <Line data={testdata} options={options} />

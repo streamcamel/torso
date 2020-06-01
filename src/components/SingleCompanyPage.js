@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-
 import * as appConfig from '../config'
 import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
+import SectionHeader from './SectionHeader';
 
 
 const SingleCompanyPage = () => {
@@ -12,6 +12,11 @@ const SingleCompanyPage = () => {
     const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
     const [dataCompanies, setDataCompanies] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
+    const [filter, setFilter] = useState('');
+
+    const onFilter = (str) => {
+        setFilter(str);
+    }
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
@@ -34,7 +39,7 @@ const SingleCompanyPage = () => {
 
             setPrevPath(location.pathname);
         }
-    }, [location, dataGames, dataCompanies, prevPath]);
+    }, [location, dataGames, dataCompanies, prevPath, filter]);
     
     let title = '';
     if(dataCompanies.length > 0){
@@ -54,11 +59,13 @@ const SingleCompanyPage = () => {
         description = <div className="CompanyDescription">{paragraphs}</div>
     }
 
+    let headers = [ {title:title, selected:true} ];
+
     return (
         <div className="SingleCompanyPage">
-            <h2 className="SectionTitle">{title}</h2>
+            <SectionHeader headers={headers} onFilter={onFilter}/>    
             {description}
-            <CompaniesAndGamesList data={dataGames} />
+            <CompaniesAndGamesList data={dataGames} filter={filter}/>
         </div>
     );
 };
