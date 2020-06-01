@@ -100,3 +100,7 @@ export function URLSearchGetQueryInt(queryString, getQueryKey, defaultValue=NaN)
 
     return defaultValue;
 }
+
+export function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

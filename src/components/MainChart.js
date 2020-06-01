@@ -11,9 +11,11 @@ const MainChart = (props) => {
 
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
+    const [duration, setDuration] = useState(0);
 
     const onChangeRange = (minutes) => {
         history.push({pathname:location.pathname, search:utils.URLSearchAddQuery(location.search, 'chartduration', minutes)});
+        setDuration(minutes);
     }
 
     const convertDataToChartData = (toconvert) => {
@@ -28,17 +30,32 @@ const MainChart = (props) => {
 
         return chartData;
     }
+    
+    const safeGetDuration = () => {
+        if(duration === 0) {
+            let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
+            setDuration(durationMinutes);
+            return durationMinutes;
+        } 
+        
+        return duration;
+    }
 
     useEffect(() => {
         if(prevPath !== (location.pathname+location.search))
         {
             let command = utils.pathToCommand(location.pathname);
             let slug = utils.pathToSlug(location.pathname);
-
-            let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
-            let datenow = new Date()
-            let datethen = new Date()
-            datethen.setMinutes(datethen.getMinutes() - durationMinutes)
+            let durationMinutes = safeGetDuration();
+            
+            let datenow = new Date();
+            let datethen = new Date();
+            
+            if(durationMinutes === -1) {
+                datethen = new Date('2020-01-01');
+            } else {
+                datethen.setMinutes(datethen.getMinutes() - durationMinutes);
+            }
 
             let request = utils.URLSearchAddQuery('', 'before', datenow.toISOString());
             request = utils.URLSearchAddQuery(request, 'after', datethen.toISOString());
@@ -63,16 +80,21 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, prevPath]);
+    }, [location, prevPath, duration]);
 
     let timeUnit = '';
-    let durationMinutes = utils.URLSearchGetQueryInt(location.search, 'chartduration', 7*24*60);
+    let durationMinutes = safeGetDuration();
     let button01Selected = '';
     let button02Selected = '';
     let button03Selected = '';
     let button04Selected = '';
     let button05Selected = '';
+    let button06Selected = '';
     switch(durationMinutes){
+        case -1:
+            button06Selected = 'MainChartButtonSelected'
+            timeUnit = 'day';
+            break;
         case (8*60):
             button01Selected = 'MainChartButtonSelected'
             timeUnit = 'hour';
@@ -92,7 +114,7 @@ const MainChart = (props) => {
         case (3*30*24*60):
         default:
             button05Selected = 'MainChartButtonSelected'
-            timeUnit = 'week';
+            timeUnit = 'day';
             break;
     }
 
@@ -165,6 +187,7 @@ const MainChart = (props) => {
                 <div className={"MainChartButton " + button03Selected}  onClick={() => onChangeRange(7*24*60)}>7 Days</div>
                 <div className={"MainChartButton " + button04Selected}  onClick={() => onChangeRange(30*24*60)}>1 Month</div>
                 <div className={"MainChartButton " + button05Selected}  onClick={() => onChangeRange(3*30*24*60)}>3 Months</div>
+                <div className={"MainChartButton " + button06Selected}  onClick={() => onChangeRange(-1)}>All</div>
             </div>
         </div>
     )

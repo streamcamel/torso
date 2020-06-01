@@ -13,9 +13,9 @@ const MainToolbar = () => {
         if(event.key === 'Enter') {
             event.preventDefault();
             if(event.target.value === ''){
-                history.push('/');
+                history.push({pathname:'/', search:location.search});
             } else {
-                history.push('/search/' + event.target.value);
+                history.push({pathname:('/search/' + event.target.value), search:location.search});
             }
         }
     }
