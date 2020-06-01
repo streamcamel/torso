@@ -15,31 +15,51 @@ const CompaniesAndGamesList = (props) => {
         setItemCountMax(itemCountMax+itemCountIncrement);
     };
     
+    const isGame = (obj) => {
+        if( ('company_id' in obj) || ('game_id' in obj)) {
+            return true;
+        }
+        return false;
+    };
+    
+    const getViewer = (obj) => {
+        if( isGame(obj) ) {
+            return obj['viewers'];
+        } else {
+            return obj['viewer_count_average'];
+        }
+    };
+    
+    const sorterMoreToLess = (a,b) => {
+        let va = getViewer(a);
+        let vb = getViewer(b);
+        return (vb-va);
+    }
+    
 
     let tileGrid = '';
     
-    if(props.data !== undefined && props.data !== null && props.data.length > 0) {
+    if(props.data && props.data.length > 0) {
         let count = 0;
         let tiles = [];
-        
+
+        props.data.sort(sorterMoreToLess);        
+
         for(var anObject of props.data){
             if(count >= itemCountMax)
                 break;
             
-            if( props.filter !== undefined &&
-                props.filter !== null && 
+            if( props.filter &&
                 props.filter!=='' && 
                 anObject.name.toLocaleLowerCase().indexOf(props.filter)===-1) {
                 continue;
             }
             
-            if( ('company_id' in anObject) || ('game_id' in anObject)) {
-                //this is a game tile
+            if( isGame(anObject) ) {
                 tiles.push(
                     <GameTile key={'game_'+anObject.game_id} game={anObject}/>
                 );
             } else {
-                //this is a company tile
                 tiles.push(
                     <CompanyTile key={'company_'+anObject.id} company={anObject}/>
                 );
