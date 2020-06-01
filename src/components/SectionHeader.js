@@ -12,10 +12,6 @@ const SectionHeader = (props) => {
         }
     }
     
-    const onPush = (path) => {
-        history.push({pathname:path, search:location.search});
-    }
-    
     let headers = [];
     if(props.headers) {
         var started = false;
@@ -29,14 +25,15 @@ const SectionHeader = (props) => {
             
             started = true;
             
-            let actionable = 'SectionTitleClickable';
             if(h.selected){
-                actionable = 'SectionTitleSelected';
+                headers.push(
+                    <span className="SectionTitleSelected">{h.title}</span>    
+                );
+            } else {
+                headers.push(
+                    <a href={h.path} className="SectionTitleClickable">{h.title}</a>    
+                );
             }
-
-            headers.push(
-                <span className={actionable} onClick={() => {onPush(h.path)}}>{h.title}</span>    
-            );
         }
     }
     
@@ -44,7 +41,7 @@ const SectionHeader = (props) => {
     if(props.onFilter) {
         filter =    <div className="SectionHeaderFilter">
                         <span>Filter </span>
-                        <input ref={refInput} type="text" onKeyDown={onFilter} />
+                        <input ref={refInput} type="text" onChange={onFilter} />
                     </div>
     }
     
