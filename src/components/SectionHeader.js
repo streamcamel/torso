@@ -1,9 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { useLocation, useHistory } from "react-router-dom";
+import React, { useRef } from 'react';
 
 const SectionHeader = (props) => {
-    let location = useLocation();
-    let history = useHistory();
     const refInput = useRef(null);
 
     const onFilter = (event) => {
@@ -12,14 +9,16 @@ const SectionHeader = (props) => {
         }
     }
     
+    let headerkey = 0;
     let headers = [];
+    
     if(props.headers) {
-        var started = false;
+        let started = false;
         
         for(var h of props.headers) {
             if(started) {
                 headers.push(
-                        <span className="SectionTitleSplit">|</span>
+                        <span key={'headerkey_'+(headerkey++)} className="SectionTitleSplit">|</span>
                     );
             }
             
@@ -27,11 +26,11 @@ const SectionHeader = (props) => {
             
             if(h.selected){
                 headers.push(
-                    <span className="SectionTitleSelected">{h.title}</span>    
+                    <span key={'headerkey_'+(headerkey++)} className="SectionTitleSelected">{h.title}</span>    
                 );
             } else {
                 headers.push(
-                    <a href={h.path} className="SectionTitleClickable">{h.title}</a>    
+                    <a key={'headerkey_'+(headerkey++)} href={h.path} className="SectionTitleClickable">{h.title}</a>    
                 );
             }
         }
@@ -40,7 +39,7 @@ const SectionHeader = (props) => {
     let filter = '';
     if(props.onFilter) {
         filter =    <div className="SectionHeaderFilter">
-                        <span>Filter </span>
+                        <span key={'headerkey_'+(headerkey++)}>Filter </span>
                         <input ref={refInput} type="text" onChange={onFilter} />
                     </div>
     }
