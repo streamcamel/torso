@@ -9,7 +9,8 @@ const SearchPage = () => {
     
     let location = useLocation();
 
-    const [data, setData] = useState([]); // Data state for the companies/games
+    const [dataCompanies, setDataCompanies] = useState([]);
+    const [dataGames, setDataGames] = useState([]);
     const [prevPath, setPrevPath] = useState('');
     const [filter, setFilter] = useState('');
 
@@ -22,16 +23,23 @@ const SearchPage = () => {
         if(prevPath !== location.pathname)
         {
             let slug = utils.pathToSlug(location.pathname);
-            let url = appConfig.backendURL('/search_companies?q=' + slug);
-            fetch(url)
+            let urlCompanies = appConfig.backendURL('/search_companies?q=' + slug);
+            fetch(urlCompanies)
                 .then(res => res.json())
-                .then(res => setData(res))
+                .then(res => setDataCompanies(res))
+
+            let urlGames = appConfig.backendURL('/search_games?q=' + slug);
+            fetch(urlGames)
+                .then(res => res.json())
+                .then(res => setDataGames(res))
             
             setPrevPath(location.pathname);
         }
-    }, [location, data, prevPath, filter]);
+    }, [location, dataCompanies, dataGames, prevPath, filter]);
     
     let headers = [ {title:'Search Results', selected:true} ];
+    
+    let data = dataCompanies.concat(dataGames);
 
     return (
         <div className="SearchPage">
