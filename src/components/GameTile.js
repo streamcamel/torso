@@ -38,7 +38,7 @@ const GameTile = (props) => {
             </div>
             <div className="GameTileName">{props.game.name}</div>
             <img src={require("../images/viewer.svg")} alt="viewers" className="TileViewerImage" />
-            <div className="GameTileViewsCount" data-tip="Average Viewers">{ viewers }</div>
+            <div className="GameTileViewsCount" data-tip="Average number of viewers in the last 7 days">{ viewers }</div>
             <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>
         </div>
     );

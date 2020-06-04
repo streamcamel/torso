@@ -48,7 +48,7 @@ const CompanyTile = (props) => {
             </div>
             <div className="CompanyTileName">{props.company.name}</div>
             <img src={require("../images/viewer.svg")} alt="viewers" className="TileViewerImage" />
-            <div className="CompanyTileViewsCount" data-tip="Average viewers">{numberWithCommas(props.company.viewer_count_average)}</div>
+            <div className="CompanyTileViewsCount" data-tip="Average number of viewers in the last 7 days">{numberWithCommas(props.company.viewer_count_average)}</div>
             <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>
         </div>
     );
