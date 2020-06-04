@@ -47,6 +47,7 @@ const SectionHeader = (props) => {
     return (
         <div className="SectionHeader">
             <h2 className="SectionTitle">{headers}</h2>
+            <br />
             {filter}
         </div>
     );

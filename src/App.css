@@ -133,7 +133,7 @@
 .SectionHeader{
   position: relative;
   width: 100%;
-  height: 2em;
+  height: 4em;
   line-height: 2em;
   padding: 1em 0 1em;
 }
@@ -156,7 +156,6 @@
 
 .SectionHeaderFilter{
   color: #0091FF;
-  display: inline-block;
   position: absolute;
   right: 0;
 }
