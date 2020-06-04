@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from "react-tooltip";
 import { useLocation, useHistory } from "react-router-dom";
 
 import { numberWithCommas } from '../utils';
@@ -36,7 +37,9 @@ const GameTile = (props) => {
                 <img src={iconurl} alt={'boximg-'+props.game.slug} className="GameTileIcon" />
             </div>
             <div className="GameTileName">{props.game.name}</div>
-            <div className="GameTileViewsCount">{ viewers } viewers</div>
+            <img src={require("../images/viewer.svg")} alt="viewers" className="TileViewerImage" />
+            <div className="GameTileViewsCount" data-tip="Average Viewers">{ viewers }</div>
+            <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>
         </div>
     );
 };

@@ -20,7 +20,7 @@ const TopGamesPage = () => {
     useEffect(() => {
         if(prevPath !== location.pathname)
         {
-            let url = appConfig.backendURL('/top_games?limit=100');
+            let url = appConfig.backendURL('/top_games?limit=100?period=1w');
             fetch(url)
                 .then(res => res.json())
                 .then(res => setData(res))
@@ -35,7 +35,7 @@ const TopGamesPage = () => {
     
     return (
         <div className="TopGamePage">
-            <SectionHeader headers={headers} onFilter={onFilter}/>    
+            <SectionHeader headers={headers} onFilter={onFilter} information="Top Games by Average Viewers"/>    
             <CompaniesAndGamesList data={data} filter={filter}/>
         </div>
     );
