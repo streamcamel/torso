@@ -35,6 +35,11 @@ const SectionHeader = (props) => {
             }
         }
     }
+
+    let information = '';
+    if(props.information) {
+        information = <div className="SectionHeaderInformation">{props.information}</div>
+    }
     
     let filter = '';
     if(props.onFilter) {
@@ -46,7 +51,8 @@ const SectionHeader = (props) => {
     
     return (
         <div className="SectionHeader">
-            <h2 className="SectionTitle">{headers}</h2>
+            <div className="SectionTitle">{headers}</div>
+            {information}
             <br />
             {filter}
         </div>

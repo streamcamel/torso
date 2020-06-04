@@ -131,10 +131,10 @@
 
 
 .SectionHeader{
+  font-size: 1.5em;
   position: relative;
   width: 100%;
-  height: 4em;
-  line-height: 2em;
+  height: 2em;
   padding: 1em 0 1em;
 }
 
@@ -155,6 +155,7 @@
 }
 
 .SectionHeaderFilter{
+  font-size: 0.7em;
   color: #0091FF;
   position: absolute;
   right: 0;
@@ -165,6 +166,12 @@
   text-decoration: none;
 }
 
+.SectionHeaderInformation{
+  font-size: 0.8em;
+  color: #999;
+  position: absolute;
+  right: 0;
+}
 
 
 .CompaniesGrid {
@@ -179,6 +186,7 @@
   float: left;
   margin-bottom: 1em;
   overflow: hidden;
+  text-align: left;
 }
 
 .CompanyTileIconWrapper {
@@ -212,9 +220,17 @@
 
 .CompanyTileViewsCount {
   color: #aaa;
-  text-align: left;
   font-size: 0.75em;
+  display: inline;
 }
+
+.TileViewerImage{
+  width: auto;
+  height: 0.75em;
+  margin-right: 0.2em;
+}
+
+
 
 .CompanyDescription {
   text-align: justify;
@@ -224,11 +240,13 @@
 
 
 
+
 .GameTile {
   width: 15%;
   float: left;
   margin-bottom: 1em;
   overflow: hidden;
+  text-align: left;
 }
 
 .GameTileIconWrapper {
@@ -257,13 +275,13 @@
 .GameTileName {
   color: #fff;
   font-weight: 700;
-  text-align: left;
 }
 
 .GameTileViewsCount {
   color: #aaa;
   text-align: left;
   font-size: 0.75em;
+  display: inline;
 }
 
 

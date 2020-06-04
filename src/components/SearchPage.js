@@ -43,7 +43,7 @@ const SearchPage = () => {
 
     return (
         <div className="SearchPage">
-            <SectionHeader headers={headers} onFilter={onFilter}/>    
+            <SectionHeader headers={headers} onFilter={onFilter} information="Companies and Games Results by Average Viewers"/>    
             <CompaniesAndGamesList data={data} filter={filter} />
         </div>
     );

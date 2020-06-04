@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from "react-tooltip";
 import { useLocation, useHistory } from "react-router-dom";
 
 import { numberWithCommas } from '../utils';
@@ -46,7 +47,9 @@ const CompanyTile = (props) => {
                 {icon}
             </div>
             <div className="CompanyTileName">{props.company.name}</div>
-            <div className="CompanyTileViewsCount">{numberWithCommas(props.company.viewer_count_average)} viewers</div>
+            <img src={require("../images/viewer.svg")} alt="viewers" className="TileViewerImage" />
+            <div className="CompanyTileViewsCount" data-tip="Average viewers">{numberWithCommas(props.company.viewer_count_average)}</div>
+            <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>
         </div>
     );
 };
