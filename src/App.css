@@ -421,11 +421,21 @@
 
   .SectionHeader {
     height: 4em;
+    padding: 0.5em 0 0.5em;
+  }
+
+  .SectionHeader br {
+    display: none;
   }
 
   .SectionTitle {
     text-align: center;
     position: inherit;
+  }
+
+  .SectionHeaderInformation {
+    position: inherit;
+    padding: 0.3em 0 0.3em;
   }
 
   .SectionHeaderFilter{
