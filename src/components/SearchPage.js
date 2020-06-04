@@ -23,12 +23,12 @@ const SearchPage = () => {
         if(prevPath !== location.pathname)
         {
             let slug = utils.pathToSlug(location.pathname);
-            let urlCompanies = appConfig.backendURL('/search_companies?q=' + slug);
+            let urlCompanies = appConfig.backendURL('/search_companies?q=' + slug + '&limit=100');
             fetch(urlCompanies)
                 .then(res => res.json())
                 .then(res => setDataCompanies(res))
 
-            let urlGames = appConfig.backendURL('/search_games?q=' + slug);
+            let urlGames = appConfig.backendURL('/search_games?q=' + slug + '&limit=100');
             fetch(urlGames)
                 .then(res => res.json())
                 .then(res => setDataGames(res))

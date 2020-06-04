@@ -38,6 +38,7 @@ const CompaniesAndGamesList = (props) => {
     
 
     let tileGrid = '';
+    let loadMore = '';
     
     if(props.data && props.data.length > 0) {
         let count = 0;
@@ -68,12 +69,17 @@ const CompaniesAndGamesList = (props) => {
         }
 
         tileGrid = <div className="CompaniesGrid"> {tiles} </div>
+
+        if(itemCountMax < props.data.length) {
+            loadMore = <LoadMore onLoadMore={onLoadMore} />
+        }
     }
+
     
     return (
         <div className="CompaniesAndGamesList">
             {tileGrid}
-            <LoadMore onLoadMore={onLoadMore} />
+            {loadMore}
         </div>
     );
 };
