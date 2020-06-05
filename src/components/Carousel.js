@@ -11,7 +11,7 @@ import TopGamesPage from './TopGamesPage'
 const Carousel = () => {
 
     return (
-        <div title="Carousel" className="Carousel">
+        <div className="Carousel">
             <MainChart />
             <Switch>
                 <Route exact path="/">
