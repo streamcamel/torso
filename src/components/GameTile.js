@@ -18,7 +18,7 @@ const GameTile = (props) => {
             return;
         }
         
-        if(props.game.slug !== null) {
+        if(props.game.slug) {
             history.push({pathname:('/game/'+props.game.slug), search:location.search});
         }
     }
@@ -30,10 +30,15 @@ const GameTile = (props) => {
     }
     
     let viewers = numberWithCommas(props.game.viewers);
+    
+    let wrapperClass = "GameTileIconWrapper";
+    if(!props.game.slug) {
+        wrapperClass += " NoPointerCursor";
+    }
 
     return (
         <div className="GameTile" onClick={onClick}>
-            <div className="GameTileIconWrapper">
+            <div className={wrapperClass}>
                 <img src={iconurl} alt={'boximg-'+props.game.slug} className="GameTileIcon" />
             </div>
             <div className="GameTileName">{props.game.name}</div>
