@@ -30,7 +30,7 @@ const App = () => {
     }, [location]);
     
     return (
-        <div title="App" className="App">
+        <div className="App">
             <div className="PageFixedTop">
                 <PageHeader />
                 <MainToolbar />
