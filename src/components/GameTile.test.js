@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
@@ -33,21 +33,21 @@ test('GameTile component: Creation', () => {
     let agame = data[0];
     let key = 'gamekey'+agame.game_id;
     
-    const { getByText, getByRole} = render(
+    render(
         <Router history={history}>
             <GameTile key={key} game={agame}/>
         </Router>
     );
 
     // Tile Name
-    expect(getByText('World of Warcraft')).toBeTruthy();
+    expect(screen.getByText('World of Warcraft')).toBeTruthy();
     
     // Tile Viewers
-    expect(getByText('1,234,567 viewers')).toBeTruthy();
+    expect(screen.getByText('1,234,567')).toBeTruthy();
+    expect(screen.getByAltText('viewers')).toBeTruthy();
     
     // Tile Image
-    let icon = getByRole('img');
-    expect(icon.src).toEqual('https://static-cdn.jtvnw.net/ttv-boxart/World%20of%20Warcraft-90x120.jpg');
+    expect(screen.getByAltText(/boximg/i)).toHaveAttribute('src', 'https://static-cdn.jtvnw.net/ttv-boxart/World%20of%20Warcraft-90x120.jpg')
 });
 
 
@@ -58,14 +58,14 @@ test('GameTile component: Click on tile', () => {
     let agame = data[0];
     let key = 'gamekey'+agame.game_id;
     
-    const { getByAltText } = render(
+    render(
         <Router history={history}>
             <GameTile key={key} game={agame}/>
         </Router>
     );
 
     //Click on the tile
-    userEvent.click(screen.getByRole('img'));
+    userEvent.click(screen.getByAltText(/boximg/i));
 
     expect(history.location.pathname).toEqual('/game/world-of-warcraft');
 });
