@@ -16,13 +16,13 @@ const CompanyTile = (props) => {
             return;
         }
         
-        if(props.company.slug !== null) {
+        if(props.company.slug) {
             history.push({pathname:('/company/'+props.company.slug), search:location.search});
         }
     }
 
     let icon = null         
-    if(props.company.url != null) {
+    if(props.company.url) {
         if(props.company.url !== ".jpg") {
             let iconurl = props.company.url.replace('t_thumb', 't_logo_med')
 
@@ -37,13 +37,16 @@ const CompanyTile = (props) => {
             console.log("Missing company icon : " + props.company.name);
             icon = <div className="MissingIcon">?</div>;
         }
+    }
 
-
+    let wrapperClass = "CompanyTileIconWrapper";
+    if(!props.game.slug) {
+        wrapperClass += " NoPointerCursor";
     }
 
     return (
         <div className="CompanyTile" onClick={onClick}>
-            <div className="CompanyTileIconWrapper">
+            <div className={wrapperClass}>
                 {icon}
             </div>
             <div className="CompanyTileName">{props.company.name}</div>
