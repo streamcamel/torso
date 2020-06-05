@@ -16,7 +16,6 @@ const SingleGamePage = () => {
         if(prevPath !== location.pathname)
         {
             let slug = utils.pathToSlug(location.pathname);
-
             let url = appConfig.backendURL('/games/'+slug);
             fetch(url)
             .then(res => res.json())
