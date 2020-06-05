@@ -40,7 +40,7 @@ const CompanyTile = (props) => {
     }
 
     let wrapperClass = "CompanyTileIconWrapper";
-    if(!props.game.slug) {
+    if(!props.company.slug) {
         wrapperClass += " NoPointerCursor";
     }
 
