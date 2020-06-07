@@ -1,13 +1,16 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState, useEffect, useRef } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 
-import {Line} from 'react-chartjs-2';
+import {Line, Chart} from 'react-chartjs-2';
 
 const MainChart = (props) => {
     let location = useLocation();
     let history = useHistory();
+
+    const refChart = useRef(null);
+
 
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
@@ -29,6 +32,121 @@ const MainChart = (props) => {
         });
 
         return chartData;
+    }
+
+    // Chart.pluginService.register({
+    //     afterDraw: function(chartInstance) { console.log('after draw') }
+    // });
+
+    Chart.pluginService.register({
+        afterDraw: function (chart) {
+
+            if( !('streamcamel_mousedown_x' in chart) ||
+                !('streamcamel_mousemove_x' in chart) ||
+                chart['streamcamel_mousedown_x'] < 0) {
+                    console.log('skipping not set')
+                    return;
+            }
+
+
+            // var yScale = chart.scales['y-axis-0'];
+            // var helpers = Chart.helpers;
+            let chartArea = chart.chartArea;
+//            console.log(chart)
+
+            chart.ctx.save();
+
+            let posx = chart['streamcamel_mousemove_x'];
+            let sx = chart['streamcamel_mousedown_x'];
+
+            if(sx > posx) {
+                let tmp = posx;
+                posx = sx;
+                sx = posx;
+            }
+
+            sx = Math.max(chartArea.left, sx);
+            sx = Math.min(chartArea.right, sx);
+
+            posx = Math.max(chartArea.left, posx);
+            posx = Math.min(chartArea.right, posx);
+
+
+
+
+            console.log(posx, chartArea.left) 
+
+            chart.ctx.fillStyle = "#FFFFFF55";
+            chart.ctx.fillRect(150, 50, 20, 20);
+
+            chart.ctx.fillStyle = "#FF0000";
+            chart.ctx.fillRect(0, 0, 20, 20);
+
+            chart.ctx.fillStyle = "#00FF00";
+            chart.ctx.fillRect(chartArea.left, chartArea.top, 20, 20);
+
+            let recH = chartArea.bottom - chartArea.top;
+
+            chart.ctx.globalCompositeOperation = 'source-over';
+            chart.ctx.fillStyle = 'rgba(0,0,255,0.5)';
+            chart.ctx.fillRect(sx, chartArea.top, posx-sx, recH);
+            
+
+            chart.ctx.restore();
+    
+            // // draw labels - all we do is turn on display and call scale.draw
+            // yScale.options.display = true;
+            // yScale.draw.apply(yScale, [chartArea]);
+            // yScale.options.display = false;
+    
+            // yScale.ctx.save();
+            //     // draw under the fill
+            // yScale.ctx.globalCompositeOperation = 'destination-over';
+            // // draw the grid lines - simplified version of library code
+            // helpers.each(yScale.ticks, function (label, index) {
+            //     if (label === undefined || label === null) {
+            //         return;
+            //     }
+    
+            //     var yLineValue = this.getPixelForTick(index);
+            //     yLineValue += helpers.aliasPixel(this.ctx.lineWidth);
+    
+            //     this.ctx.lineWidth = this.options.gridLines.lineWidth;
+            //     this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    
+            //     this.ctx.beginPath();
+            //     this.ctx.moveTo(chartArea.left + 40, yLineValue);
+            //     this.ctx.lineTo(chartArea.right, yLineValue);
+            //     this.ctx.stroke();
+    
+            // }, yScale);
+            // yScale.ctx.restore();
+        },
+    })
+
+    const onMouseDown = (evt) => {
+        console.log('onMouseDown')  
+        if(refChart && refChart.current) {
+            refChart.current.chartInstance.chart['streamcamel_mousedown_x'] = evt.offsetX; 
+            refChart.current.chartInstance.chart['streamcamel_mousedown_y'] = evt.offsetY; 
+        }
+    }
+    const onMouseMove = (evt) => {
+        console.log('onMouseMove')            
+        if(refChart && refChart.current) {
+            refChart.current.chartInstance.chart['streamcamel_mousemove_x'] = evt.offsetX; 
+            refChart.current.chartInstance.chart['streamcamel_mousemove_y'] = evt.offsetY; 
+        }
+    }
+    const onMouseUp = (evt) => {
+        console.log('onMouseUp')        
+        if(refChart && refChart.current) {
+            refChart.current.chartInstance.chart['streamcamel_mousedown_x'] = -1; 
+            refChart.current.chartInstance.chart['streamcamel_mousedown_y'] = -1; 
+        }
+    }
+    const onMouseClick = (evt) => {
+        console.log('onMouseClick')        
     }
     
     const safeGetDuration = () => {
@@ -170,7 +288,20 @@ const MainChart = (props) => {
                     }
                 }
             }]
-        }
+        },
+        // events: ['mousemove', 'mousedown', 'mouseup'],
+        // onmousedown: onMouseDown,
+        // onmousemove: onMouseMove,
+        // mousemove: onMouseMove,
+        // onmouseup: onMouseUp,
+        // onClick: onMouseClick
+    }
+
+    if(refChart && refChart.current) {
+        console.log(refChart);
+        refChart.current.chartInstance.chart.canvas.onmousedown = onMouseDown;
+        refChart.current.chartInstance.chart.canvas.onmousemove = onMouseMove;
+        refChart.current.chartInstance.chart.canvas.onmouseup = onMouseUp;
     }
 
     return (
@@ -178,7 +309,7 @@ const MainChart = (props) => {
             <h2 className="ChartTitle">Viewers</h2>
 
             <div className="MainChart">
-                <Line data={testdata} options={options} />
+                <Line ref={refChart} data={testdata} options={options} />
             </div>
 
             <div className="MainChartButtons">
