@@ -177,6 +177,20 @@ const MainChart = (props) => {
             selectChartRangeWithPercentage(chart['streamcamelSelectionStart'], chart['streamcamelSelectionEnd']);
         }
     }
+
+    const onMouseLeave = (evt) => {
+        if(refChart && refChart.current) {
+            let chart = refChart.current.chartInstance.chart;
+            if( ('streamcamelMouseDownX' in chart) && 
+                (chart['streamcamelMouseDownX'] >= 0) ) {
+                    chart['streamcamelMouseDownX'] = -1; 
+                    chart['streamcamelMouseDownY'] = -1; 
+                    chart.render();
+        
+                    selectChartRangeWithPercentage(chart['streamcamelSelectionStart'], chart['streamcamelSelectionEnd']);        
+            }
+        }
+    }
     
     const safeGetDuration = () => {
         if(fromTo.length === 0) {
@@ -291,6 +305,7 @@ const MainChart = (props) => {
         chart.canvas.onmousedown = onMouseDown;
         chart.canvas.onmousemove = onMouseMove;
         chart.canvas.onmouseup = onMouseUp;
+        chart.canvas.onmouseleave = onMouseLeave;
     }
 
     return (
