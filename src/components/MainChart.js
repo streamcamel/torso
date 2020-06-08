@@ -143,9 +143,16 @@ const MainChart = (props) => {
             let ctx = chart.ctx;
             ctx.save();
 
-            ctx.globalAlpha = 0.2;
-            ctx.fillStyle = 'rgba(0,0,255,0.5)';
+            ctx.globalAlpha = 0.1;
+            ctx.fillStyle = '#DDDDDD';
             ctx.fillRect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
+
+            ctx.globalAlpha = 0.3;
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = '#DDDDDD';
+            ctx.rect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
+            ctx.stroke();
 
             ctx.restore();    
         },

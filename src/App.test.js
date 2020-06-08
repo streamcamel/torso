@@ -3,10 +3,16 @@ import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom'
 import { createMemoryHistory} from 'history'
 import App from './App';
+import { pluginService } from 'chart.js';
 
 // Mock the chart drawing the SVG
 jest.mock('react-chartjs-2', () => ({
     Line: () => null,
+    Chart: {
+        pluginService: {
+            register: () => null
+        }
+    }
 }))
 
 
