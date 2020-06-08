@@ -6,9 +6,13 @@ import { createMemoryHistory } from 'history'
 import { enableFetchMocks } from 'jest-fetch-mock'
 enableFetchMocks()
 
-// Mock the chart drawing the SVG
 jest.mock('react-chartjs-2', () => ({
     Line: () => null,
+    Chart: {
+        pluginService: {
+            register: () => null
+        }
+    }
 }))
 
 
@@ -32,7 +36,7 @@ test('creates default page with root url path', async () => {
 
     expect(fetch).toHaveBeenCalledTimes(2); // Charts and Top Games
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/top_companies?limit=100&period=1w');
-    expect(fetch).toHaveBeenCalledWith(expect.stringMatching(/https:\/\/api\.streamcamel\.com\/viewers\?before\=/));
+    expect(fetch).toHaveBeenCalledWith(expect.stringMatching(/https:\/\/api\.streamcamel\.com\/viewers\?after\=/));
         
 
     // MainChart
