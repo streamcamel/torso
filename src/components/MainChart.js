@@ -34,35 +34,23 @@ const MainChart = (props) => {
         return chartData;
     }
 
-    // Chart.pluginService.register({
-    //     afterDraw: function(chartInstance) { console.log('after draw') }
-    // });
-
     Chart.pluginService.register({
         afterDraw: function (chart) {
 
-            if( !('streamcamel_mousedown_x' in chart) ||
-                !('streamcamel_mousemove_x' in chart) ||
-                chart['streamcamel_mousedown_x'] < 0) {
-                    console.log('skipping not set')
+            if( !('streamcamelMouseDownX' in chart) ||
+                !('streamcamelMouseMoveX' in chart) ||
+                chart['streamcamelMouseDownX'] < 0) {
                     return;
             }
 
-
-            // var yScale = chart.scales['y-axis-0'];
-            // var helpers = Chart.helpers;
             let chartArea = chart.chartArea;
-//            console.log(chart)
-
-            chart.ctx.save();
-
-            let posx = chart['streamcamel_mousemove_x'];
-            let sx = chart['streamcamel_mousedown_x'];
+            let posx = chart['streamcamelMouseMoveX'];
+            let sx = chart['streamcamelMouseDownX'];
 
             if(sx > posx) {
                 let tmp = posx;
                 posx = sx;
-                sx = posx;
+                sx = tmp;
             }
 
             sx = Math.max(chartArea.left, sx);
@@ -71,82 +59,43 @@ const MainChart = (props) => {
             posx = Math.max(chartArea.left, posx);
             posx = Math.min(chartArea.right, posx);
 
+            chart['streamcamelSelectionStart'] = (sx-chartArea.left)/(chartArea.right-chartArea.left); 
+            chart['streamcamelSelectionEnd'] = (posx-chartArea.left)/(chartArea.right-chartArea.left);
 
+            let ctx = chart.ctx;
+            ctx.save();
 
+            ctx.globalAlpha = 0.2;
+            ctx.fillStyle = 'rgba(0,0,255,0.5)';
+            ctx.fillRect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
 
-            console.log(posx, chartArea.left) 
-
-            chart.ctx.fillStyle = "#FFFFFF55";
-            chart.ctx.fillRect(150, 50, 20, 20);
-
-            chart.ctx.fillStyle = "#FF0000";
-            chart.ctx.fillRect(0, 0, 20, 20);
-
-            chart.ctx.fillStyle = "#00FF00";
-            chart.ctx.fillRect(chartArea.left, chartArea.top, 20, 20);
-
-            let recH = chartArea.bottom - chartArea.top;
-
-            chart.ctx.globalCompositeOperation = 'source-over';
-            chart.ctx.fillStyle = 'rgba(0,0,255,0.5)';
-            chart.ctx.fillRect(sx, chartArea.top, posx-sx, recH);
-            
-
-            chart.ctx.restore();
-    
-            // // draw labels - all we do is turn on display and call scale.draw
-            // yScale.options.display = true;
-            // yScale.draw.apply(yScale, [chartArea]);
-            // yScale.options.display = false;
-    
-            // yScale.ctx.save();
-            //     // draw under the fill
-            // yScale.ctx.globalCompositeOperation = 'destination-over';
-            // // draw the grid lines - simplified version of library code
-            // helpers.each(yScale.ticks, function (label, index) {
-            //     if (label === undefined || label === null) {
-            //         return;
-            //     }
-    
-            //     var yLineValue = this.getPixelForTick(index);
-            //     yLineValue += helpers.aliasPixel(this.ctx.lineWidth);
-    
-            //     this.ctx.lineWidth = this.options.gridLines.lineWidth;
-            //     this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-    
-            //     this.ctx.beginPath();
-            //     this.ctx.moveTo(chartArea.left + 40, yLineValue);
-            //     this.ctx.lineTo(chartArea.right, yLineValue);
-            //     this.ctx.stroke();
-    
-            // }, yScale);
-            // yScale.ctx.restore();
+            ctx.restore();    
         },
     })
 
     const onMouseDown = (evt) => {
-        console.log('onMouseDown')  
         if(refChart && refChart.current) {
-            refChart.current.chartInstance.chart['streamcamel_mousedown_x'] = evt.offsetX; 
-            refChart.current.chartInstance.chart['streamcamel_mousedown_y'] = evt.offsetY; 
+            let chart = refChart.current.chartInstance.chart;
+            chart['streamcamelMouseDownX'] = evt.offsetX; 
+            chart['streamcamelMouseDownY'] = evt.offsetY; 
+            chart['streamcamelSelectionStart'] = 0; 
+            chart['streamcamelSelectionEnd'] = 0; 
         }
     }
     const onMouseMove = (evt) => {
-        console.log('onMouseMove')            
         if(refChart && refChart.current) {
-            refChart.current.chartInstance.chart['streamcamel_mousemove_x'] = evt.offsetX; 
-            refChart.current.chartInstance.chart['streamcamel_mousemove_y'] = evt.offsetY; 
+            let chart = refChart.current.chartInstance.chart;
+            chart['streamcamelMouseMoveX'] = evt.offsetX; 
+            chart['streamcamelMouseMoveY'] = evt.offsetY; 
         }
     }
     const onMouseUp = (evt) => {
-        console.log('onMouseUp')        
         if(refChart && refChart.current) {
-            refChart.current.chartInstance.chart['streamcamel_mousedown_x'] = -1; 
-            refChart.current.chartInstance.chart['streamcamel_mousedown_y'] = -1; 
+            let chart = refChart.current.chartInstance.chart;
+            chart['streamcamelMouseDownX'] = -1; 
+            chart['streamcamelMouseDownY'] = -1; 
+            chart.render();
         }
-    }
-    const onMouseClick = (evt) => {
-        console.log('onMouseClick')        
     }
     
     const safeGetDuration = () => {
@@ -298,10 +247,10 @@ const MainChart = (props) => {
     }
 
     if(refChart && refChart.current) {
-        console.log(refChart);
-        refChart.current.chartInstance.chart.canvas.onmousedown = onMouseDown;
-        refChart.current.chartInstance.chart.canvas.onmousemove = onMouseMove;
-        refChart.current.chartInstance.chart.canvas.onmouseup = onMouseUp;
+        let chart = refChart.current.chartInstance.chart;
+        chart.canvas.onmousedown = onMouseDown;
+        chart.canvas.onmousemove = onMouseMove;
+        chart.canvas.onmouseup = onMouseUp;
     }
 
     return (
