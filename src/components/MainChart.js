@@ -214,42 +214,37 @@ const MainChart = (props) => {
         return Math.round((fromTo[1]-fromTo[0])/1000/60);
     }
 
-    let timeUnit = '';
     let durationMinutes = safeGetDuration();
-    let button01Selected = '';
-    let button02Selected = '';
-    let button03Selected = '';
-    let button04Selected = '';
-    let button05Selected = '';
-    let button06Selected = '';
+    let selectedButton;
     switch(durationMinutes){
-        case -1:
-            button06Selected = 'MainChartButtonSelected'
-            timeUnit = 'day';
-            break;
         case (8*60):
-            button01Selected = 'MainChartButtonSelected'
-            timeUnit = 'hour';
+            selectedButton = 0;
             break;
         case (24*60):
-            button02Selected = 'MainChartButtonSelected'
-            timeUnit = 'hour';
+            selectedButton = 1;
             break;
         case (7*24*60):
-            button03Selected = 'MainChartButtonSelected'
-            timeUnit = 'day';
+            selectedButton = 2;
             break;
         case (30*24*60):
-            button04Selected = 'MainChartButtonSelected'
-            timeUnit = 'day';
+            selectedButton = 3;
             break;
         case (3*30*24*60):
-            button05Selected = 'MainChartButtonSelected'
-            timeUnit = 'day';
+            selectedButton = 4;
+            break;
+        case -1:
+            selectedButton = 5;
             break;
         default:
-            timeUnit = 'day';
+            selectedButton = -1;
             break;
+    }
+
+    let timeUnit = 'day';
+    if( (durationMinutes > (60*24*30*3)) || (durationMinutes === -1) ) { // > 3 months
+        timeUnit = 'month';
+    } else if(durationMinutes <= (60*36)) { // < 24 hours
+        timeUnit = 'hour';
     }
 
     let chartData = convertDataToChartData(data);
@@ -324,12 +319,12 @@ const MainChart = (props) => {
             </div>
 
             <div className="MainChartButtons">
-                <div className={"MainChartButton " + button01Selected}  onClick={() => onChangeRangeFromNow(8*60)}>8 Hours</div>
-                <div className={"MainChartButton " + button02Selected}  onClick={() => onChangeRangeFromNow(24*60)}>1 Day</div>
-                <div className={"MainChartButton " + button03Selected}  onClick={() => onChangeRangeFromNow(7*24*60)}>7 Days</div>
-                <div className={"MainChartButton " + button04Selected}  onClick={() => onChangeRangeFromNow(30*24*60)}>1 Month</div>
-                <div className={"MainChartButton " + button05Selected}  onClick={() => onChangeRangeFromNow(3*30*24*60)}>3 Months</div>
-                <div className={"MainChartButton " + button06Selected}  onClick={() => onChangeRangeFromNow(-1)}>All</div>
+                <div className={"MainChartButton " + (selectedButton===0?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(8*60)}>8 Hours</div>
+                <div className={"MainChartButton " + (selectedButton===1?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(24*60)}>1 Day</div>
+                <div className={"MainChartButton " + (selectedButton===2?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(7*24*60)}>7 Days</div>
+                <div className={"MainChartButton " + (selectedButton===3?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(30*24*60)}>1 Month</div>
+                <div className={"MainChartButton " + (selectedButton===4?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(3*30*24*60)}>3 Months</div>
+                <div className={"MainChartButton " + (selectedButton===5?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(-1)}>All</div>
             </div>
         </div>
     )
