@@ -158,44 +158,58 @@ const MainChart = (props) => {
         },
     })
 
+    const eventToPosition = (evt) => {
+        if( evt.constructor.name === 'TouchEvent'){
+            return [evt.touches[0].clientX, evt.touches[0].clientY];
+        } else {
+            return [evt.offsetX, evt.offsetY];
+        }
+    }
+
+    const cleanUpEvents = (chart) => {
+        delete chart['streamcamelMouseDownX']; 
+        delete chart['streamcamelMouseDownY']; 
+        delete chart['streamcamelMouseMoveX']; 
+        delete chart['streamcamelMouseMoveY']; 
+        delete chart['streamcamelSelectionStart'];
+        delete chart['streamcamelSelectionEnd'];
+    }
+
     const onMouseDown = (evt) => {
         if(refChart && refChart.current) {
+            let pos = eventToPosition(evt);
             let chart = refChart.current.chartInstance.chart;
-            chart['streamcamelMouseDownX'] = evt.offsetX; 
-            chart['streamcamelMouseDownY'] = evt.offsetY; 
+            chart['streamcamelMouseDownX'] = pos[0]; 
+            chart['streamcamelMouseDownY'] = pos[1]; 
             chart['streamcamelSelectionStart'] = 0; 
             chart['streamcamelSelectionEnd'] = 0; 
         }
     }
     const onMouseMove = (evt) => {
         if(refChart && refChart.current) {
+            let pos = eventToPosition(evt);
             let chart = refChart.current.chartInstance.chart;
-            chart['streamcamelMouseMoveX'] = evt.offsetX; 
-            chart['streamcamelMouseMoveY'] = evt.offsetY; 
+            chart['streamcamelMouseMoveX'] = pos[0]; 
+            chart['streamcamelMouseMoveY'] = pos[1]; 
+
+            //Special case for touch event, if the touch started outside of the chart
+            if( ('streamcamelMouseDownX' in chart)===false &&
+                evt.constructor.name==='TouchEvent' ) {
+                chart['streamcamelMouseDownX'] = pos[0]; 
+                chart['streamcamelMouseDownY'] = pos[1]; 
+            }
         }
     }
     const onMouseUp = (evt) => {
         if(refChart && refChart.current) {
             let chart = refChart.current.chartInstance.chart;
-            chart['streamcamelMouseDownX'] = -1; 
-            chart['streamcamelMouseDownY'] = -1; 
-            chart.render();
 
-            selectChartRangeWithPercentage(chart['streamcamelSelectionStart'], chart['streamcamelSelectionEnd']);
-        }
-    }
-
-    const onMouseLeave = (evt) => {
-        if(refChart && refChart.current) {
-            let chart = refChart.current.chartInstance.chart;
-            if( ('streamcamelMouseDownX' in chart) && 
-                (chart['streamcamelMouseDownX'] >= 0) ) {
-                    chart['streamcamelMouseDownX'] = -1; 
-                    chart['streamcamelMouseDownY'] = -1; 
-                    chart.render();
-        
-                    selectChartRangeWithPercentage(chart['streamcamelSelectionStart'], chart['streamcamelSelectionEnd']);        
+            if( ('streamcamelMouseDownX' in chart) && ('streamcamelMouseMoveX' in chart)) {
+                selectChartRangeWithPercentage(chart['streamcamelSelectionStart'], chart['streamcamelSelectionEnd']);
             }
+
+            cleanUpEvents(chart);
+            chart.render();
         }
     }
     
@@ -307,7 +321,10 @@ const MainChart = (props) => {
         chart.canvas.onmousedown = onMouseDown;
         chart.canvas.onmousemove = onMouseMove;
         chart.canvas.onmouseup = onMouseUp;
-        chart.canvas.onmouseleave = onMouseLeave;
+        chart.canvas.onmouseleave = onMouseUp;
+        chart.canvas.ontouchstart = onMouseDown;
+        chart.canvas.ontouchmove = onMouseMove;
+        chart.canvas.ontouchend = onMouseUp;
     }
 
     return (
