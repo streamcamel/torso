@@ -68,8 +68,10 @@ const MainChart = (props) => {
 
             let dateFrom;
             let dateTo;
-
-            if(fromTo.length === 0) {
+            if(fromTo.length===0 || (location.pathname==='/' && location.search==='')) {
+                //Setup default chart duration if: 
+                // - not initialized
+                // - went back to clean location/search -- streamcamel logo was clicked
                 let strFrom = utils.URLSearchGetQueryString(location.search, 'chartFrom');
                 let strTo = utils.URLSearchGetQueryString(location.search, 'chartTo');
                 if(strFrom && strTo){
