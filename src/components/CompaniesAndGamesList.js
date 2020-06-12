@@ -41,40 +41,31 @@ const CompaniesAndGamesList = (props) => {
     let loadMore = '';
     
     if(props.data && props.data.length > 0) {
-        let count = 0;
-        let tiles = [];
-
         props.data.sort(sorterMoreToLess);        
 
-        for(var anObject of props.data){
-            if(count >= itemCountMax)
-                break;
-            
-            if( props.filter &&
-                props.filter!=='' && 
-                anObject.name.toLocaleLowerCase().indexOf(props.filter)===-1) {
-                continue;
-            }
-            
-            if( isGame(anObject) ) {
-                tiles.push(
-                    <GameTile key={'game_'+anObject.game_id} game={anObject}/>
-                );
-            } else {
-                tiles.push(
-                    <CompanyTile key={'company_'+anObject.id} company={anObject}/>
-                );
-            }
-            count++;
+        let tiles = props.data;
+        if(props.filter) {
+            tiles = props.data.filter( (value, index) => { 
+                //Either we dont have a filer set, or the name of the tile contains the filter.
+                return (value.name.toLocaleLowerCase().indexOf(props.filter) !== -1) ;
+            });
         }
 
-        tileGrid = <div className="CompaniesGrid"> {tiles} </div>
+        tiles = tiles.map( (value) => {
+            if( isGame(value) ) {
+                return <GameTile key={'game_'+value.game_id} game={value}/>
+            } else {
+                return <CompanyTile key={'company_'+value.id} company={value}/>
+            }
+        });
 
-        if(itemCountMax < props.data.length) {
+        if(itemCountMax < tiles.length) {
             loadMore = <LoadMore onLoadMore={onLoadMore} />
         }
-    }
 
+        tiles = tiles.slice(0, itemCountMax);
+        tileGrid = <div className="CompaniesGrid"> {tiles} </div>
+    }
     
     return (
         <div className="CompaniesAndGamesList">
