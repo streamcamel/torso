@@ -49,21 +49,18 @@ const SingleCompanyPage = () => {
     let description = '';
     if(dataCompanies.length>0 && dataCompanies[0].description !== null) {
         let lines = utils.textToParagraphs(dataCompanies[0].description);
-        let paragraphs = [];
-        for(let aline of lines) {
-            paragraphs.push(
-                <p>{aline}</p>
-            );
-        }
-        
-        description = <div className="CompanyDescription">{paragraphs}</div>
+        description =   <div className="CompanyDescription">
+                            { lines.map((value, idx) => { 
+                                        return <p key={idx}>{value}</p>
+                                    }) }
+                        </div>
     }
 
     let headers = [ {title:title, selected:true} ];
 
     return (
         <div className="SingleCompanyPage">
-            <SectionHeader headers={headers} onFilter={onFilter}/>    
+            <SectionHeader headers={headers} onFilter={onFilter}/> 
             {description}
             <CompaniesAndGamesList data={dataGames} filter={filter}/>
         </div>
