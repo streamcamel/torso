@@ -10,41 +10,74 @@ const MainChart = (props) => {
     let history = useHistory();
 
     const refChart = useRef(null);
-
     const [data, setData] = useState([]);
     const [prevPath, setPrevPath] = useState('');
-    const [fromTo, setFromTo] = useState([]);
+    const [singleRegister, setSingleRegister] = useState(true);
 
     const onChangeRangeFromNow = (minutes) => {
         let dateFrom;
-        const dateTo = new Date()
         if(minutes === -1){
             dateFrom = new Date('01/01/2020');
         } else {
             dateFrom = new Date();
             dateFrom.setMinutes(dateFrom.getMinutes() - minutes); // 7 days is the default
         }
-        setFromTo([dateFrom, dateTo])
 
-        let query = utils.URLSearchAddQuery(location.search, 'chartFrom', dateFrom.toISOString());
-        query = utils.URLSearchAddQuery(query, 'chartTo', dateTo.toISOString());
+        let query = location.search;
+        
+        if(minutes === (7*24*60)){
+            query = utils.URLSearchRemoveQuery(query, 'chartFrom');
+        } else {
+            query = utils.URLSearchAddQuery(query, 'chartFrom', dateFrom.toISOString());
+        }
+
+        query = utils.URLSearchRemoveQuery(query, 'chartTo');
         history.push({pathname:location.pathname, search:query});
     }
 
-    const selectChartRangeWithPercentage = (perStart, perEnd) => {
-        if(fromTo.length > 0){
-            let rangeDiff = fromTo[1] - fromTo[0];
-            let dFrom = rangeDiff * perStart;
-            let dTo = rangeDiff * (1-perEnd);
+    const getChartDatesArrayFromTo = () => {
+        const strFrom = utils.URLSearchGetQueryString(location.search, 'chartFrom');
+        const strTo = utils.URLSearchGetQueryString(location.search, 'chartTo');
 
-            let newFrom = new Date(fromTo[0].getTime() + dFrom);
-            let newTo = new Date(fromTo[1].getTime() - dTo);
-            setFromTo([newFrom, newTo]);
+        let dateFrom;
+        let dateTo;
 
-            let query = utils.URLSearchAddQuery(location.search, 'chartFrom', newFrom.toISOString());
-            query = utils.URLSearchAddQuery(query, 'chartTo', newTo.toISOString());
-            history.push({pathname:location.pathname, search:query});
+        if(strFrom) {
+            dateFrom = new Date(strFrom);
+        } else {
+            dateFrom = new Date();
+            dateFrom.setMinutes(dateFrom.getMinutes() - (7*24*60)); // 7 days is the default
         }
+
+        if(strTo) {
+            dateTo = new Date(strTo);
+        } else {
+            dateTo = new Date();
+        }
+
+        return [dateFrom, dateTo];
+    }
+
+    const selectChartRangeWithPercentage = (perStart, perEnd) => {
+        const fromTo = getChartDatesArrayFromTo();
+
+        const rangeDiff = fromTo[1] - fromTo[0];
+        const dFrom = rangeDiff * perStart;
+        const dTo = rangeDiff * (1-perEnd);
+
+        const newFrom = new Date(fromTo[0].getTime() + dFrom);
+        const newTo = new Date(fromTo[1].getTime() - dTo);
+
+        // No sense in have less than 2 points
+        // Because the DB increments are 10 minutes.
+        const newRangeMinutes = (newTo - newFrom) / 1000 / 60;
+        if(newRangeMinutes < 20) {
+            return;
+        }
+
+        let query = utils.URLSearchAddQuery(location.search, 'chartFrom', newFrom.toISOString());
+        query = utils.URLSearchAddQuery(query, 'chartTo', newTo.toISOString());
+        history.push({pathname:location.pathname, search:query});
     }
 
     const convertDataToChartData = (toconvert) => {
@@ -60,36 +93,66 @@ const MainChart = (props) => {
         return chartData;
     }
 
+    const onAfterDraw = (chart) => {
+
+        if( !('streamcamelMouseDownX' in chart) ||
+            !('streamcamelMouseMoveX' in chart) ||
+            chart['streamcamelMouseDownX'] < 0) {
+                return;
+        }
+
+        let chartArea = chart.chartArea;
+        let posx = chart['streamcamelMouseMoveX'];
+        let sx = chart['streamcamelMouseDownX'];
+
+        if(sx > posx) {
+            let tmp = posx;
+            posx = sx;
+            sx = tmp;
+        }
+
+        sx = Math.max(chartArea.left, sx);
+        sx = Math.min(chartArea.right, sx);
+
+        posx = Math.max(chartArea.left, posx);
+        posx = Math.min(chartArea.right, posx);
+
+        chart['streamcamelSelectionStart'] = (sx-chartArea.left)/(chartArea.right-chartArea.left); 
+        chart['streamcamelSelectionEnd'] = (posx-chartArea.left)/(chartArea.right-chartArea.left);
+
+        let ctx = chart.ctx;
+        ctx.save();
+
+            ctx.globalAlpha = 0.3;
+            ctx.fillStyle = '#DDDDDD';
+            ctx.fillRect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
+
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = '#DDDDDD';
+            ctx.rect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
+            ctx.stroke();
+
+        ctx.restore();    
+    }
+
+
     useEffect(() => {
+
+        if(singleRegister) {
+            Chart.pluginService.register({ afterDraw: onAfterDraw });
+            setSingleRegister(false);
+        }
+
         if(prevPath !== (location.pathname+location.search))
         {
-            let command = utils.pathToCommand(location.pathname);
-            let slug = utils.pathToSlug(location.pathname);
+            const command = utils.pathToCommand(location.pathname);
+            const slug = utils.pathToSlug(location.pathname);
+            const fromTo = getChartDatesArrayFromTo();
 
-            let dateFrom;
-            let dateTo;
-            if(fromTo.length===0 || (location.pathname==='/' && location.search==='')) {
-                //Setup default chart duration if: 
-                // - not initialized
-                // - went back to clean location/search -- streamcamel logo was clicked
-                let strFrom = utils.URLSearchGetQueryString(location.search, 'chartFrom');
-                let strTo = utils.URLSearchGetQueryString(location.search, 'chartTo');
-                if(strFrom && strTo){
-                    dateFrom = new Date(strFrom);
-                    dateTo = new Date(strTo);
-                } else {
-                    dateFrom = new Date();
-                    dateFrom.setMinutes(dateFrom.getMinutes() - (7*24*60)); // 7 days is the default
-                    dateTo = new Date();
-                }
-                setFromTo([dateFrom, dateTo]);
-            } else {
-                dateFrom = fromTo[0];
-                dateTo = fromTo[1];
-            }
-
-            let request = utils.URLSearchAddQuery('', 'after', dateFrom.toISOString());
-            request = utils.URLSearchAddQuery(request, 'before', dateTo.toISOString());
+            let request = utils.URLSearchAddQuery('', 'after', fromTo[0].toISOString());
+            request = utils.URLSearchAddQuery(request, 'before', fromTo[1].toISOString());
 
             switch(command) {
                 case 'company':
@@ -103,7 +166,7 @@ const MainChart = (props) => {
                     break;
             }
 
-            let url = appConfig.backendURL('/viewers' + request);
+            const url = appConfig.backendURL('/viewers' + request);
 
             fetch(url)
                 .then(res => res.json())
@@ -111,55 +174,9 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, prevPath, fromTo]);
+    }, [location, prevPath, singleRegister]);
 
-
-    Chart.pluginService.register({
-        afterDraw: function (chart) {
-
-            if( !('streamcamelMouseDownX' in chart) ||
-                !('streamcamelMouseMoveX' in chart) ||
-                chart['streamcamelMouseDownX'] < 0) {
-                    return;
-            }
-
-            let chartArea = chart.chartArea;
-            let posx = chart['streamcamelMouseMoveX'];
-            let sx = chart['streamcamelMouseDownX'];
-
-            if(sx > posx) {
-                let tmp = posx;
-                posx = sx;
-                sx = tmp;
-            }
-
-            sx = Math.max(chartArea.left, sx);
-            sx = Math.min(chartArea.right, sx);
-
-            posx = Math.max(chartArea.left, posx);
-            posx = Math.min(chartArea.right, posx);
-
-            chart['streamcamelSelectionStart'] = (sx-chartArea.left)/(chartArea.right-chartArea.left); 
-            chart['streamcamelSelectionEnd'] = (posx-chartArea.left)/(chartArea.right-chartArea.left);
-
-            let ctx = chart.ctx;
-            ctx.save();
-
-            ctx.globalAlpha = 0.1;
-            ctx.fillStyle = '#DDDDDD';
-            ctx.fillRect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
-
-            ctx.globalAlpha = 0.3;
-            ctx.beginPath();
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = '#DDDDDD';
-            ctx.rect(sx, chartArea.top, posx-sx, chartArea.bottom - chartArea.top);
-            ctx.stroke();
-
-            ctx.restore();    
-        },
-    })
-
+       
     const eventToPosition = (evt) => {
         if( evt.constructor.name === 'TouchEvent'){
             return [evt.touches[0].clientX, evt.touches[0].clientY];
@@ -216,10 +233,7 @@ const MainChart = (props) => {
     }
     
     const safeGetDuration = () => {
-        if(fromTo.length === 0) {
-            return (7*24*60)
-        } 
-
+        const fromTo = getChartDatesArrayFromTo();
         const allDate = new Date('01/01/2020');
 
         if( (fromTo[0].toISOString() === allDate.toISOString()) &&
@@ -259,6 +273,8 @@ const MainChart = (props) => {
     let timeUnit = 'day';
     if( (durationMinutes > (60*24*30*3)) || (durationMinutes === -1) ) { // > 3 months
         timeUnit = 'month';
+    } else if(durationMinutes <= (60*2)) { // < 2 hours
+        timeUnit = 'minute';
     } else if(durationMinutes <= (60*36)) { // < 24 hours
         timeUnit = 'hour';
     }
@@ -293,11 +309,11 @@ const MainChart = (props) => {
             display: false
         },
         tooltip:{
-            mode: 'index',
+            mode: 'nearest',
             intersect: false,
         },
         hover:{
-            mode: 'index',
+            mode: 'nearest',
             intersect: false,
         },
         scales: {
