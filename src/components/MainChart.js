@@ -28,7 +28,7 @@ const MainChart = (props) => {
         if(minutes === (7*24*60)){
             query = utils.URLSearchRemoveQuery(query, 'chartFrom');
         } else {
-            query = utils.URLSearchAddQuery(query, 'chartFrom', dateFrom.toISOString());
+            query = utils.URLSearchAddQuery(query, 'chartFrom', encodeURIComponent(dateFrom.toISOString()));
         }
 
         query = utils.URLSearchRemoveQuery(query, 'chartTo');
@@ -43,14 +43,14 @@ const MainChart = (props) => {
         let dateTo;
 
         if(strFrom) {
-            dateFrom = new Date(strFrom);
+            dateFrom = new Date(decodeURIComponent(strFrom));
         } else {
             dateFrom = new Date();
             dateFrom.setMinutes(dateFrom.getMinutes() - (7*24*60)); // 7 days is the default
         }
 
         if(strTo) {
-            dateTo = new Date(strTo);
+            dateTo = new Date(decodeURIComponent(strTo));
         } else {
             dateTo = new Date();
         }
@@ -59,24 +59,23 @@ const MainChart = (props) => {
     }
 
     const selectChartRangeWithPercentage = (perStart, perEnd) => {
-        const fromTo = getChartDatesArrayFromTo();
-
-        const rangeDiff = fromTo[1] - fromTo[0];
-        const dFrom = rangeDiff * perStart;
-        const dTo = rangeDiff * (1-perEnd);
-
-        const newFrom = new Date(fromTo[0].getTime() + dFrom);
-        const newTo = new Date(fromTo[1].getTime() - dTo);
-
         // No sense in have less than 2 points
-        // Because the DB increments are 10 minutes.
-        const newRangeMinutes = (newTo - newFrom) / 1000 / 60;
-        if(newRangeMinutes < 20) {
+        if(data.length <= 2) {
+            return;
+        } 
+
+        let idxFrom = Math.round((data.length-1) * (1.0 - perStart));
+        let idxTo = Math.round((data.length-1) * (1.0 - perEnd));
+
+        const newFromT = new Date(data[idxFrom]['time']);
+        const newToT = new Date(data[idxTo]['time']);
+
+        if(newFromT >= newToT) {
             return;
         }
 
-        let query = utils.URLSearchAddQuery(location.search, 'chartFrom', newFrom.toISOString());
-        query = utils.URLSearchAddQuery(query, 'chartTo', newTo.toISOString());
+        let query = utils.URLSearchAddQuery(location.search, 'chartFrom', encodeURIComponent(newFromT.toISOString()));
+        query = utils.URLSearchAddQuery(query, 'chartTo', encodeURIComponent(newToT.toISOString()));
         history.push({pathname:location.pathname, search:query});
     }
 
@@ -151,8 +150,8 @@ const MainChart = (props) => {
             const slug = utils.pathToSlug(location.pathname);
             const fromTo = getChartDatesArrayFromTo();
 
-            let request = utils.URLSearchAddQuery('', 'after', fromTo[0].toISOString());
-            request = utils.URLSearchAddQuery(request, 'before', fromTo[1].toISOString());
+            let request = utils.URLSearchAddQuery('', 'after', encodeURIComponent(fromTo[0].toISOString()));
+            request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(fromTo[1].toISOString()));
 
             switch(command) {
                 case 'company':
@@ -167,7 +166,6 @@ const MainChart = (props) => {
             }
 
             const url = appConfig.backendURL('/viewers' + request);
-
             fetch(url)
                 .then(res => res.json())
                 .then(res => setData(res))
@@ -295,7 +293,7 @@ const MainChart = (props) => {
             pointHoverBackgroundColor: 'rgba(0, 145, 255, 0.85)',
             pointHoverBorderColor: 'rgba(220,220,220,1)',
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 1.5,
             pointHitRadius: 10,
             data: chartData[1]
           }
