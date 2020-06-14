@@ -330,6 +330,10 @@ const MainChart = (props) => {
                 }
             }]
         },
+        animation: {
+            duration: 100,
+            easing: 'linear'
+        }
     }
 
     if(refChart && refChart.current) {
