@@ -11,6 +11,7 @@ const MainChart = (props) => {
 
     const refChart = useRef(null);
     const [data, setData] = useState([]);
+    const [title, setTitle] = useState('Viewers')
     const [prevPath, setPrevPath] = useState('');
     const [singleRegister, setSingleRegister] = useState(true);
 
@@ -136,6 +137,15 @@ const MainChart = (props) => {
         ctx.restore();    
     }
 
+    const isCompanyCommand = () => {
+        const command = utils.pathToCommand(location.pathname);
+        return command === 'company';
+    };
+
+    const isGameCommand = () => {
+        const command = utils.pathToCommand(location.pathname);
+        return command === 'game';
+    };
 
     useEffect(() => {
 
@@ -165,10 +175,32 @@ const MainChart = (props) => {
                     break;
             }
 
-            const url = appConfig.backendURL('/viewers' + request);
-            fetch(url)
+            const promises = [];
+            const viewerPromise = fetch(appConfig.backendURL('/viewers' + request))
                 .then(res => res.json())
                 .then(res => setData(res))
+            promises.push(viewerPromise);
+
+            let commandUrl = '';
+            let titlePrefix = '';
+            if (isGameCommand()) {
+                commandUrl = '/games/' + slug;
+                titlePrefix = 'Game';
+            } else if (isCompanyCommand()) {
+                commandUrl = '/companies/' + slug;
+                titlePrefix = 'Company';
+            }
+
+            if (commandUrl !== '') {
+                const titlePromise = fetch(appConfig.backendURL(commandUrl))
+                    .then(res => res.json())
+                    .then(res => setTitle(res[0].name + ' ' + titlePrefix + ' Viewers'))
+                promises.push(titlePromise);
+            } else {
+                setTitle('Viewers')
+            }
+
+            //Promise.all(promises);
 
             setPrevPath(location.pathname+location.search);
         }
@@ -349,7 +381,7 @@ const MainChart = (props) => {
 
     return (
         <div className="ChartArea">
-            <h2 className="ChartTitle">Viewers</h2>
+            <h2 className="ChartTitle">{title}</h2>
 
             <div className="MainChart">
                 <Line ref={refChart} data={testdata} options={options} />
