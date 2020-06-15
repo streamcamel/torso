@@ -175,11 +175,9 @@ const MainChart = (props) => {
                     break;
             }
 
-            const promises = [];
-            const viewerPromise = fetch(appConfig.backendURL('/viewers' + request))
+            fetch(appConfig.backendURL('/viewers' + request))
                 .then(res => res.json())
                 .then(res => setData(res))
-            promises.push(viewerPromise);
 
             let commandUrl = '';
             let titlePrefix = '';
@@ -192,10 +190,9 @@ const MainChart = (props) => {
             }
 
             if (commandUrl !== '') {
-                const titlePromise = fetch(appConfig.backendURL(commandUrl))
+                fetch(appConfig.backendURL(commandUrl))
                     .then(res => res.json())
                     .then(res => setTitle(res[0].name + ' ' + titlePrefix + ' Viewers'))
-                promises.push(titlePromise);
             } else {
                 setTitle('Viewers')
             }
