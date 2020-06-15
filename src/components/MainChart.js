@@ -200,8 +200,6 @@ const MainChart = (props) => {
                 setTitle('Viewers')
             }
 
-            //Promise.all(promises);
-
             setPrevPath(location.pathname+location.search);
         }
     }, [location, prevPath, singleRegister]);
