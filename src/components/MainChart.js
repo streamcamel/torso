@@ -192,7 +192,11 @@ const MainChart = (props) => {
             if (commandUrl !== '') {
                 fetch(appConfig.backendURL(commandUrl))
                     .then(res => res.json())
-                    .then(res => setTitle(res[0].name + ' ' + titlePrefix + ' Viewers'))
+                    .then(res => {
+                        if(res.length > 0) {
+                            setTitle(res[0].name + ' ' + titlePrefix + ' Viewers');
+                        }
+                    })
             } else {
                 setTitle('Viewers')
             }
