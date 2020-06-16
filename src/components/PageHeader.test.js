@@ -35,7 +35,7 @@ test('PageHeader component: Return home when clicking on container', () => {
     expect(history.location.pathname).toEqual('/company/activision');
 
     // Navigate home
-    fireEvent.click(screen.getByTitle('PageHeader'));
+    fireEvent.click(screen.getByText(/Stream Camel/));
 
     expect(history.location.pathname).toEqual('/');
 });
