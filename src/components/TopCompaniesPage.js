@@ -18,6 +18,8 @@ const TopCompaniesPage = () => {
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
+        document.title = 'Stream Camel: Viewers for Top Companies';
+
         if(prevPath !== location.pathname)
         {
             let url = appConfig.backendURL('/top_companies?limit=100&period=1w');

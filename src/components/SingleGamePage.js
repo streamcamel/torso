@@ -34,6 +34,8 @@ const SingleGamePage = () => {
         title = data[0].name;
         iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
         description = utils.textToParagraphs(data[0].storyline);
+
+        document.title = 'Stream Camel: Viewers for ' + title;
     }
 
     let headers = [ {title:title, selected:true} ];
