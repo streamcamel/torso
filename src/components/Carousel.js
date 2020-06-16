@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from "react-router-dom";
 
 import MainChart from './MainChart'
+import IntroText from './IntroText'
 import SearchPage from './SearchPage'
 import SingleCompanyPage from './SingleCompanyPage'
 import SingleGamePage from './SingleGamePage'
@@ -12,6 +13,11 @@ const Carousel = () => {
 
     return (
         <div className="Carousel">
+            <Switch>
+                <Route exact path="/">
+                    <IntroText/>
+                </Route>
+            </Switch>
             <MainChart />
             <Switch>
                 <Route exact path="/">
