@@ -2,7 +2,7 @@
 <game>	
 	<title>Stream Camel</title>
 	<founding-date>February 1st, 2019</founding-date>
-	<website>http://www.streamcamel.com/</website>
+	<website>https://www.streamcamel.com/</website>
 	<based-in>La Honda, California</based-in>
 	
 	<press-contact>contact@streamcamel.com</press-contact>
@@ -25,23 +25,16 @@
 	</socials>
 
 	<description>	
-	    We are gamers, and we love stats.
+	    We are engineers, gamers, and we love stats.
 	</description>
 		
 	<histories>
 		<history>
 			<header>Early history</header>
-			<text>Once upon a time, we were gamers and finally got jobs in the game industry. One of us decided to become a contractor and work for Sony. The other decides to move and work for Twitch. We wanted to make games. We both loved math. Statistics were interesting. I like finance and I figured out no one has made a Video Game streaming index. Maybe we can predict the future with this.</text>
+			<text>Once upon a time, we were gamers and finally got jobs in the game industry. After a couple of years designing software and making games, one of us become a contractor and work for Sony. The other decided to move and work for Twitch. We still wanted to make games. We both loved math. Statistics were interesting. We like finance and I figured out no one has made a Video Game streaming index. Maybe we can predict the future with this.</text>
 		</history>
 	</histories>
 		
-	<trailers>
-		<trailer>
-			<name>When things are hard, I need to stand-up and jump again.</name>
-			<youtube>-PdjNJz7B1Q</youtube>
-		</trailer>
-	</trailers>
-	
 	<quotes>
 		<quote>
 			<description>Sometimes it is the people no one can imagine anything of who do the things no one can imagine.</description>
@@ -58,9 +51,14 @@
 																			 	monetize (full permission) -->	
 	<additionals>
 		<additional>
+			<title>Stream Camel</title>
+			<description>Live Steaming Statistics</description>
+			<link>streamcamel.com</link>
+		</additional>
+		<additional>
 			<title>Implicit Conversions LLC</title>
 			<description>Business Company</description>
-			<link>https://www.implicitconversions.com</link>
+			<link>implicitconversions.com</link>
 		</additional>
 	</additionals>
 	
@@ -77,6 +75,10 @@
 			<person>Patrick Allaire</person>
 			<website>https://www.pallaire.com</website>
 			<role>Full-Stack Engineer, Designer</role>
+		</credit>
+		<credit>
+			<person>Isabelle Gagnon</person>
+			<role>Logo Design - Emotional Support</role>
 		</credit>
 		<credit>
 			<person>Jean-Sebastien Royer</person>
