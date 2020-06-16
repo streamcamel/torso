@@ -11,7 +11,7 @@ const PageFooter = () => {
     }
 
     return (
-        <div title="PageFooter" className="PageFooter">
+        <div className="PageFooter">
             <div className="FooterLeft">
                 <span className=".helperVerticalCenter">
                     <img src={require("../images/pagelogotiny.png")} alt="logo" className="PageFooterLogo" />
