@@ -30,7 +30,7 @@ const MainToolbar = () => {
     }, [location]);
 
     return (
-        <div title="MainToolbar" className="MainToolbar">
+        <div className="MainToolbar">
             <div className="MainToolbarSectionSearch">
                 <span className="MainToolbarSectionTitle">Search </span>
                 <input ref={refInput} type="text" onKeyDown={onSearch} />
