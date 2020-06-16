@@ -18,6 +18,8 @@ const TopGamesPage = () => {
     }
     
     useEffect(() => {
+        document.title = 'Stream Camel: Viewers for Top Games';
+
         if(prevPath !== location.pathname)
         {
             let url = appConfig.backendURL('/top_games?limit=100&period=1w');
