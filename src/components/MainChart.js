@@ -195,8 +195,10 @@ const MainChart = (props) => {
                     .then(res => {
                         if(res.length > 0) {
                             setTitle(res[0].name + ' ' + titlePrefix + ' Viewers');
+                        } else {
+                            setTitle('Viewers');
                         }
-                    })
+                    });
             } else {
                 setTitle('Viewers')
             }
