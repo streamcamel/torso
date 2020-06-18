@@ -43,7 +43,7 @@ const SingleGamePage = () => {
     let title = '';
     let iconurl = '';
     let description = '';
-    let summary = ``;
+    let summary = '';
 
     if(data.length > 0){
         title = data[0].name;
@@ -67,7 +67,7 @@ const SingleGamePage = () => {
     }
 
     let headers = [ {title:title, selected:true} ];
-    let fullDescription = summary + '\n' + '\n' + description;
+    let fullDescription = summary + '\n\n' + description;
 
     return (
         <div className="SingleGamePage">
