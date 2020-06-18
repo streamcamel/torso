@@ -5,8 +5,8 @@ import { createMemoryHistory } from 'history'
 
 import SingleGamePage from './SingleGamePage';
 
-import { enableFetchMocks } from 'jest-fetch-mock'
-enableFetchMocks()
+import { enableMocks } from 'jest-fetch-mock'
+enableMocks()
 
 // Mocking data to pass as props
 const data = [{
@@ -20,10 +20,28 @@ const data = [{
     "summary": ""
 }];
 
+const dataStats = [{
+        "box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-{width}x{height}.jpg",
+        "game_id": 33214,
+        "name": "Fortnite",
+        "rank": 6,
+        "slug": "fortnite",
+        "stream_count_average": 0,
+        "stream_count_peak": 0,
+        "viewer_count_peak": 0,
+        "viewer_percentage": 0.050253447649950926,
+        "viewers": 112127
+}];
 
 test('SingleGamePage component: Creation', async () => {
 
-    fetch.mockResponse(JSON.stringify(data));
+    fetch.mockResponse(async (req) => {
+        if(req.url.match(/\/games\//)) {
+            return JSON.stringify(data);
+        } else if (req.url.match(/games_stats/)) {
+            return JSON.stringify(dataStats);
+        }
+    });
 
     const history = createMemoryHistory()
     history.push('/game/fortnite')
@@ -36,8 +54,9 @@ test('SingleGamePage component: Creation', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite');
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?game=fortnite&period=1w');
         
 
     // Game Name

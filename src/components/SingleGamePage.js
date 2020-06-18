@@ -54,16 +54,11 @@ const SingleGamePage = () => {
     if (gameData.length > 0) {
         let gameName = gameData[0].name;
         let rank = gameData[0].rank;
+        let rankSuffix = utils.rankSuffix(rank);
         let viewers = gameData[0].viewers.toLocaleString();
         let viewer_percentage = (gameData[0].viewer_percentage * 100).toFixed(2);
 
-        if (rank == 1) {
-            summary = `${gameName} is the ${rank}th most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
-        } else if (rank == 2) {
-            summary = `${gameName} is the ${rank}nd most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
-        } else {
-            summary = `${gameName} is the ${rank}th most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
-        }
+        summary = `${gameName} is the ${rank}${rankSuffix} most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
     }
 
     let headers = [ {title:title, selected:true} ];
