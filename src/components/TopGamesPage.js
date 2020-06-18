@@ -22,7 +22,7 @@ const TopGamesPage = () => {
 
         if(prevPath !== location.pathname)
         {
-            let url = appConfig.backendURL('/top_games?limit=100&period=1w');
+            let url = appConfig.backendURL('/games_stats?limit=100&period=1w');
             fetch(url)
                 .then(res => res.json())
                 .then(res => setData(res))
