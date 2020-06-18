@@ -20,9 +20,10 @@
 
 .PageHeader {
   background-color: #0B0B0B;
+  font-family: Bungee;
   font-size: 3em;
   line-height: 2em;
-  font-weight: 700;
+  font-weight: 400;
   padding: 0.1em;
   padding-left: 0.5em;
   text-align: left;
