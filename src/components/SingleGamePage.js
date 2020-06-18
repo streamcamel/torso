@@ -54,7 +54,7 @@ const SingleGamePage = () => {
     if (gameData.length > 0) {
         let gameName = gameData[0].name;
         let rank = gameData[0].rank;
-        let viewers = gameData[0].viewers;
+        let viewers = gameData[0].viewers.toLocaleString();
         let viewer_percentage = (gameData[0].viewer_percentage * 100).toFixed(2);
 
         if (rank == 1) {
