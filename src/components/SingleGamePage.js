@@ -9,7 +9,16 @@ const SingleGamePage = () => {
 
     const [data, setData] = useState([]); // Data state for the companies/games
     const [prevPath, setPrevPath] = useState('');
+    const [gameData, setGameData] = useState([]);
     
+    const addLineBreaks = string =>
+    string.split('\n').map((text, index) => (
+      <React.Fragment key={`${text}-${index}`}>
+        {text}
+        <br />
+      </React.Fragment>
+    ));
+
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
 
@@ -19,7 +28,12 @@ const SingleGamePage = () => {
             let url = appConfig.backendURL('/games/'+slug);
             fetch(url)
             .then(res => res.json())
-            .then(res => setData(res))
+            .then(res => setData(res));
+
+            url = appConfig.backendURL('/games_stats?game='+slug+'&period=1w');
+            fetch(url)
+            .then(res => res.json())
+            .then(res => setGameData(res));
 
             setPrevPath(location.pathname);
         }
@@ -29,6 +43,7 @@ const SingleGamePage = () => {
     let title = '';
     let iconurl = '';
     let description = '';
+    let summary = ``;
 
     if(data.length > 0){
         title = data[0].name;
@@ -36,7 +51,23 @@ const SingleGamePage = () => {
         description = utils.textToParagraphs(data[0].storyline);
     }
 
+    if (gameData.length > 0) {
+        let gameName = gameData[0].name;
+        let rank = gameData[0].rank;
+        let viewers = gameData[0].viewers;
+        let viewer_percentage = (gameData[0].viewer_percentage * 100).toFixed(2);
+
+        if (rank == 1) {
+            summary = `${gameName} is the ${rank}th most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
+        } else if (rank == 2) {
+            summary = `${gameName} is the ${rank}nd most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
+        } else {
+            summary = `${gameName} is the ${rank}th most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
+        }
+    }
+
     let headers = [ {title:title, selected:true} ];
+    let fullDescription = summary + '\n' + '\n' + description;
 
     return (
         <div className="SingleGamePage">
@@ -45,7 +76,7 @@ const SingleGamePage = () => {
                 <div className="SingleGamePageIconWrapper">
                     <img className="SingleGamePageIcon" src={iconurl} alt={title} />
                 </div>
-                <div className="SingleGamePageDescription">{description}</div>
+                <div className="SingleGamePageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
         </div>
     );

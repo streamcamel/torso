@@ -93,7 +93,7 @@ test('creates a single company page', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/top_games?company=riot-games');
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?company=riot-games');
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/companies/riot-games');        
 });
 
@@ -130,5 +130,5 @@ test('creates a topgames page', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/top_games?limit=100&period=1w');        
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?limit=100&period=1w');  
 });
