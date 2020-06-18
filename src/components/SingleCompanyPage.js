@@ -26,7 +26,7 @@ const SingleCompanyPage = () => {
             let url = '';
 
             setDataGames([])
-            url = appConfig.backendURL('/top_games?company='+slug);
+            url = appConfig.backendURL('/games_stats?company='+slug);
                 fetch(url)
                 .then(res => res.json())
                 .then(res => setDataGames(res))
