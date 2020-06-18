@@ -127,3 +127,18 @@ export function isDateToday(someDate) {
             someDate.getMonth() === today.getMonth() &&
             someDate.getFullYear() === today.getFullYear()
 }
+
+export function rankSuffix(number) {
+    let lastDigit = number % 10;
+
+    switch(lastDigit) {
+        case 1:
+            return 'st';
+        case 2:
+            return 'nd';
+        case 3:
+            return 'rd';
+        default:
+            return 'th';
+    }
+}
