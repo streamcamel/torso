@@ -129,6 +129,10 @@ export function isDateToday(someDate) {
 }
 
 export function rankSuffix(number) {
+    if (number === 11 || number === 12 || number === 13) {
+        return 'th';
+    }
+    
     let lastDigit = number % 10;
 
     switch(lastDigit) {
