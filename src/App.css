@@ -464,4 +464,9 @@
   .App{
     font-size: 0.7em;
   }
+
+  .PageHeader {
+    font-size: 2.5em;
+    line-height: 2em;
+  }  
 }
