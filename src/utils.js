@@ -129,20 +129,20 @@ export function isDateToday(someDate) {
 }
 
 export function rankSuffix(number) {
-    if (number === 11 || number === 12 || number === 13) {
-        return 'th';
+    number = Math.abs(number)
+    var cent = number % 100
+    if (cent >= 10 && cent <= 20) {
+        return 'th'
     }
-    
-    let lastDigit = number % 10;
 
-    switch(lastDigit) {
-        case 1:
-            return 'st';
-        case 2:
-            return 'nd';
-        case 3:
-            return 'rd';
-        default:
-            return 'th';
+    var dec = number % 10
+    if (dec === 1) {
+        return 'st'
+    } else if (dec === 2) { 
+        return 'nd'
+    } else if (dec === 3) { 
+        return 'rd'
+    } else {
+        return 'th'
     }
 }
