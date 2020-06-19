@@ -33,7 +33,7 @@ test('Privacy component: Creation - Showing', () => {
     // looking for many element to show
     expect(screen.getByText('Notice and Choice')).toBeTruthy()
     expect(screen.getByText('Contact Us')).toBeTruthy()
-    expect(screen.getByText('email us').closest('a')).toHaveAttribute('href', 'mailto://contact@streamcamel.com')
+    expect(screen.getByText('email us').closest('a')).toHaveAttribute('href', 'mailto:contact@streamcamel.com')
 });
 
 
