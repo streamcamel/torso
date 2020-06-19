@@ -229,10 +229,14 @@ const MainChart = (props) => {
         if(refChart && refChart.current) {
             let pos = eventToPosition(evt);
             let chart = refChart.current.chartInstance.chart;
-            chart['streamcamelMouseDownX'] = pos[0]; 
-            chart['streamcamelMouseDownY'] = pos[1]; 
-            chart['streamcamelSelectionStart'] = 0; 
-            chart['streamcamelSelectionEnd'] = 0; 
+            let chartArea = refChart.current.chartInstance.chartArea;
+
+            if(pos[1]>=chartArea['top']  &&  pos[1]<=chartArea['bottom']) {
+                chart['streamcamelMouseDownX'] = pos[0]; 
+                chart['streamcamelMouseDownY'] = pos[1]; 
+                chart['streamcamelSelectionStart'] = 0; 
+                chart['streamcamelSelectionEnd'] = 0; 
+            }
         }
     }
     const onMouseMove = (evt) => {
