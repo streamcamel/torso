@@ -49,6 +49,7 @@ const SingleGamePage = () => {
         title = data[0].name;
         iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
         description = utils.textToParagraphs(data[0].storyline);
+        document.title = `Streamcamel.com: ${title} - Statistics and Charts`;
     }
 
     if (gameData.length > 0) {

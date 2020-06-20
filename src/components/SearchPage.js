@@ -32,6 +32,8 @@ const SearchPage = () => {
             fetch(urlGames)
                 .then(res => res.json())
                 .then(res => setDataGames(res))
+
+            document.title = `Streamcamel.com: Search Results for ${slug}`;
             
             setPrevPath(location.pathname);
         }
