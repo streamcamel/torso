@@ -68,4 +68,7 @@ test('SingleGamePage component: Creation', async () => {
     
     // Title Image
     expect(screen.getByAltText(/fortnite/i)).toHaveAttribute('src', 'https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-300x400.jpg');
+
+    // Page Title 
+    expect(document.title).toBe('Streamcamel.com: Fortnite - Statistics and Charts');
 });
