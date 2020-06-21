@@ -49,7 +49,7 @@ test('creates default page with root url path', async () => {
     expect(screen.getByText('Top Companies by Average Viewers')).toBeTruthy();
 
     // Page Title 
-    expect(document.title).toBe('Streamcamel.com: Games and Companies Global Statistics');
+    expect(document.title).toBe('Games and Companies Global Statistics | StreamCamel');
 });
 
 test('creates search page', async () => {
@@ -80,7 +80,7 @@ test('creates search page', async () => {
     expect(screen.getByText('Companies and Games Results by Average Viewers')).toBeTruthy();
 
     // Page Title 
-    expect(document.title).toBe('Streamcamel.com: Search Results for soft');
+    expect(document.title).toBe('Search Results for soft | StreamCamel');
 });
 
 
