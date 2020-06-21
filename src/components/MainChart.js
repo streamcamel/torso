@@ -1,4 +1,4 @@
-import React , { useState, useEffect, useRef } from 'react';
+import React , { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
@@ -36,7 +36,7 @@ const MainChart = (props) => {
         history.push({pathname:location.pathname, search:query});
     }
 
-    const getChartDatesArrayFromTo = () => {
+    const getChartDatesArrayFromTo = useCallback(() => {
         const strFrom = utils.URLSearchGetQueryString(location.search, 'chartFrom');
         const strTo = utils.URLSearchGetQueryString(location.search, 'chartTo');
 
@@ -57,7 +57,7 @@ const MainChart = (props) => {
         }
 
         return [dateFrom, dateTo];
-    }
+    }, [location.search]);
 
     const selectChartRangeWithPercentage = (perStart, perEnd) => {
         // No sense in have less than 2 points
@@ -137,17 +137,16 @@ const MainChart = (props) => {
         ctx.restore();    
     }
 
-    const isCompanyCommand = () => {
-        const command = utils.pathToCommand(location.pathname);
-        return command === 'company';
-    };
-
-    const isGameCommand = () => {
-        const command = utils.pathToCommand(location.pathname);
-        return command === 'game';
-    };
-
     useEffect(() => {
+        const isCompanyCommand = () => {
+            const command = utils.pathToCommand(location.pathname);
+            return command === 'company';
+        };
+    
+        const isGameCommand = () => {
+            const command = utils.pathToCommand(location.pathname);
+            return command === 'game';
+        };
 
         if(singleRegister) {
             Chart.pluginService.register({ afterDraw: onAfterDraw });
@@ -205,7 +204,7 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, prevPath, singleRegister]);
+    }, [location, prevPath, singleRegister, getChartDatesArrayFromTo]);
 
        
     const eventToPosition = (evt) => {
