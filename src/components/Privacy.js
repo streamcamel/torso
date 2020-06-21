@@ -56,7 +56,7 @@ const Privacy = () => {
                 <p>Stream Camel has further committed to refer unresolved privacy complaints under the US-EU and US- Swiss Safe Harbor Principles to an independent dispute resolution mechanism, the BBB EU SAFE HARBOR, operated by the Council of Better Business Bureaus. Thus, if you do not receive timely acknowledgment of your complaint, or if your complaint is not satisfactorily addressed, please visit the BBB EU SAFE HARBOR website for more information or to file a complaint.</p>
 
                 <h2>Contact Us</h2>
-                <p>We welcome your questions and feedback on our Privacy Policy. To contact us, <a href="mailto://contact@streamcamel.com">email us</a>.</p>
+                <p>We welcome your questions and feedback on our Privacy Policy. To contact us, <a href="mailto:contact@streamcamel.com">email us</a>.</p>
                 </div>
             </div>
         </Modal>

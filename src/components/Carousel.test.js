@@ -47,6 +47,9 @@ test('creates default page with root url path', async () => {
     expect(screen.getByText('Top Companies')).toBeTruthy();
     expect(screen.getByText('Top Games')).toBeTruthy();
     expect(screen.getByText('Top Companies by Average Viewers')).toBeTruthy();
+
+    // Page Title 
+    expect(document.title).toBe('Streamcamel.com: Games and Companies Global Statistics');
 });
 
 test('creates search page', async () => {
@@ -75,6 +78,9 @@ test('creates search page', async () => {
     // Listings
     expect(screen.getByText('Search Results')).toBeTruthy();
     expect(screen.getByText('Companies and Games Results by Average Viewers')).toBeTruthy();
+
+    // Page Title 
+    expect(document.title).toBe('Streamcamel.com: Search Results for soft');
 });
 
 
