@@ -11,7 +11,7 @@ import TopGamesPage from './TopGamesPage'
 
 const Carousel = () => {
 
-    document.title = 'Streamcamel.com: Games and Companies Global Statistics';
+    document.title = 'Games and Companies Global Statistics | StreamCamel';
 
     return (
         <div className="Carousel">

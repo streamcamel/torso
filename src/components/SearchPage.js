@@ -33,7 +33,7 @@ const SearchPage = () => {
                 .then(res => res.json())
                 .then(res => setDataGames(res))
 
-            document.title = `Streamcamel.com: Search Results for ${slug}`;
+            document.title = `Search Results for ${slug} | StreamCamel`;
             
             setPrevPath(location.pathname);
         }

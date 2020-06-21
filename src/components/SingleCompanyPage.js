@@ -44,7 +44,7 @@ const SingleCompanyPage = () => {
     let title = '';
     if(dataCompanies.length > 0){
         title = dataCompanies[0].name
-        document.title = `Streamcamel.com: ${title} - Statistics and Charts`;
+        document.title = `${title} - Statistics and Charts | StreamCamel`;
     }
     
     let description = '';
