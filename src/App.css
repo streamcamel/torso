@@ -238,10 +238,6 @@
   margin-bottom: 2em;  
 }
 
-
-
-
-
 .GameTile {
   width: 15%;
   float: left;
@@ -286,6 +282,48 @@
 }
 
 
+.UserTile {
+  width: 15%;
+  float: left;
+  margin-bottom: 1em;
+  overflow: hidden;
+  text-align: left;
+}
+
+.UserTileIconWrapper {
+  width: 100%;
+  padding-bottom: 100%;
+  background-color: #2d405e;
+  border-radius: 10px;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  position: relative;
+}
+
+.UserTileIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  position: absolute;
+}
+
+.UserTileName {
+  color: #fff;
+  font-weight: 700;
+}
+
+.UserTileViewsCount {
+  color: #aaa;
+  text-align: left;
+  font-size: 0.75em;
+  display: inline;
+}
 
 
 .SingleGamePageDescription {

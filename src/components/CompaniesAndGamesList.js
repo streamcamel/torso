@@ -1,6 +1,7 @@
 import React, { useState  } from 'react';
 import CompanyTile from './CompanyTile'
 import GameTile from './GameTile'
+import UserTile from './UserTile'
 import LoadMore from './LoadMore'
 
 const CompaniesAndGamesList = (props) => {
@@ -21,9 +22,16 @@ const CompaniesAndGamesList = (props) => {
         }
         return false;
     };
+
+    const isUser = (obj) => {
+        if('broadcaster_type' in obj) {
+            return true;
+        }
+        return false;
+    };
     
     const getViewer = (obj) => {
-        if( isGame(obj) ) {
+        if( isGame(obj) || isUser(obj)) {
             return obj['viewers'];
         } else {
             return obj['viewer_count_average'];
@@ -54,6 +62,8 @@ const CompaniesAndGamesList = (props) => {
         tiles = tiles.map( (value) => {
             if( isGame(value) ) {
                 return <GameTile key={'game_'+value.game_id} game={value}/>
+            } else if (isUser(value)) {
+                return <UserTile key={'user_'+value.login} user={value}/>
             } else {
                 return <CompanyTile key={'company_'+value.id} company={value}/>
             }

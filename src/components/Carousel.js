@@ -8,6 +8,7 @@ import SingleCompanyPage from './SingleCompanyPage'
 import SingleGamePage from './SingleGamePage'
 import TopCompaniesPage from './TopCompaniesPage'
 import TopGamesPage from './TopGamesPage'
+import TopStreamersPage from './TopStreamersPage'
 
 const Carousel = () => {
 
@@ -36,6 +37,9 @@ const Carousel = () => {
                 </Route>
                 <Route path="/topgames">
                     <TopGamesPage />
+                </Route>
+                <Route path="/topstreamers">
+                    <TopStreamersPage />
                 </Route>
             </Switch>
         </div>
