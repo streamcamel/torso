@@ -17,7 +17,7 @@ const UserTile = (props) => {
         }
         
         if(props.user.login) {
-            history.push({pathname:('/user/'+props.user.login), search:location.search});
+            history.push({pathname:('/streamer/'+props.user.login), search:location.search});
         }
     }
 

@@ -6,6 +6,7 @@ import IntroText from './IntroText'
 import SearchPage from './SearchPage'
 import SingleCompanyPage from './SingleCompanyPage'
 import SingleGamePage from './SingleGamePage'
+import SingleStreamerPage from './SingleStreamerPage'
 import TopCompaniesPage from './TopCompaniesPage'
 import TopGamesPage from './TopGamesPage'
 import TopStreamersPage from './TopStreamersPage'
@@ -34,6 +35,9 @@ const Carousel = () => {
                 </Route>
                 <Route path="/game">
                     <SingleGamePage />
+                </Route>
+                <Route path="/streamer">
+                    <SingleStreamerPage />
                 </Route>
                 <Route path="/topgames">
                     <TopGamesPage />
