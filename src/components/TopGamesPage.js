@@ -31,6 +31,7 @@ const TopGamesPage = () => {
 
     let headers = [ {title:'Top Companies', selected:false, path:'/'},
                     {title:'Top Games', selected:true, path:'/topgames'},
+                    {title:'Top Streamers', selected:false, path:'/topstreamers'}
                     ];
     
     return (
