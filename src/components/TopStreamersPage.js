@@ -18,6 +18,8 @@ const TopGamesPage = () => {
     }
     
     useEffect(() => {
+        document.title = 'Viewers for Top Streamers | StreamCamel';
+
         if(prevPath !== location.pathname)
         {
             let url = appConfig.backendURL('/users_stats?limit=100&period=1w');
