@@ -20,8 +20,6 @@ const SearchPage = () => {
     
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-        document.title = 'Search Results | StreamCamel';
-
         if(prevPath !== location.pathname)
         {
             let slug = utils.pathToSlug(location.pathname);
