@@ -39,6 +39,16 @@ const App = () => {
                 <div className="MainBody">
                     <Carousel className="Carousel" />
                 </div>
+                {/* <div className="MainClip">
+                    <iframe
+                        src="https://clips.twitch.tv/embed?clip=QuaintLuckySowResidentSleeper&parent=www.streamcamel.com&parent=localhost"
+                        height="360"
+                        width="640"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen="true">
+                    </iframe>
+                </div> */}
             </div>
             <PageFooter />
             <Privacy />
