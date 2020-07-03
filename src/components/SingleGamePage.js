@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 import SectionHeader from './SectionHeader';
+import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 
 const SingleGamePage = () => {
     let location = useLocation();
@@ -44,12 +45,14 @@ const SingleGamePage = () => {
     let iconurl = '';
     let description = '';
     let summary = '';
+    let fbCompanyID = null;
 
     if(data.length > 0){
         title = data[0].name;
         iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
         description = utils.textToParagraphs(data[0].storyline);
         document.title = `${title} - Statistics and Charts | StreamCamel`;
+        fbCompanyID = data[0].company_id;
     }
 
     if (gameData.length > 0) {
@@ -74,6 +77,7 @@ const SingleGamePage = () => {
                 </div>
                 <div className="SingleGamePageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
+            <FwdBrowsingDrawer companyID={fbCompanyID} />
         </div>
     );
 };
