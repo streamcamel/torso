@@ -7,6 +7,7 @@ import './App.css';
 import PageHeader from './components/PageHeader';
 import PageFooter from './components/PageFooter';
 import Carousel from './components/Carousel';
+import ClipsCarousel from './components/ClipsCarousel';
 import MainToolbar from './components/MainToolbar';
 import Privacy from './components/Privacy';
 
@@ -39,17 +40,10 @@ const App = () => {
                 <div className="MainBody">
                     <Carousel className="Carousel" />
                 </div>
-                {/* <div className="MainClip">
-                    <iframe
-                        src="https://clips.twitch.tv/embed?clip=QuaintLuckySowResidentSleeper&parent=www.streamcamel.com&parent=localhost"
-                        height="360"
-                        width="640"
-                        frameborder="0"
-                        scrolling="no"
-                        allowfullscreen="true">
-                    </iframe>
-                </div> */}
             </div>
+            <div className="MainClip">
+                <ClipsCarousel className="ClipsCarousel" />
+            </div> 
             <PageFooter />
             <Privacy />
         </div>
