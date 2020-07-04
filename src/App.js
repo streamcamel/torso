@@ -15,7 +15,6 @@ import * as appConfig from './config'
 
 ReactGA.initialize(appConfig.trackingId, { testMode: process.env.NODE_ENV === 'test'});
 
-
 // Valid Routes
 //    /
 //    /search/companySlug
@@ -47,7 +46,6 @@ const App = () => {
             <PageFooter />
             <Privacy />
         </div>
-
     );
 };
 
