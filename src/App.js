@@ -7,7 +7,6 @@ import './App.css';
 import PageHeader from './components/PageHeader';
 import PageFooter from './components/PageFooter';
 import Carousel from './components/Carousel';
-import ClipsCarousel from './components/ClipsCarousel';
 import MainToolbar from './components/MainToolbar';
 import Privacy from './components/Privacy';
 
@@ -40,9 +39,6 @@ const App = () => {
                     <Carousel className="Carousel" />
                 </div>
             </div>
-            <div className="MainClip">
-                <ClipsCarousel className="ClipsCarousel" />
-            </div> 
             <PageFooter />
             <Privacy />
         </div>

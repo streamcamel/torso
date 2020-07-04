@@ -1,35 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal';
 
 const ModalClip = (props) => {
 
     //const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
+    const [isOpen, setOpen] = useState(true);
+
+    const onHideClip = () => {
+        setOpen(false);
+    }
 
     useEffect(() => {
-        // This crap does not work
-        // console.log("set!!!");
-        // console.log(document.getElementById('app'));
-        // Modal.setAppElement(document.getElementById('app'));
-    }, []);
+    }, [isOpen]);
 
-    let embedUrl = '"https://clips.twitch.tv/embed?clip=' + props.clip.id + '&parent=www.streamcamel.com&parent=localhost"';
-    console.log(embedUrl);
+    let embedUrl = 'https://clips.twitch.tv/embed?clip=' + props.clip.id + '&parent=www.streamcamel.com&parent=localhost';
     return (
-        <Modal
-          isOpen={props.isOpen}
-          //ariaHideApp={false}
-          contentLabel="Example Modal"
-        >
-            <iframe title="Clip for TODO"
-                    src={embedUrl} 
-                    height="360" 
-                    width="640" 
-                    frameBorder="0" 
-                    scrolling="no"
-                    allowFullScreen={true}>
-            </iframe>
-            
-        </Modal>
+            <Modal
+            className="ModalClipDialog" 
+            isOpen={isOpen}
+            >
+                <div className="ModalClip">
+                <span title="X" className="ModalClipCloseButton" onClick={onHideClip}>X</span>
+                    <iframe title="Clip for TODO"
+                            src={embedUrl} 
+                            height="360" 
+                            width="640" 
+                            frameBorder="0" 
+                            scrolling="no"
+                            allowFullScreen={true}>
+                    </iframe>
+                </div>
+            </Modal> 
     )
   }
 

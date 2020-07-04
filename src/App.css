@@ -436,6 +436,37 @@
   cursor: pointer;
 }
 
+.ModalClipDialog {
+  position: absolute;
+  top: 10em;
+  left: 2em;
+  right: 2em;
+  bottom: 2em;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 2em;
+}
+
+.ModalClip {
+font-size: 1em;
+}
+
+.ModalClipTitle {
+font-size: 2em;
+font-weight: 700;
+}
+
+.ModalClipCloseButton {
+font-size: 2em;
+position: absolute;
+right: 1em;
+cursor: pointer;
+}
+
+
 .ChartTitle {
   color: #0091FF;
   text-align: left;
