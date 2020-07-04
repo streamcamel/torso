@@ -39,8 +39,8 @@ const TopCompaniesPage = () => {
     
     return (
         <div className="TopCompaniesPage">
-            <SectionHeader headers={headers} onFilter={onFilter} information="Top Companies by Recent Average Viewers"/>    
-            <CompaniesAndGamesList data={data} filter={filter} context="companies"/>
+            <SectionHeader headers={headers} onFilter={onFilter} information="Top Companies by Last Day Average Viewers"/>    
+            <CompaniesAndGamesList data={data} filter={filter}/>
         </div>
     );
 };

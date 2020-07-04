@@ -21,8 +21,12 @@ const ClipTile = (props) => {
     } else {
         iconurl = 'https://clips-media-assets2.twitch.tv/AT-cm%7C766607977-preview-480x272.jpg'
     }
-    
-    let viewers = numberWithCommas(props.clip.view_count);
+
+    let viewers = '';
+    if (props.clip.view_count) {
+        viewers = numberWithCommas(props.clip.view_count);
+    }
+
     
     let wrapperClass = "ClipTileIconWrapper";
     if(!props.clip.id) {
