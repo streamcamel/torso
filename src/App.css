@@ -323,6 +323,14 @@
   display: inline;
 }
 
+
+.ClipsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
 .ClipTile {
   width: 15%;
   float: left;

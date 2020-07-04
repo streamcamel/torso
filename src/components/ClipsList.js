@@ -1,19 +1,7 @@
 import React, { useState  } from 'react';
 import ClipTile from './ClipTile'
-import LoadMore from './LoadMore'
 
 const ClipsList = (props) => {
-    
-    let itemCountIncrement = 18;
-    if(window.innerWidth <= 800) {
-        itemCountIncrement = 9;
-    }
-    const [itemCountMax, setItemCountMax] = useState(itemCountIncrement);
-
-    const onLoadMore = () => {
-        setItemCountMax(itemCountMax+itemCountIncrement);
-    };
-
     const getViewer = (obj) => {
        return obj['view_count'];
     };
@@ -25,7 +13,6 @@ const ClipsList = (props) => {
     }
     
     let tileGrid = '';
-    let loadMore = '';
     
     if(props.data && props.data.length > 0) {
         props.data.sort(sorterMoreToLess);        
@@ -42,18 +29,12 @@ const ClipsList = (props) => {
             return <ClipTile key={value.id} clip={value}/>
         });
 
-        if(itemCountMax < tiles.length) {
-            loadMore = <LoadMore onLoadMore={onLoadMore} />
-        }
-
-        tiles = tiles.slice(0, itemCountMax);
-        tileGrid = <div className="CompaniesGrid"> {tiles} </div>
+        tileGrid = <div className="ClipsGrid"> {tiles} </div>
     }
     
     return (
         <div className="ClipsList">
             {tileGrid}
-            {loadMore}
         </div>
     );
 };
