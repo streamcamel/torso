@@ -155,3 +155,4 @@ export function isLocalNetwork(hostname = window.location.hostname) {
       || (hostname.endsWith('.local'))
     )
   }
+  

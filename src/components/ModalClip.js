@@ -42,7 +42,3 @@ const ModalClip = (props) => {
   }
 
   export default ModalClip;
-
-  
-  // var win = window.open();
-  // win.document.write('<iframe src=' + embedUrl + 'height="360" width="640" frameborder="0" scrolling="no" allowfullscreen="true"> </iframe>');
