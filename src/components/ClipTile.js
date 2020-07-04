@@ -1,6 +1,7 @@
 import React, {useState } from 'react';
 import ReactTooltip from "react-tooltip";
 import ModalClip from './ModalClip';
+import { numberWithCommas } from '../utils';
 
 const ClipTile = (props) => {
 
@@ -21,7 +22,7 @@ const ClipTile = (props) => {
         iconurl = 'https://clips-media-assets2.twitch.tv/AT-cm%7C766607977-preview-480x272.jpg'
     }
     
-    //let viewers = numberWithCommas(props.clip.view_count);
+    let viewers = numberWithCommas(props.clip.view_count);
     
     let wrapperClass = "ClipTileIconWrapper";
     if(!props.clip.id) {
@@ -36,6 +37,7 @@ const ClipTile = (props) => {
             </div>
             <div className="ClipTileName">{props.clip.title}</div>
             <img src={require("../images/viewer.svg")} alt="viewers" className="TileViewerImage" />
+            <div className="ClipTileViewsCount" data-tip="Life Time Viewers">{ viewers }</div>
             <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>
             {
                 show ? <ModalClip isOpen={show} clip={props.clip}/> : null

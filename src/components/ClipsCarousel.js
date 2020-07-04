@@ -18,6 +18,8 @@ const ClipsCarousel = (props) => {
             }
         }
 
+        url += '?limit=12';
+
         url = appConfig.backendURL(url);
 
         fetch(url)
@@ -26,9 +28,11 @@ const ClipsCarousel = (props) => {
     }, [props.context, props.slug]);
    
     return (
-        <div className="ClipsCarousel">
-            <ClipsList data={data}/>
-        </div>
+        <>
+            <div className="ClipsCarousel">
+                <ClipsList data={data}/>
+            </div>
+        </>
     );
 };
 
