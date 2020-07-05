@@ -9,7 +9,7 @@ const TopGamesPage = () => {
     
     let location = useLocation();
 
-    const [data, setData] = useState([]); // Data state for the companies/games
+    const [data, setData] = useState([]); // Data state for the streamers
     const [prevPath, setPrevPath] = useState('');
     const [filter, setFilter] = useState('');
 

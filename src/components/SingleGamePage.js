@@ -4,6 +4,7 @@ import * as appConfig from '../config'
 import * as utils from '../utils'
 import SectionHeader from './SectionHeader';
 import FwdBrowsingDrawer from './FwdBrowsingDrawer';
+import ClipsCarousel from './ClipsCarousel';
 
 const SingleGamePage = () => {
     let location = useLocation();
@@ -65,6 +66,7 @@ const SingleGamePage = () => {
         summary = `${gameName} is the ${rank}${rankSuffix} most viewed game on Twitch with an average of ${viewers} viewers last week. This is ${viewer_percentage}% of all viewers on Twitch.`;
     }
 
+    let slug = utils.pathToSlug(location.pathname);
     let headers = [ {title:title, selected:true} ];
     let fullDescription = summary + '\n\n' + description;
 
@@ -77,6 +79,7 @@ const SingleGamePage = () => {
                 </div>
                 <div className="SingleGamePageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
+            <ClipsCarousel className="ClipsCarousel" context="game" slug={slug}></ClipsCarousel>
             <FwdBrowsingDrawer sourceGameSlug={sourceGameSlug} />
         </div>
     );

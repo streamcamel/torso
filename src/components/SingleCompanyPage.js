@@ -5,6 +5,7 @@ import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
 import SectionHeader from './SectionHeader';
 import FwdBrowsingDrawer from './FwdBrowsingDrawer';
+import ClipsCarousel from './ClipsCarousel';
 
 
 const SingleCompanyPage = () => {
@@ -58,13 +59,16 @@ const SingleCompanyPage = () => {
                         </div>
     }
 
+    let slug = utils.pathToSlug(location.pathname);
+
     let headers = [ {title:title, selected:true} ];
 
     return (
         <div className="SingleCompanyPage">
             <SectionHeader headers={headers} onFilter={onFilter}/> 
             {description}
-            <CompaniesAndGamesList data={dataGames} filter={filter}/>
+            <CompaniesAndGamesList data={dataGames} filter={filter} context="company" slug={slug}/>
+            <ClipsCarousel className="ClipsCarousel" context="company" slug={slug}></ClipsCarousel>
             <FwdBrowsingDrawer />
         </div>
     );
