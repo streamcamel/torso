@@ -370,9 +370,16 @@
 .FBDrawer {
   background-color: #4D4D4D;
   color: #aaa;
-  width: 22%;
   line-height: 2em;
   height: 2em;
+}
+
+.FBDrawerFour{
+    width: 22%;
+}
+
+.FBDrawerThree{
+    width: 31%;
 }
 
 .FBDrawer>img{

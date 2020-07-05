@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 import SectionHeader from './SectionHeader';
+import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 
 const SingleGamePage = () => {
     let location = useLocation();
@@ -74,6 +75,7 @@ const SingleGamePage = () => {
                 </div>
                 <div className="SingleStreamerPageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
+            <FwdBrowsingDrawer />
         </div>
     );
 };
