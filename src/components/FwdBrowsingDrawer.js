@@ -2,24 +2,6 @@ import React, { useEffect, useState } from 'react';
 import * as appConfig from '../config'
 import * as utils from '../utils'
 
-function fixIconURL(iconurl, hasAlpha=false, oldsize=null, newsize=null) {
-
-    if (oldsize && newsize) {
-        iconurl = iconurl.replace(oldsize, newsize);
-    }
-
-    if(hasAlpha) {
-        iconurl = iconurl.replace('.jpg', '.png')
-    }
-
-    if(iconurl.search('//') === 0) {
-        iconurl = iconurl.replace(/^\/\// , 'https://')
-    }
-
-    return iconurl;
-}
-
-
 const FwdBrowsingDrawer = ({sourceGameSlug}) => {
 
     const [data, setData] = useState([]);
@@ -38,7 +20,7 @@ const FwdBrowsingDrawer = ({sourceGameSlug}) => {
 
     if(data.length > 0) {
         let company = data[0];
-        let iconurl = fixIconURL(company.url, company.alpha_channel===1, 't_thumb', 't_logo_med');
+        let iconurl = utils.fixIconURL(company.url, company.alpha_channel===1, 't_thumb', 't_logo_med');
         
         sizing = 'FBDrawer FBDrawerFour';
 
