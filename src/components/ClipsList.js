@@ -19,14 +19,12 @@ const ClipsList = (props) => {
 
         let tiles = props.data;
         tiles = props.data.filter( (value, index) => { 
-            //Either we dont have a filer set, or the name of the tile contains the filter.
-            console.log(value);
             if (value.thumbnail_url == null) {
                 return false;
             }
-
-            if (props.filter) {
-                return (value.name.toLocaleLowerCase().indexOf(props.filter) !== -1);
+            
+            if (props.filter && value.title) {
+                return (value.title.toLocaleLowerCase().indexOf(props.filter) !== -1);
             } else {
                 return true;
             }
