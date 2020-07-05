@@ -408,8 +408,36 @@
 }
 
 
+.FwdBrowsingDrawers {
+  width: 100%;
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.FBDrawer {
+  background-color: #4D4D4D;
+  color: #aaa;
+  line-height: 2em;
+  height: 2em;
+}
 
+.FBDrawerFour{
+    width: 22%;
+}
+
+.FBDrawerThree{
+    width: 31%;
+}
+
+.FBDrawer>img{
+  height: 1.8em;
+}
+
+.FBDrawer:link, .FBDrawer:visited, .FBDrawer:hover, .FBDrawer:active {
+  text-decoration: none;
+}
 
 
 .LoadMoreButton{
