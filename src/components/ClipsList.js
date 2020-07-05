@@ -18,12 +18,20 @@ const ClipsList = (props) => {
         props.data.sort(sorterMoreToLess);        
 
         let tiles = props.data;
-        if(props.filter) {
-            tiles = props.data.filter( (value, index) => { 
-                //Either we dont have a filer set, or the name of the tile contains the filter.
-                return (value.name.toLocaleLowerCase().indexOf(props.filter) !== -1) ;
-            });
-        }
+        tiles = props.data.filter( (value, index) => { 
+            //Either we dont have a filer set, or the name of the tile contains the filter.
+            console.log(value);
+            if (value.thumbnail_url == null) {
+                return false;
+            }
+
+            if (props.filter) {
+                return (value.name.toLocaleLowerCase().indexOf(props.filter) !== -1);
+            } else {
+                return true;
+            }
+            
+        });
 
         tiles = tiles.map( (value) => {
             return <ClipTile key={value.id} clip={value}/>

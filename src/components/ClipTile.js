@@ -16,10 +16,6 @@ const ClipTile = (props) => {
     if(props.clip.thumbnail_url != null) {
         // box size ration is 3:4
         iconurl = props.clip.thumbnail_url.replace('-{width}x{height}', '-480x272')
-
-        // Temp while waiting for database
-    } else {
-        iconurl = 'https://clips-media-assets2.twitch.tv/AT-cm%7C766607977-preview-480x272.jpg'
     }
 
     let viewers = '';
