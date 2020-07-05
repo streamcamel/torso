@@ -3,17 +3,18 @@ import Modal from 'react-modal';
 import { isLocalNetwork } from '../utils';
 
 const ModalClip = (props) => {
-
-    //const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
     const [isOpen, setOpen] = useState(true);
 
     const onHideClip = () => {
         setOpen(false);
+        
+        if(props.onCloseClip) {
+            props.onCloseClip();
+        }
     }
-
+    
     useEffect(() => {
     }, [isOpen]);
-
 
     let embedUrl = 'https://clips.twitch.tv/embed?clip=' + props.clip.id + '&parent=www.streamcamel.com';
     if (isLocalNetwork()) {
@@ -21,24 +22,21 @@ const ModalClip = (props) => {
     }
     let title = 'Playing Clip ' + props.clip.title;
 
-    return (
-            <Modal
-            className="ModalClipDialog" 
-            isOpen={isOpen}
-            >
-                <div className="ModalClip">
+
+    const customStyles = {
+      overlay: {zIndex: 1000}
+    };
+
+    return (<Modal style={customStyles} className="ModalClipDialog" isOpen={isOpen} onRequestClose={onHideClip}>
+                <iframe title={title}
+                        src={embedUrl} 
+                        className="ModalClipIFrame"
+                        frameBorder="0" 
+                        scrolling="no"
+                        allowFullScreen={true}>
+                </iframe>
                 <span title="X" className="ModalClipCloseButton" onClick={onHideClip}>X</span>
-                    <iframe title={title}
-                            src={embedUrl} 
-                            height="540" 
-                            width="960" 
-                            frameBorder="0" 
-                            scrolling="no"
-                            allowFullScreen={true}>
-                    </iframe>
-                </div>
-            </Modal> 
-    )
+            </Modal>);
   }
 
   export default ModalClip;

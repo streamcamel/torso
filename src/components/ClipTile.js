@@ -11,6 +11,10 @@ const ClipTile = (props) => {
         e.preventDefault();
         showClip(true);
     }
+    
+    const onCloseClip = () => {
+        showClip(false);
+    }
 
     let iconurl = ""         
     if(props.clip.thumbnail_url != null) {
@@ -23,7 +27,6 @@ const ClipTile = (props) => {
         viewers = numberWithCommas(props.clip.view_count);
     }
 
-    
     let wrapperClass = "ClipTileIconWrapper";
     if(!props.clip.id) {
         console.log('wtf')
@@ -40,7 +43,7 @@ const ClipTile = (props) => {
             <div className="ClipTileViewsCount" data-tip="Life Time Viewers">{ viewers }</div>
             <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>
             {
-                show ? <ModalClip isOpen={show} clip={props.clip}/> : null
+                show ? <ModalClip isOpen={show} clip={props.clip} onCloseClip={onCloseClip}/> : null
             }
             
         </div>
