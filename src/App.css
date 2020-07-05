@@ -135,7 +135,6 @@
   font-size: 1.5em;
   position: relative;
   width: 100%;
-  height: 2em;
   padding: 1em 0 1em;
 }
 
@@ -615,7 +614,6 @@ font-weight: 700;
   } 
 
   .SectionHeader {
-    height: 4em;
     padding: 0.5em 0 0.5em;
   }
 
