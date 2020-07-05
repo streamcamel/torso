@@ -54,8 +54,9 @@ test('SingleStreamerPage component: Creation', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/users/summit1g');
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/users/summit1g/clips?limit=12');
          
     // Title Name
     expect(screen.getByText('summit1g')).toBeTruthy();
