@@ -37,7 +37,7 @@ const TopGamesPage = () => {
                     ];
     
     return (
-        <div className="TopStreamersPage">
+        <div className="TileContainer TopStreamersPage">
             <SectionHeader headers={headers} onFilter={onFilter} information="Top Streamers by Average Viewers"/>    
             <CompaniesAndGamesList data={data} filter={filter}/>
         </div>

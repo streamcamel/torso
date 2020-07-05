@@ -34,7 +34,7 @@ const ClipsCarousel = (props) => {
 
     let headers = [ {title:'Top Clips', selected:true} ];
 
-    return (<div>
+    return (<div className="TileContainer ClipsCarouselWrapper">
                 <SectionHeader headers={headers} onFilter={onFilter} information="Current Top Clips"/>    
                 <div className="ClipsCarousel">
                     <ClipsList data={data} filter={filter}/>
