@@ -34,10 +34,10 @@ test('creates default page with root url path', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledTimes(2); // Charts and Top Games
-    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/top_companies?limit=100&period=1w');
+    expect(fetch).toHaveBeenCalledTimes(3); // Charts and Top Games
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/top_companies?limit=100&period=1d');
     expect(fetch).toHaveBeenCalledWith(expect.stringMatching(/https:\/\/api\.streamcamel\.com\/viewers\?after\=/));
-        
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/clips?limit=12');
 
     // MainChart
     expect(screen.getByText('Viewers')).toBeTruthy();
@@ -46,7 +46,7 @@ test('creates default page with root url path', async () => {
     // Listings
     expect(screen.getByText('Top Companies')).toBeTruthy();
     expect(screen.getByText('Top Games')).toBeTruthy();
-    expect(screen.getByText('Top Companies by Average Viewers')).toBeTruthy();
+    expect(screen.getByText('Top Companies by Last Day Average Viewers')).toBeTruthy();
 
     // Page Title 
     expect(document.title).toBe('Viewers for Top Companies | StreamCamel');
@@ -136,5 +136,5 @@ test('creates a topgames page', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?limit=100&period=1w');  
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?limit=100&period=1d');  
 });

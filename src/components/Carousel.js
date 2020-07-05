@@ -10,6 +10,7 @@ import SingleStreamerPage from './SingleStreamerPage'
 import TopCompaniesPage from './TopCompaniesPage'
 import TopGamesPage from './TopGamesPage'
 import TopStreamersPage from './TopStreamersPage'
+import ClipsCarousel from './ClipsCarousel';
 
 const Carousel = () => {
 
@@ -26,9 +27,11 @@ const Carousel = () => {
             <Switch>
                 <Route exact path="/">
                     <TopCompaniesPage />
+                    <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
                 <Route path="/search">
                     <SearchPage />
+                    <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
                 <Route path="/company">
                     <SingleCompanyPage />
@@ -41,9 +44,11 @@ const Carousel = () => {
                 </Route>
                 <Route path="/topgames">
                     <TopGamesPage />
+                    <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
                 <Route path="/topstreamers">
                     <TopStreamersPage />
+                    <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
             </Switch>
         </div>

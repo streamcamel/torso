@@ -54,10 +54,10 @@ test('SingleGamePage component: Creation', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenCalledTimes(3);
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite');
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?game=fortnite&period=1w');
-        
+    expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite/clips?limit=12');
 
     // Game Name
     expect(screen.getByText('Fortnite')).toBeTruthy();

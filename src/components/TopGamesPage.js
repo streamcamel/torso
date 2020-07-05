@@ -22,7 +22,7 @@ const TopGamesPage = () => {
 
         if(prevPath !== location.pathname)
         {
-            let url = appConfig.backendURL('/games_stats?limit=100&period=1w');
+            let url = appConfig.backendURL('/games_stats?limit=100&period=1d');
             fetch(url)
                 .then(res => res.json())
                 .then(res => setData(res))
@@ -38,7 +38,7 @@ const TopGamesPage = () => {
     
     return (
         <div className="TopGamePage">
-            <SectionHeader headers={headers} onFilter={onFilter} information="Top Games by Average Viewers"/>    
+            <SectionHeader headers={headers} onFilter={onFilter} information="Top Games by Recent Average Viewers"/>    
             <CompaniesAndGamesList data={data} filter={filter}/>
         </div>
     );
