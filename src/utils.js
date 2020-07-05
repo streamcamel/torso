@@ -154,5 +154,23 @@ export function isLocalNetwork(hostname = window.location.hostname) {
       || (hostname.startsWith('10.0.'))
       || (hostname.endsWith('.local'))
     )
-  }
+}
+  
+export function fixIconURL(iconurl, hasAlpha=false, oldsize=null, newsize=null) {
+
+    if (oldsize && newsize) {
+        iconurl = iconurl.replace(oldsize, newsize);
+    }
+
+    if(hasAlpha) {
+        iconurl = iconurl.replace('.jpg', '.png')
+    }
+
+    if(iconurl.search('//') === 0) {
+        iconurl = iconurl.replace(/^\/\// , 'https://')
+    }
+
+    return iconurl;
+}
+
   
