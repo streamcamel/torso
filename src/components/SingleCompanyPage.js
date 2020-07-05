@@ -4,6 +4,7 @@ import * as appConfig from '../config'
 import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
 import SectionHeader from './SectionHeader';
+import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 import ClipsCarousel from './ClipsCarousel';
 
 
@@ -68,6 +69,7 @@ const SingleCompanyPage = () => {
             {description}
             <CompaniesAndGamesList data={dataGames} filter={filter} context="company" slug={slug}/>
             <ClipsCarousel className="ClipsCarousel" context="company" slug={slug}></ClipsCarousel>
+            <FwdBrowsingDrawer />
         </div>
     );
 };

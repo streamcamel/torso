@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import * as appConfig from '../config'
 import * as utils from '../utils'
 import SectionHeader from './SectionHeader';
+import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 import ClipsCarousel from './ClipsCarousel';
 
 const SingleGamePage = () => {
@@ -77,6 +78,7 @@ const SingleGamePage = () => {
                 <div className="SingleStreamerPageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
             <ClipsCarousel className="ClipsCarousel" context="streamer" slug={slug}></ClipsCarousel>
+            <FwdBrowsingDrawer />
         </div>
     );
 };
