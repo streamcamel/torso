@@ -22,7 +22,7 @@ const TopCompaniesPage = () => {
 
         if(prevPath !== location.pathname)
         {
-            let url = appConfig.backendURL('/top_companies?limit=100&period=1w');
+            let url = appConfig.backendURL('/top_companies?limit=100&period=1d');
 
             fetch(url)
                 .then(res => res.json())
@@ -39,8 +39,8 @@ const TopCompaniesPage = () => {
     
     return (
         <div className="TopCompaniesPage">
-            <SectionHeader headers={headers} onFilter={onFilter} information="Top Companies by Average Viewers"/>    
-            <CompaniesAndGamesList data={data} filter={filter} />
+            <SectionHeader headers={headers} onFilter={onFilter} information="Top Companies by Last Day Average Viewers"/>    
+            <CompaniesAndGamesList data={data} filter={filter}/>
         </div>
     );
 };
