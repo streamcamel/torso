@@ -4,6 +4,7 @@ import * as appConfig from '../config'
 import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
 import SectionHeader from './SectionHeader';
+import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 
 
 const SingleCompanyPage = () => {
@@ -64,6 +65,7 @@ const SingleCompanyPage = () => {
             <SectionHeader headers={headers} onFilter={onFilter}/> 
             {description}
             <CompaniesAndGamesList data={dataGames} filter={filter}/>
+            <FwdBrowsingDrawer />
         </div>
     );
 };

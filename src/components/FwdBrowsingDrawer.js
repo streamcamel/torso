@@ -12,7 +12,7 @@ function fixIconURL(iconurl, hasAlpha=false, oldsize=null, newsize=null) {
         iconurl = iconurl.replace('.jpg', '.png')
     }
 
-    if(iconurl.search('//') == 0) {
+    if(iconurl.search('//') === 0) {
         iconurl = iconurl.replace(/^\/\// , 'https://')
     }
 
@@ -20,41 +20,40 @@ function fixIconURL(iconurl, hasAlpha=false, oldsize=null, newsize=null) {
 }
 
 
-const FwdBrowsingDrawer = (props) => {
+const FwdBrowsingDrawer = ({sourceGameSlug}) => {
 
     const [data, setData] = useState([]);
-    
+
     useEffect(() => {
-        // if(('companyID' in props) && props.companyID){
-        //     let url = appConfig.backendURL('/companies/'+slug);
-        //     fetch(url)
-        //         .then(res => res.json())
-        //         .then(res => setData(res))
-        // }
-    });
+        if(sourceGameSlug){
+            let url = appConfig.backendURL('/games/'+sourceGameSlug+'/companies');
+            fetch(url)
+                .then(res => res.json())
+                .then(res => setData(res))
+        }
+    }, [sourceGameSlug]);
 
     let dynamicDrawer = null;
+    let sizing = 'FBDrawer FBDrawerThree';
 
-    // if(data.length > 0) {
-        // let company = data[0];
-        // let iconurl = fixIconURL(company.url, company.alpha_channel==1, 't_thumb', 't_logo_med');
-        let name = 'Riot Games'; 
-        let iconurl = fixIconURL("//images.igdb.com/igdb/image/upload/t_thumb/cl2fe.jpg", 
-                        true, 
-                        't_thumb', 
-                        't_logo_med');
+    if(data.length > 0) {
+        let company = data[0];
+        let iconurl = fixIconURL(company.url, company.alpha_channel===1, 't_thumb', 't_logo_med');
+        
+        sizing = 'FBDrawer FBDrawerFour';
 
-        dynamicDrawer = <div className="FBDrawer">
-                            <img src={iconurl} alt={name} className="FBDrawerIcon" />
-                        </div>
-    // }
+        dynamicDrawer = <a href={'/company/'+company.slug} className="FBDrawer FBDrawerFour">
+                            <img src={iconurl} alt={company.name} className="FBDrawerIcon" />
+                        </a>
+                        
+    }
 
     return (
         <div className="FwdBrowsingDrawers">
             {dynamicDrawer}
-            <a href="/" className="FBDrawer">Top Companies</a>
-            <a href="/topgames" className="FBDrawer">Top Games</a>
-            <a href="/topstreamers" className="FBDrawer">Top Streams</a>
+            <a href="/" className={sizing}>Top Companies</a>
+            <a href="/topgames" className={sizing}>Top Games</a>
+            <a href="/topstreamers" className={sizing}>Top Streamers</a>
         </div>
     );
 };
