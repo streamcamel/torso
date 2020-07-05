@@ -32,13 +32,18 @@ const ClipTile = (props) => {
         console.log('wtf')
         wrapperClass += " NoPointerCursor";
     }
+    
+    let title = props.clip.title;
+    if(title.length > 21) {
+        title = title.substr(0, 21) + '...';
+    }
 
     return (
-        <div className="ClipTile" onClick={onClick}>
+        <div className="ClipTile" onClick={onClick} title={props.clip.title}>
             <div className={wrapperClass}>
                 <img src={iconurl} alt={'boximg-'+props.clip.id} className="ClipTileIcon" />
             </div>
-            <div className="ClipTileName">{props.clip.title}</div>
+            <div className="ClipTileName">{title}</div>
             <img src={require("../images/viewer.svg")} alt="viewers" className="TileViewerImage" />
             <div className="ClipTileViewsCount" data-tip="Life Time Viewers">{ viewers }</div>
             <ReactTooltip textColor='#000' backgroundColor='#999' effect='solid'/>

@@ -601,6 +601,10 @@ font-weight: 700;
   .UserTile {
     width: 30%;
   }  
+  
+  .ClipTile {
+    width: 30%;
+  }
 
   .ModalPolicyDialog {
     top: 8em;
