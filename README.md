@@ -5,8 +5,18 @@ You will need Git LFS support.
 1. Download from https://git-lfs.github.com/
 1. `git lfs install`
 
-This repo uses submodules, so you will need to initialize them with:
-`git submodule update --init --recursive`
+This repo uses submodules. It is strongly recommended to make submodule update the default behavor of your GIT:
+
+```
+git config --global submodule.recurse true
+```
+
+For an existing clones made prior to applying the above setting, manual update/init of submodules is also necessary:
+
+```
+git submodule update --init --recursive
+```
+
 
 ## How to publish
 
