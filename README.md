@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setup
+You will need Git LFS support.
+1. Download from https://git-lfs.github.com/
+1. `git lfs install`
+
+This repo uses submodules, so you will need to initialize them with:
+`git submodule update --init --recursive`
+
 ## How to publish
 
 - `npm run build`
