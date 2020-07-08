@@ -106,7 +106,7 @@ def xml_pretty_print(root, output_path, compress=False):
 def main(args):
 
     parser = argparse.ArgumentParser(description='Build the website sitemap')    
-    parser.add_argument('--output_path', type=str, default='.', help="Root path to save sitemap XML files, default to current directory")
+    parser.add_argument('--output_path', type=str, default='./public', help="Root path to save sitemap XML files, default to current directory")
     args = parser.parse_args()
     output_path = args.output_path
     
