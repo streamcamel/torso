@@ -157,6 +157,9 @@ export function isLocalNetwork(hostname = window.location.hostname) {
 }
   
 export function fixIconURL(iconurl, hasAlpha=false, oldsize=null, newsize=null) {
+    if( ! iconurl) {
+        return iconurl;
+    }
 
     if (oldsize && newsize) {
         iconurl = iconurl.replace(oldsize, newsize);
