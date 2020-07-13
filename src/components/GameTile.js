@@ -26,8 +26,11 @@ const GameTile = (props) => {
         // box size ration is 3:4
         iconurl = props.game.box_art_url.replace('-{width}x{height}', '-90x120')
     }
-    
-    let viewers = numberWithCommas(props.game.viewers);
+
+    let viewers = ""
+    if (props.game.viewers != null) {
+        viewers = numberWithCommas(props.game.viewers)
+    }
     
     let wrapperClass = "GameTileIconWrapper";
     if(!props.game.slug) {
