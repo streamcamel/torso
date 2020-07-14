@@ -12,20 +12,23 @@ import Privacy from './components/Privacy';
 
 import * as appConfig from './config'
 
-ReactGA.initialize(appConfig.trackingId, { testMode: process.env.NODE_ENV === 'test'});
 
-// Valid Routes
-//    /
-//    /search/companySlug
-//    /company/companySlug
-//    /game/gameSlug
+function isReactInDevelomentMode(){ 
+    return '_self' in React.createElement('div');
+}
+
+if(isReactInDevelomentMode() === false) {
+    ReactGA.initialize(appConfig.trackingId, { testMode: process.env.NODE_ENV === 'test'});
+}
 
 const App = () => {
     let location = useLocation();
 
     useEffect(() => {
-        ReactGA.set({page: location.pathname});
-        ReactGA.pageview(location.pathname); // Record a pageview for the given page
+        if(isReactInDevelomentMode() === false) {
+            ReactGA.set({page: location.pathname});
+            ReactGA.pageview(location.pathname); // Record a pageview for the given page
+        }
     }, [location]);
     
     return (
