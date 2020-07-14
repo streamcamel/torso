@@ -11,6 +11,7 @@ const SearchPage = () => {
 
     const [dataCompanies, setDataCompanies] = useState([]);
     const [dataGames, setDataGames] = useState([]);
+    const [dataUsers, setDataUsers] = useState([]);
     const [prevPath, setPrevPath] = useState('');
     const [filter, setFilter] = useState('');
 
@@ -33,15 +34,20 @@ const SearchPage = () => {
                 .then(res => res.json())
                 .then(res => setDataGames(res))
 
+            let urlStreamers = appConfig.backendURL('/search_users?q=' + slug + '&limit=100');
+            fetch(urlStreamers)
+                .then(res => res.json())
+                .then(res => setDataUsers(res))
+
             document.title = `Search Results for ${slug} | StreamCamel`;
             
             setPrevPath(location.pathname);
         }
-    }, [location, dataCompanies, dataGames, prevPath, filter]);
+    }, [location, dataCompanies, dataGames, dataUsers, prevPath, filter]);
     
     let headers = [ {title:'Search Results', selected:true} ];
     
-    let data = dataCompanies.concat(dataGames);
+    let data = dataCompanies.concat(dataGames).concat(dataUsers);
 
     return (
         <div className="SearchPage">

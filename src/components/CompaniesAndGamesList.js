@@ -31,10 +31,12 @@ const CompaniesAndGamesList = (props) => {
     };
     
     const getViewer = (obj) => {
-        if( isGame(obj) || isUser(obj)) {
+        if ('viewers' in obj) {
             return obj['viewers'];
-        } else {
+        } else if ('viewer_count_average' in obj) {
             return obj['viewer_count_average'];
+        } else {
+            return 0;
         }
     };
     
