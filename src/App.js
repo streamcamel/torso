@@ -13,11 +13,17 @@ import Privacy from './components/Privacy';
 import * as appConfig from './config'
 
 
-function isReactInDevelomentMode(){ 
+function isReactInDevelomentMode() { 
     return '_self' in React.createElement('div');
 }
 
-if(isReactInDevelomentMode() === false) {
+function isLocalhost() {
+    return (window.location.hostname === "localhost" 
+            || window.location.hostname === "127.0.0.1"
+            || window.location.hostname.search('cloud9')!==-1);
+}
+
+if( (isReactInDevelomentMode() === false) && (isLocalhost() === false)) {
     ReactGA.initialize(appConfig.trackingId, { testMode: process.env.NODE_ENV === 'test'});
 }
 
@@ -25,7 +31,7 @@ const App = () => {
     let location = useLocation();
 
     useEffect(() => {
-        if(isReactInDevelomentMode() === false) {
+        if( (isReactInDevelomentMode() === false) && (isLocalhost() === false)) {
             ReactGA.set({page: location.pathname});
             ReactGA.pageview(location.pathname); // Record a pageview for the given page
         }
