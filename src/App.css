@@ -380,6 +380,20 @@
   display: inline;
 }
 
+.SingleCompanyPageIconWrapper {
+  display: inline-block;
+  max-width: 30%;
+}
+
+.SingleCompanyPageIcon {
+  max-width: 100%;
+}
+
+.SingleCompanyPageDescription {
+  width: 60%;
+  float: right;
+  text-align: justify;
+}
 
 .SingleGamePageDescription {
   width: 60%;
