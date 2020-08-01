@@ -85,9 +85,9 @@ const SingleCompanyPage = () => {
     let averageChannelsLastWeek = 11571;
     let hoursWatchedLastWeek = 24908205;
     let peakViewers = 2277171;
-    let peakViewersTime = new Date(2020, 5, 14, 0, 0, 0, 0);
+    //let peakViewersTime = new Date(2020, 5, 14, 0, 0, 0, 0);
     let peakChannels = 117582;
-    let peakCahnnelsTime = new Date(2020, 5, 14, 0, 0, 0, 0);
+    //let peakCahnnelsTime = new Date(2020, 5, 14, 0, 0, 0, 0);
     let viewersPerChannelLastWeek = 12.8;
 
     // TODO: Probably should make components here
@@ -95,6 +95,14 @@ const SingleCompanyPage = () => {
     let liveChannelsComponent = `LIVE CHANNELS: ${liveChannels}`;
     let rankComponent = `RANK: #${rank}`;
     let averageViewersLastWeekComponent = `AVG. VIEWERS, 7 DAYS: ${averageViewersLastWeek}`;
+    let averageChannelsLastWeekComponent = `AVG. CHANNELS, 7 DAYS: ${averageChannelsLastWeek}`;
+    let hoursWatchedLastWeekComponent = `HOURS WATCHED, 7 DAYS: ${hoursWatchedLastWeek}`;
+    let peakViewersComponent = `PEAK VIEWERS: ${peakViewers}`;
+    // let peakViewersTimeComponent = `AVG. VIEWERS, 7 DAYS: ${peakViewersTime}`;
+    let peakChannelsComponent = `PEAK CHANNELS: ${peakChannels}`;
+    // let peakCahnnelsTimeComponent = `AVG. VIEWERS, 7 DAYS: ${peakCahnnelsTime}`;
+    let viewersPerChannelLastWeekComponent = `VIEWERS PER CHANNEL, 7 DAYS: ${viewersPerChannelLastWeek}`;
+
 
     let slug = utils.pathToSlug(location.pathname);
     let headers = [ {title:title, selected:true} ];
@@ -103,6 +111,13 @@ const SingleCompanyPage = () => {
                             liveChannelsComponent + '\n\n' +
                             rankComponent + '\n\n' +
                             averageViewersLastWeekComponent + '\n\n' + 
+                            averageChannelsLastWeekComponent +
+                            hoursWatchedLastWeekComponent + '\n\n' +
+                            peakViewersComponent + '\n\n' +
+                            // peakViewersTimeComponent + '\n\n' +
+                            peakChannelsComponent + '\n\n' +
+                            // peakCahnnelsTimeComponent + '\n\n' +
+                            viewersPerChannelLastWeekComponent + '\n\n' +
                             description;
 
     return (
