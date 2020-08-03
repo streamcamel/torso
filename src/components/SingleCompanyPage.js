@@ -83,14 +83,11 @@ const SingleCompanyPage = () => {
     if (dataCompanies.length > 0 && dataCompanies[0].url !== null) {
         if (dataCompanies[0].url !== ".jpg") {
             iconurl = dataCompanies[0].url.replace('t_thumb', 't_cover_big');
-
-            // TODO: end-point is not returning alpha_channel here
-            // if (props.company.alpha_channel === 1) {
-            //     iconurl = iconurl.replace('.jpg', '.png')
-            // }
+            if (dataCompanies[0].alpha_channel === 1) {
+                 iconurl = iconurl.replace('.jpg', '.png')
+            }
 
             iconurl = iconurl.replace(/^\/\// , 'https://');
-            console.log(iconurl);
         }
     }
 
