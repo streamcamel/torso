@@ -389,7 +389,14 @@
   max-width: 100%;
 }
 
+.CompanyDescriptionFooter {
+  clear: both;
+}
+
 .SingleCompanyPageDescription {
+  border: 2px solid lightgray;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
   width: 60%;
   float: right;
   text-align: justify;
