@@ -54,7 +54,7 @@ test('SingleGamePage component: Creation', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledTimes(3);
+    expect(fetch).toHaveBeenCalledTimes(4);
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite');
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?game=fortnite&period=1w');
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite/clips?limit=12');
@@ -67,7 +67,7 @@ test('SingleGamePage component: Creation', async () => {
     expect(screen.getByText(/to loot all the things/i)).toBeTruthy();
     
     // Title Image
-    expect(screen.getByAltText(/fortnite/i)).toHaveAttribute('src', 'https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-300x400.jpg');
+    expect(screen.getByAltText(/fortnite Logo/i)).toHaveAttribute('src', 'https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-300x400.jpg');
 
     // Page Title 
     expect(document.title).toBe('Fortnite - Statistics and Charts | StreamCamel');

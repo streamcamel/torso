@@ -70,12 +70,14 @@ const SingleGamePage = () => {
     let headers = [ {title:title, selected:true} ];
     let fullDescription = summary + '\n\n' + description;
 
+    let altTitle = title + " Logo";
+
     return (
         <div className="SingleGamePage">
             <SectionHeader headers={headers} />    
             <div className="SingleGamePageXContent">
                 <div className="SingleGamePageIconWrapper">
-                    <img className="SingleGamePageIcon" src={iconurl} alt={title} />
+                    <img className="SingleGamePageIcon" src={iconurl} alt={altTitle} />
                 </div>
                 <div className="SingleGamePageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
