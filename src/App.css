@@ -125,9 +125,7 @@
 }
 
 .MainBody{
-  margin: 0;
-  width: 90%;
-  max-width: 1200px;
+  margin: 0px 30px 0px 30px;
 }
 
 
@@ -482,8 +480,6 @@
 }
 
 
-
-
 .ChartArea {
   width: 100%;
 }
@@ -491,7 +487,6 @@
 .MainChart
 {
   width: 100%;
-  max-width: 1200px;
   height: calc(100vh / 3);
 }
 

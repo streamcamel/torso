@@ -318,9 +318,11 @@ const MainChart = (props) => {
         labels: chartData[0],
         datasets: [{
             label: 'Viewers',
+            fill: true,
             backgroundColor: 'rgba(0, 145, 255, 0.5)',
+            borderDashOffset: 0.0,
             borderColor: 'rgba(0, 145, 255, 0.85)',
-            borderCapStyle: 'round',
+            borderCapStyle: 'butt',
             borderJoinStyle: 'round',
             pointBorderColor: 'rgba(0, 145, 255, 0.85)',
             pointBackgroundColor: 'rgba(0, 145, 255, 0.85)',
@@ -340,7 +342,10 @@ const MainChart = (props) => {
         maintainAspectRatio: false,
         responsive: true,
         legend: {
-            display: false
+            display: true,
+            position: 'top',
+            fullWidth: true,
+            reverse: false,
         },
         tooltip:{
             mode: 'nearest',
