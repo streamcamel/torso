@@ -84,10 +84,12 @@ const MainChart = (props) => {
         let chartData = []
         chartData.unshift([])
         chartData.unshift([])
+        chartData.unshift([])
         toconvert.forEach(d => {
             let adate = new Date(Date.parse(d.time));
             chartData[0].unshift(adate)
             chartData[1].unshift(d.viewers_count)
+            chartData[2].unshift(d.streams_count)
         });
 
         return chartData;
@@ -334,7 +336,25 @@ const MainChart = (props) => {
             pointRadius: 1.5,
             pointHitRadius: 10,
             data: chartData[1]
-          }
+          },
+          {
+            label: 'Channels',
+            fill: true,
+            borderDashOffset: 0.0,
+            borderColor: 'rgba(0, 255, 145, 0.85)',
+            borderCapStyle: 'butt',
+            borderJoinStyle: 'round',
+            pointBorderColor: 'rgba(0, 255, 145, 0.85)',
+            pointBackgroundColor: 'rgba(0, 255, 145, 0.85)',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(0, 255, 145, 0.85)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1.5,
+            pointHitRadius: 10,
+            data: chartData[2]
+            }
         ]
     };
 
