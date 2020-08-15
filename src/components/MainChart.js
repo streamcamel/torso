@@ -321,7 +321,7 @@ const MainChart = (props) => {
         datasets: [{
             type: 'line',
             label: 'Viewers',
-            fill: true,
+            fill: false,
             backgroundColor: 'rgba(0, 145, 255, 0.5)',
             borderDashOffset: 0.0,
             borderColor: 'rgba(0, 145, 255, 0.85)',
@@ -342,7 +342,7 @@ const MainChart = (props) => {
           {
             type: 'bar',
             label: 'Channels',
-            fill: true,
+            fill: false,
             backgroundColor: 'rgba(67,187,157,0.6)',
             borderColor: 'rgba(67,187,157,1)',
             borderWidth: 1,
@@ -363,17 +363,20 @@ const MainChart = (props) => {
             fullWidth: true,
             reverse: false,
         },
-        tooltip:{
-            mode: 'nearest',
-            intersect: false,
-        },
-        hover:{
-            mode: 'nearest',
-            intersect: false,
-        },
+        // tooltip:{
+        //     mode: 'nearest',
+        //     intersect: false,
+        // },
+        // hover:{
+        //     mode: 'nearest',
+        //     intersect: false,
+        // },
         scales: {
             xAxes: [{
                 type: 'time',
+                gridLines: {
+                    display: false
+                },
                 time: {
                     unit: timeUnit
                 }
@@ -402,7 +405,7 @@ const MainChart = (props) => {
                 position: 'right',
                 id: 'y-axis-2',
                 gridLines: {
-                    display: true
+                    display: false
                 },
                 labels: {
                     show: true
