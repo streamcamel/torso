@@ -319,6 +319,7 @@ const MainChart = (props) => {
     const testdata = {
         labels: chartData[0],
         datasets: [{
+            type: 'line',
             label: 'Viewers',
             fill: true,
             backgroundColor: 'rgba(0, 145, 255, 0.5)',
@@ -335,24 +336,19 @@ const MainChart = (props) => {
             pointHoverBorderWidth: 2,
             pointRadius: 1.5,
             pointHitRadius: 10,
+            yAxisID: 'y-axis-1',
             data: chartData[1]
           },
           {
+            type: 'bar',
             label: 'Channels',
             fill: true,
-            borderDashOffset: 0.0,
-            borderColor: 'rgba(0, 255, 145, 0.85)',
-            borderCapStyle: 'butt',
-            borderJoinStyle: 'round',
-            pointBorderColor: 'rgba(0, 255, 145, 0.85)',
-            pointBackgroundColor: 'rgba(0, 255, 145, 0.85)',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(0, 255, 145, 0.85)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1.5,
-            pointHitRadius: 10,
+            backgroundColor: 'rgba(67,187,157,0.6)',
+            borderColor: 'rgba(67,187,157,1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(67,187,157,0.8)',
+            hoverBorderColor: 'rgba(67,187,157,1)',
+            yAxisID: 'y-axis-2',
             data: chartData[2]
             }
         ]
@@ -383,6 +379,34 @@ const MainChart = (props) => {
                 }
             }],
             yAxes: [{
+                type: 'linear',
+                display: true,
+                position: 'left',
+                id: 'y-axis-1',
+                gridLines: {
+                    display: false
+                },
+                labels: {
+                    show: true
+                },
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value, index, values) {
+                        return value.toLocaleString();
+                    }
+                }
+            },
+            {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                id: 'y-axis-2',
+                gridLines: {
+                    display: true
+                },
+                labels: {
+                    show: true
+                },
                 ticks: {
                     beginAtZero: true,
                     callback: function(value, index, values) {
