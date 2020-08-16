@@ -335,9 +335,7 @@ const MainChart = (props) => {
         label: 'Channels',
         fill: false,
         yAxisID: 'y-axis-2',
-
         backgroundColor: 'rgba(0, 145, 255, 0.5)',
-        borderDashOffset: 0.0,
         borderColor: 'rgba(67, 187, 157, 0.85)',
         borderCapStyle: 'round',
         borderJoinStyle: 'round',
@@ -355,6 +353,7 @@ const MainChart = (props) => {
     }
 
     const viewerData = {
+        labels: chartData[0],
         datasets: [{
             type: 'line',
             label: 'Viewers',
@@ -396,10 +395,11 @@ const MainChart = (props) => {
         },
         tooltips:{
              mode: 'label',
+             intersect: false
         },
-        hover:{	
-            mode: 'nearest',	
-            intersect: false,	
+        hover:{
+            mode: 'nearest',
+            intersect: false,
         },
         scales: {
             xAxes: [{
@@ -414,9 +414,6 @@ const MainChart = (props) => {
                 display: true,
                 position: 'left',
                 id: 'y-axis-1',
-                labels: {
-                    show: true
-                },
                 ticks: {
                     beginAtZero: true,
                     callback: function(value, index, values) {
@@ -429,9 +426,6 @@ const MainChart = (props) => {
                 display: true,
                 position: 'right',
                 id: 'y-axis-2',
-                labels: {
-                    show: true
-                },
                 ticks: {
                     beginAtZero: true,
                     callback: function(value, index, values) {
