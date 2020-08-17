@@ -84,10 +84,12 @@ const MainChart = (props) => {
         let chartData = []
         chartData.unshift([])
         chartData.unshift([])
+        chartData.unshift([])
         toconvert.forEach(d => {
             let adate = new Date(Date.parse(d.time));
             chartData[0].unshift(adate)
             chartData[1].unshift(d.viewers_count)
+            chartData[2].unshift(d.streams_count)
         });
 
         return chartData;
@@ -314,11 +316,50 @@ const MainChart = (props) => {
     }
 
     let chartData = convertDataToChartData(data);
-    const testdata = {
+
+    const histogramChannel = {
+        type: 'bar',
+        label: 'Channels',
+        fill: false,
+        backgroundColor: 'rgba(67,187,157,0.6)',
+        borderColor: 'rgba(67,187,157,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(67,187,157,0.8)',
+        hoverBorderColor: 'rgba(67,187,157,1)',
+        yAxisID: 'y-axis-2',
+        data: chartData[2]
+    };
+
+    const lineChannel = {
+        type: 'line',
+        label: 'Channels',
+        fill: false,
+        yAxisID: 'y-axis-2',
+        backgroundColor: 'rgba(0, 145, 255, 0.5)',
+        borderColor: 'rgba(67, 187, 157, 0.85)',
+        borderCapStyle: 'round',
+        borderJoinStyle: 'round',
+        pointBorderColor: 'rgba(67, 187, 157, 0.85)',
+        pointBackgroundColor: 'rgba(67, 187, 157, 0.85)',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(67, 187, 157, 0.85)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1.5,
+        pointHitRadius: 10,
+
+        data: chartData[2]
+    }
+
+    const viewerData = {
         labels: chartData[0],
         datasets: [{
+            type: 'line',
             label: 'Viewers',
+            fill: true,
             backgroundColor: 'rgba(0, 145, 255, 0.5)',
+            borderDashOffset: 0.0,
             borderColor: 'rgba(0, 145, 255, 0.85)',
             borderCapStyle: 'round',
             borderJoinStyle: 'round',
@@ -331,20 +372,30 @@ const MainChart = (props) => {
             pointHoverBorderWidth: 2,
             pointRadius: 1.5,
             pointHitRadius: 10,
+            yAxisID: 'y-axis-1',
             data: chartData[1]
           }
         ]
     };
 
+    if (chartData[0].length <= 50) {
+        viewerData.datasets.push(histogramChannel);
+    } else {
+        viewerData.datasets.push(lineChannel);
+    }
+
     const options = {
         maintainAspectRatio: false,
         responsive: true,
         legend: {
-            display: false
+            display: true,
+            position: 'top',
+            fullWidth: true,
+            reverse: false,
         },
-        tooltip:{
-            mode: 'nearest',
-            intersect: false,
+        tooltips:{
+             mode: 'label',
+             intersect: false
         },
         hover:{
             mode: 'nearest',
@@ -355,9 +406,26 @@ const MainChart = (props) => {
                 type: 'time',
                 time: {
                     unit: timeUnit
-                }
+                },
+                labels: chartData[0]
             }],
             yAxes: [{
+                type: 'linear',
+                display: true,
+                position: 'left',
+                id: 'y-axis-1',
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value, index, values) {
+                        return value.toLocaleString();
+                    }
+                }
+            },
+            {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                id: 'y-axis-2',
                 ticks: {
                     beginAtZero: true,
                     callback: function(value, index, values) {
@@ -388,7 +456,7 @@ const MainChart = (props) => {
             <h2 className="ChartTitle">{title}</h2>
 
             <div className="MainChart">
-                <Line ref={refChart} data={testdata} options={options} />
+                <Line ref={refChart} data={viewerData} options={options} />
             </div>
 
             <div className="MainChartButtons">
