@@ -6,6 +6,7 @@ import CompaniesAndGamesList from './CompaniesAndGamesList'
 import SectionHeader from './SectionHeader';
 import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 import ClipsCarousel from './ClipsCarousel';
+import CompanyStatisticsTable from './CompanyStatisticsTable';
 
 import { numberWithCommas } from '../utils';
 
@@ -102,9 +103,11 @@ const SingleCompanyPage = () => {
 
     let averageViewersLastWeek = '';
     let averageChannelsLastWeek = '';
+    let hoursWatchedLastWeek = '';
     if (dataCompanyWeekStats.length > 0) {
         averageViewersLastWeek = dataCompanyWeekStats[0].viewer_count_average;
         averageChannelsLastWeek = dataCompanyWeekStats[0].stream_count_average;
+        hoursWatchedLastWeek = averageViewersLastWeek * 24 * 7;
     }
 
     // General statistics here
@@ -121,7 +124,7 @@ const SingleCompanyPage = () => {
     let rankComponent = `RANK: #${rank}`;
     let averageViewersLastWeekComponent = `AVG. VIEWERS, 7 DAYS: ${averageViewersLastWeek}`;
     let averageChannelsLastWeekComponent = `AVG. CHANNELS, 7 DAYS: ${averageChannelsLastWeek}`;
-    // let hoursWatchedLastWeekComponent = `HOURS WATCHED, 7 DAYS: ${hoursWatchedLastWeek}`;
+    let hoursWatchedLastWeekComponent = `HOURS WATCHED, 7 DAYS: ${hoursWatchedLastWeek}`;
     // let peakViewersComponent = `PEAK VIEWERS: ${peakViewers}`;
     // let peakViewersTimeComponent = `AVG. VIEWERS, 7 DAYS: ${peakViewersTime}`;
     // let peakChannelsComponent = `PEAK CHANNELS: ${peakChannels}`;
@@ -137,7 +140,7 @@ const SingleCompanyPage = () => {
                             rankComponent + '\n\n' +
                             numberWithCommas(averageViewersLastWeekComponent) + '\n\n' + 
                             numberWithCommas(averageChannelsLastWeekComponent) + '\n\n' +
-                            // hoursWatchedLastWeekComponent + '\n\n' +
+                            numberWithCommas(hoursWatchedLastWeekComponent) + '\n\n' +
                             // peakViewersComponent + '\n\n' +)
                             // // peakViewersTimeComponent + '\n\n' +
                             // peakChannelsComponent + '\n\n' +
@@ -153,6 +156,7 @@ const SingleCompanyPage = () => {
                     <img className="SingleCompanyPageIcon" src={iconurl} alt={title} />
                 </div>
                 <div className="SingleCompanyPageDescription">{addLineBreaks(fullDescription)}</div>
+                <CompanyStatisticsTable slug={slug}/>
             </div>
             <div className="CompanyDescriptionFooter">
                 <CompaniesAndGamesList data={dataGames} filter={filter} context="company" slug={slug}/>
