@@ -156,17 +156,10 @@ const SingleCompanyPage = () => {
                     <img className="SingleCompanyPageIcon" src={iconurl} alt={title} />
                 </div>
                 <div className="SingleCompanyPageDescription">{addLineBreaks(fullDescription)}</div>
-                <CompanyStatisticsTable slug={slug}/>
             </div>
             <div className="CompanyDescriptionFooter">
                 <CompaniesAndGamesList data={dataGames} filter={filter} context="company" slug={slug}/>
-                    {/* <div className="SingleCompanyPageDescription">
-                        {liveViewersComponent}
-                    </div>
-                    <div className="SingleCompanyPageDescription">
-                        {liveChannelsComponent}
-                    </div> */}
-                
+                <CompanyStatisticsTable slug={slug}/>
                 <ClipsCarousel className="ClipsCarousel" context="company" slug={slug}></ClipsCarousel>
                 <FwdBrowsingDrawer />
             </div>

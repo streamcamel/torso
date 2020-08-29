@@ -111,12 +111,6 @@
   margin-right: 1em;
 }
 
-
-
-
-
-
-
 .MainBodyWrapper {
   display: flex;
   justify-content: center;
@@ -129,7 +123,6 @@
   width: 90%;
   max-width: 1200px;
 }
-
 
 .SectionHeader{
   font-size: 1.5em;
@@ -173,7 +166,6 @@
   position: absolute;
   right: 0;
 }
-
 
 .CompaniesGrid {
   display: flex;
@@ -223,6 +215,11 @@
   color: #aaa;
   font-size: 0.75em;
   display: inline;
+}
+
+table.center {
+  margin-left:auto; 
+  margin-right:auto;
 }
 
 .TileViewerImage{
@@ -480,9 +477,6 @@
   border-radius: 0.75em;
   cursor: pointer;
 }
-
-
-
 
 .ChartArea {
   width: 100%;

@@ -105,6 +105,10 @@ export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+export function numberInKs(x) {
+    return Math.round(x/1000) + 'K';
+}
+
 export function textToParagraphs(str) {
     let res = [];
     

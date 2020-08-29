@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as appConfig from '../config'
-import { URLSearchAddQuery, numberWithCommas } from '../utils';
+import { URLSearchAddQuery, numberWithCommas, numberInKs } from '../utils';
 import { useTable } from 'react-table'
 
 const CompanyStatisticsTable = (props) => {
@@ -32,7 +32,7 @@ const CompanyStatisticsTable = (props) => {
                 average: apiData[index]['viewers_count'],
                 gain: '',
                 percent_gain: '',
-                peak: numberWithCommas(apiData[index]['viewers_count_peak']), }
+                peak: apiData[index]['viewers_count_peak'], }
             }) 
         ,
         [apiData]
@@ -41,14 +41,15 @@ const CompanyStatisticsTable = (props) => {
     var i;
     for (i = 0; i < data.length; i++) {
         if (i + 1 < data.length) { 
-            data[i]['gain'] = data[i]['average'] - data[i+1]['average'];
+            data[i]['gain'] = numberWithCommas(data[i]['average'] - data[i+1]['average']);
             data[i]['percent_gain'] = parseFloat((data[i]['average'] - data[i+1]['average']) / data[i+1]['average']).toFixed(2) + '%';
         } else {
             data[i]['gain'] = '';
             data[i]['percent_gain'] = '';
         }
 
-        data[i]['average'] = Math.round(data[i]['average']/1000) + 'K';
+        data[i]['average'] = numberInKs(data[i]['average']);
+        data[i]['peak'] = numberInKs(data[i]['peak']);
     }
 
     const columns = React.useMemo(
@@ -90,7 +91,7 @@ const CompanyStatisticsTable = (props) => {
     return (
         apiData === null ? null : 
         // apply the table props
-        <table {...getTableProps()}>
+        <table className="center" {...getTableProps()}>
             <thead>
                 {// Loop over the header rows
                 headerGroups.map(headerGroup => (
@@ -131,17 +132,6 @@ const CompanyStatisticsTable = (props) => {
             })}
         </tbody>
         </table>
-        // data === null || data.length === 0 ? null :
-        // <div>
-        //     <table>
-        //         <thead>
-        //             <tr>{getHeader()}</tr>
-        //         </thead>
-        //         <tbody>
-        //             {getRowsData()}
-        //         </tbody>
-        //     </table>
-        // </div>
     );
 };
 
