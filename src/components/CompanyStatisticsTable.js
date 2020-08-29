@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as appConfig from '../config'
-import * as utils from '../utils'
+import { URLSearchAddQuery, numberWithCommas } from '../utils';
 import { useTable } from 'react-table'
 
 const CompanyStatisticsTable = (props) => {
@@ -10,67 +10,33 @@ const CompanyStatisticsTable = (props) => {
         let dateFrom = new Date('2020-01-01');
         let dateTo = new Date();
 
-        let request = utils.URLSearchAddQuery('', 'after', encodeURIComponent(dateFrom.toISOString()));
-        request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(dateTo.toISOString()));
-        request = utils.URLSearchAddQuery(request, 'company', encodeURIComponent(props.slug));
+        let request = URLSearchAddQuery('', 'after', encodeURIComponent(dateFrom.toISOString()));
+        request = URLSearchAddQuery(request, 'before', encodeURIComponent(dateTo.toISOString()));
+        request = URLSearchAddQuery(request, 'company', encodeURIComponent(props.slug));
 
         fetch(appConfig.backendURL('/viewers' + request))
             .then(res => res.json())
             .then(res => setApiData(res))
     }, []);
 
-
-    // const getKeys = () => {
-    //     return Object.keys(data[0]);
-    // }
-    
-    // const getHeader = () => {
-    //     var keys = getKeys();
-    //     return keys.map((key, index)=>{
-    //         return <th key={key}>{key.toUpperCase()}</th>
-    //     })
-    // }
-
-    // const RenderRow = (props) =>{
-    //     return props.keys.map((key, index)=>{
-    //     return <td key={props.data[key]}>{props.data[key]}</td>
-    //     })
-    //    }
-    
-    // const getRowsData = () => {
-    //     var items = data.splice(Math.max(data.length - 12, 1));
-    //     var keys = getKeys();
-    //     return items.map((row, index)=>{
-    //         return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
-    //     })
-    // }
+    const getFormattedDate = (today) => { 
+        var month = (today.getMonth() + 1);
+        var day = today.getDate();
+        var year = today.getFullYear();
+        return month + "/" + day + "/" + year;
+    };
 
     const data = React.useMemo(
-        () => [
-          {
-            mon: 'Hello',
-            average: 'World',
-            gain: 'das',
-            percent_gain: 'dasdsa',
-            peak: 'dasdsads',
-          },
-          {
-            mon: 'react-table',
-            average: 'rocks',
-            gain: 'das',
-            percent_gain: 'dasdsa',
-            peak: 'dasdsads',
-          },
-          {
-            mon: 'whatever',
-            average: 'you want',
-            gain: 'das',
-            percent_gain: 'dasdsa',
-            peak: 'dasdsads',
-          },
-        ],
-        []
-      );
+        () => apiData.slice(0, 14).map((key, index) => {
+                return {  mon: getFormattedDate(new Date(Date.parse(apiData[index]['time']))),
+                average: numberWithCommas(apiData[index]['viewers_count']),
+                gain: 'TBD',
+                percent_gain: 'TBD',
+                peak: numberWithCommas(apiData[index]['viewers_count_peak']), }
+            }) 
+        ,
+        [apiData]
+    );
 
     const columns = React.useMemo(
         () => [
@@ -109,6 +75,7 @@ const CompanyStatisticsTable = (props) => {
     } = tableInstance
 
     return (
+        apiData === null ? null : 
         // apply the table props
         <table {...getTableProps()}>
             <thead>
