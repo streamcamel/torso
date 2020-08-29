@@ -41,7 +41,7 @@ const CompanyStatisticsTable = (props) => {
     const columns = React.useMemo(
         () => [
           {
-            Header: 'Month',
+            Header: 'Date',
             accessor: 'mon',
           },
           {
