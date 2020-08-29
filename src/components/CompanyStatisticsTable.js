@@ -27,22 +27,35 @@ const CompanyStatisticsTable = (props) => {
     };
 
     const data = React.useMemo(
-        () => apiData.slice(0, 14).map((key, index) => {
-                return {  mon: getFormattedDate(new Date(Date.parse(apiData[index]['time']))),
-                average: numberWithCommas(apiData[index]['viewers_count']),
-                gain: 'TBD',
-                percent_gain: 'TBD',
+        () => apiData.slice(0, Math.min(apiData.length, 14)).map((key, index) => {
+                return {  date: getFormattedDate(new Date(Date.parse(apiData[index]['time']))),
+                average: apiData[index]['viewers_count'],
+                gain: '',
+                percent_gain: '',
                 peak: numberWithCommas(apiData[index]['viewers_count_peak']), }
             }) 
         ,
         [apiData]
     );
 
+    var i;
+    for (i = 0; i < data.length; i++) {
+        if (i + 1 < data.length) { 
+            data[i]['gain'] = data[i]['average'] - data[i+1]['average'];
+            data[i]['percent_gain'] = parseFloat((data[i]['average'] - data[i+1]['average']) / data[i+1]['average']).toFixed(2) + '%';
+        } else {
+            data[i]['gain'] = '';
+            data[i]['percent_gain'] = '';
+        }
+
+        data[i]['average'] = Math.round(data[i]['average']/1000) + 'K';
+    }
+
     const columns = React.useMemo(
         () => [
           {
             Header: 'Date',
-            accessor: 'mon',
+            accessor: 'date',
           },
           {
             Header: 'Average',
