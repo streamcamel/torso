@@ -4,21 +4,6 @@ import { URLSearchAddQuery, numberWithCommas, numberInKs } from '../utils';
 import { useTable } from 'react-table'
 
 const CompanyStatisticsTable = (props) => {
-    const [apiData, setApiData] = useState([]); // Data state for the Company
-
-    useEffect(() => {
-        let dateFrom = new Date('2020-01-01');
-        let dateTo = new Date();
-
-        let request = URLSearchAddQuery('', 'after', encodeURIComponent(dateFrom.toISOString()));
-        request = URLSearchAddQuery(request, 'before', encodeURIComponent(dateTo.toISOString()));
-        request = URLSearchAddQuery(request, 'company', encodeURIComponent(props.slug));
-
-        fetch(appConfig.backendURL('/viewers' + request))
-            .then(res => res.json())
-            .then(res => setApiData(res))
-    }, []);
-
     const getFormattedDate = (today) => { 
         var month = (today.getMonth() + 1);
         var day = today.getDate();
@@ -26,16 +11,18 @@ const CompanyStatisticsTable = (props) => {
         return month + "/" + day + "/" + year;
     };
 
+    console.log(props.data);
+
     const data = React.useMemo(
-        () => apiData.slice(0, Math.min(apiData.length, 14)).map((key, index) => {
-                return {  date: getFormattedDate(new Date(Date.parse(apiData[index]['time']))),
-                average: apiData[index]['viewers_count'],
+        () => props.data.slice(0, Math.min(props.data.length, 14)).map((key, index) => {
+                return {  date: getFormattedDate(new Date(Date.parse(props.data[index]['time']))),
+                average: props.data[index]['average'],
                 gain: '',
                 percent_gain: '',
-                peak: apiData[index]['viewers_count_peak'], }
+                peak: props.data[index]['peak'], }
             }) 
         ,
-        [apiData]
+        [props.data]
     );
 
     var i;
@@ -89,8 +76,9 @@ const CompanyStatisticsTable = (props) => {
     } = tableInstance
 
     return (
-        apiData === null ? null : 
         // apply the table props
+        <div>
+            {props.title}
         <table className="center" {...getTableProps()}>
             <thead>
                 {// Loop over the header rows
@@ -132,6 +120,7 @@ const CompanyStatisticsTable = (props) => {
             })}
         </tbody>
         </table>
+        </div>
     );
 };
 

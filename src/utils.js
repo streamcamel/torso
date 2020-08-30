@@ -109,6 +109,16 @@ export function numberInKs(x) {
     return Math.round(x/1000) + 'K';
 }
 
+export function changeKeyObjects(arr, replaceKeys) {
+    return arr.map(item => {
+      const newItem = {};
+      Object.keys(item).forEach(key => {
+        newItem[replaceKeys[key]] = item[[key]];
+      });
+      return newItem;
+    });
+  };
+
 export function textToParagraphs(str) {
     let res = [];
     

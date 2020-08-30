@@ -8,16 +8,17 @@ import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 import ClipsCarousel from './ClipsCarousel';
 import CompanyStatisticsTable from './CompanyStatisticsTable';
 
-import { numberWithCommas } from '../utils';
+import { URLSearchAddQuery, numberWithCommas, changeKeyObjects } from '../utils';
 
 const SingleCompanyPage = () => {
     let location = useLocation();
 
     const [dataGames, setDataGames] = useState([]); // Data state for the companies/games
     const [dataCompanies, setDataCompanies] = useState([]); // Data state for the companies
-
     const [dataCompanyLiveStats, setDataCompanyLiveStats] = useState([]);
     const [dataCompanyWeekStats, setDataCompanyWeekStats] = useState([]);
+
+    const [viewerData, setViewerData] = useState([]); // Data state for the Company
 
     const [prevPath, setPrevPath] = useState('');
     const [filter, setFilter] = useState('');
@@ -60,10 +61,21 @@ const SingleCompanyPage = () => {
                 .then(res => setDataCompanyLiveStats(res));
 
             setDataCompanyWeekStats([])
-                url = appConfig.backendURL('/companies_stats?company='+slug+'&period=1w');
-                fetch(url)
-                    .then(res => res.json())
-                    .then(res => setDataCompanyWeekStats(res));
+            url = appConfig.backendURL('/companies_stats?company='+slug+'&period=1w');
+            fetch(url)
+                .then(res => res.json())
+                .then(res => setDataCompanyWeekStats(res));
+
+            let dateFrom = new Date('2020-01-01');
+            let dateTo = new Date();
+    
+            url = URLSearchAddQuery('', 'after', encodeURIComponent(dateFrom.toISOString()));
+            url = URLSearchAddQuery(url, 'before', encodeURIComponent(dateTo.toISOString()));
+            url = URLSearchAddQuery(url, 'company', encodeURIComponent(slug));
+    
+            fetch(appConfig.backendURL('/viewers' + url))
+                .then(res => res.json())
+                .then(res => setViewerData(res))
 
             setPrevPath(location.pathname);
         }
@@ -148,6 +160,14 @@ const SingleCompanyPage = () => {
                             // viewersPerChannelLastWeekComponent + '\n\n' +
                             description;
 
+    const viewersTableData = changeKeyObjects(viewerData, {  viewers_count: "average",
+                                                             viewers_count_peak: "peak",
+                                                            time: "time",});
+
+    const streamsTableData = changeKeyObjects(viewerData, { streams_count: "average",
+                                                            streams_count_peak: "peak",
+                                                            time: "time",});
+
     return (
         <div className="SingleCompanyPage">
             <SectionHeader headers={headers} onFilter={onFilter}/>
@@ -159,11 +179,11 @@ const SingleCompanyPage = () => {
             </div>
             <div className="CompanyDescriptionFooter">
                 <CompaniesAndGamesList data={dataGames} filter={filter} context="company" slug={slug}/>
-                <CompanyStatisticsTable slug={slug}/>
+                <CompanyStatisticsTable data={viewersTableData} title="Concurrent Viewers"/>
+                <CompanyStatisticsTable data={streamsTableData} title="Concurrent Streams"/>
                 <ClipsCarousel className="ClipsCarousel" context="company" slug={slug}></ClipsCarousel>
                 <FwdBrowsingDrawer />
             </div>
-
         </div>
     );
 };
