@@ -217,9 +217,19 @@
   display: inline;
 }
 
+.CompanyStatisticsTable {
+    margin: 30px 0; 
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  clear: both;
+  box-shadow: 0px 1px 1px #999;
+  text-align: center;
+  overflow:hidden;
+}
+
 table.center {
-  margin-left:auto; 
-  margin-right:auto;
+  /* display:inline-block */
 }
 
 .TileViewerImage{

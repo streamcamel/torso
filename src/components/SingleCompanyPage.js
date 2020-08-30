@@ -123,7 +123,6 @@ const SingleCompanyPage = () => {
     }
 
     // General statistics here
-    // let hoursWatchedLastWeek = 24908205;
     // let peakViewers = 2277171;
     // //let peakViewersTime = new Date(2020, 5, 14, 0, 0, 0, 0);
     // let peakChannels = 117582;
@@ -179,8 +178,10 @@ const SingleCompanyPage = () => {
             </div>
             <div className="CompanyDescriptionFooter">
                 <CompaniesAndGamesList data={dataGames} filter={filter} context="company" slug={slug}/>
-                <CompanyStatisticsTable data={viewersTableData} title="Concurrent Viewers"/>
-                <CompanyStatisticsTable data={streamsTableData} title="Concurrent Streams"/>
+                <div className="CompanyStatisticsTable">
+                    <CompanyStatisticsTable data={viewersTableData} title="Concurrent Viewers"/>
+                    <CompanyStatisticsTable data={streamsTableData} title="Concurrent Streams"/>
+                </div>
                 <ClipsCarousel className="ClipsCarousel" context="company" slug={slug}></ClipsCarousel>
                 <FwdBrowsingDrawer />
             </div>
