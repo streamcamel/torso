@@ -79,7 +79,7 @@ const CompanyStatisticsTable = (props) => {
         // apply the table props
         <div>
             {props.title}
-        <table className="center" {...getTableProps()}>
+        <table {...getTableProps()}>
             <thead>
                 {// Loop over the header rows
                 headerGroups.map(headerGroup => (
