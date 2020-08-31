@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
+import _ from "lodash" 
 import * as appConfig from '../config'
 import * as utils from '../utils'
 import CompaniesAndGamesList from './CompaniesAndGamesList'
@@ -159,13 +160,20 @@ const SingleCompanyPage = () => {
                             // viewersPerChannelLastWeekComponent + '\n\n' +
                             description;
 
-    const viewersTableData = changeKeyObjects(viewerData, {  viewers_count: "average",
-                                                             viewers_count_peak: "peak",
+    const viewersTableData = changeKeyObjects(viewerData, { viewers_count: "value",
+                                                            viewers_count_peak: "peak",
                                                             time: "time",});
 
-    const streamsTableData = changeKeyObjects(viewerData, { streams_count: "average",
+    const streamsTableData = changeKeyObjects(viewerData, { streams_count: "value",
                                                             streams_count_peak: "peak",
                                                             time: "time",});
+
+    const hoursWatchedTableData = _.cloneDeep(viewersTableData);
+    var i;
+    for (i = 0; i < hoursWatchedTableData.length; i++) {
+        hoursWatchedTableData[i].value *= 24; // TODO this is incorrect for days that are not complete
+        //delete hoursWatchedTableData[i].peak;
+    }
 
     return (
         <div className="SingleCompanyPage">
@@ -181,6 +189,7 @@ const SingleCompanyPage = () => {
                 <div className="CompanyStatisticsTable">
                     <CompanyStatisticsTable data={viewersTableData} title="Concurrent Viewers"/>
                     <CompanyStatisticsTable data={streamsTableData} title="Concurrent Streams"/>
+                    <CompanyStatisticsTable data={hoursWatchedTableData} displayPeak={false} valueTitle="Value" title="Hours Watched"/>
                 </div>
                 <ClipsCarousel className="ClipsCarousel" context="company" slug={slug}></ClipsCarousel>
                 <FwdBrowsingDrawer />

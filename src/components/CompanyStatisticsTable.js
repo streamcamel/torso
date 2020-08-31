@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import * as appConfig from '../config'
-import { URLSearchAddQuery, numberWithCommas, numberInKs } from '../utils';
+import React from 'react';
+import { numberInKMs } from '../utils';
 import { useTable } from 'react-table'
 
 const CompanyStatisticsTable = (props) => {
@@ -11,32 +10,39 @@ const CompanyStatisticsTable = (props) => {
         return month + "/" + day + "/" + year;
     };
 
-    console.log(props.data);
-
     const data = React.useMemo(
         () => props.data.slice(0, Math.min(props.data.length, 14)).map((key, index) => {
-                return {  date: getFormattedDate(new Date(Date.parse(props.data[index]['time']))),
-                average: props.data[index]['average'],
-                gain: '',
-                percent_gain: '',
-                peak: props.data[index]['peak'], }
+                if (props.displayPeak) {
+                    return {    date: getFormattedDate(new Date(Date.parse(props.data[index]['time']))),
+                    value: props.data[index]['value'],
+                    gain: '',
+                    percent_gain: '',
+                    peak: props.data[index]['peak'] }
+                } else {
+                    return {    date: getFormattedDate(new Date(Date.parse(props.data[index]['time']))),
+                    value: props.data[index]['value'],
+                    gain: '',
+                    percent_gain: '' }
+                }
             }) 
         ,
-        [props.data]
+        [props.data, props.displayPeak]
     );
 
     var i;
     for (i = 0; i < data.length; i++) {
         if (i + 1 < data.length) { 
-            data[i]['gain'] = numberWithCommas(data[i]['average'] - data[i+1]['average']);
-            data[i]['percent_gain'] = parseFloat((data[i]['average'] - data[i+1]['average']) / data[i+1]['average']).toFixed(2) + '%';
+            data[i]['gain'] = numberInKMs(data[i]['value'] - data[i+1]['value']);
+            data[i]['percent_gain'] = (parseFloat((data[i]['value'] - data[i+1]['value']) / data[i+1]['value']) * 100).toFixed(1) + '%';
         } else {
             data[i]['gain'] = '';
             data[i]['percent_gain'] = '';
         }
 
-        data[i]['average'] = numberInKs(data[i]['average']);
-        data[i]['peak'] = numberInKs(data[i]['peak']);
+        data[i]['value'] = numberInKMs(data[i]['value']);
+        if (data[i]['peak'] !== undefined) {
+            data[i]['peak'] = numberInKMs(data[i]['peak']);
+        }
     }
 
     const columns = React.useMemo(
@@ -46,8 +52,8 @@ const CompanyStatisticsTable = (props) => {
             accessor: 'date',
           },
           {
-            Header: 'Average',
-            accessor: 'average',
+            Header: props.valueTitle,
+            accessor: 'value',
           },
           {
             Header: 'Gain',
@@ -57,13 +63,17 @@ const CompanyStatisticsTable = (props) => {
             Header: '% Gain',
             accessor: 'percent_gain',
           },
-          {
+        ],
+        [props.valueTitle]
+      );
+
+    if (props.displayPeak) {
+        columns.push(
+        {
             Header: 'Peak',
             accessor: 'peak',
-          },
-        ],
-        []
-      );
+        });
+    }
 
     const tableInstance = useTable( { columns, data });
 
@@ -122,6 +132,11 @@ const CompanyStatisticsTable = (props) => {
         </table>
         </div>
     );
+};
+
+CompanyStatisticsTable.defaultProps = {
+    displayPeak: true,
+    valueTitle: 'Average',
 };
 
 export default CompanyStatisticsTable;

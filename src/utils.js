@@ -105,8 +105,14 @@ export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function numberInKs(x) {
-    return Math.round(x/1000) + 'K';
+export function numberInKMs(x) {
+    if (Math.abs(x) >= 1000000) {
+        return Math.round(x/1000000) + 'M';
+    } else if (Math.abs(x) >= 100000) {
+        return Math.round(x/1000) + 'K';
+    } else {
+        return numberWithCommas(x);
+    }
 }
 
 export function changeKeyObjects(arr, replaceKeys) {
