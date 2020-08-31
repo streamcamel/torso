@@ -80,7 +80,7 @@ const SingleCompanyPage = () => {
 
             setPrevPath(location.pathname);
         }
-    }, [location, dataGames, dataCompanies, dataCompanyLiveStats, dataCompanyWeekStats, prevPath, filter]);
+    }, [location, viewerData, dataGames, dataCompanies, dataCompanyLiveStats, dataCompanyWeekStats, prevPath, filter]);
     
     let title = '';
     if(dataCompanies.length > 0){
@@ -172,7 +172,6 @@ const SingleCompanyPage = () => {
     var i;
     for (i = 0; i < hoursWatchedTableData.length; i++) {
         hoursWatchedTableData[i].value *= 24; // TODO this is incorrect for days that are not complete
-        //delete hoursWatchedTableData[i].peak;
     }
 
     return (
