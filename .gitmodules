@@ -1,3 +1,3 @@
 [submodule "submodules/streamcamel-py"]
 	path = submodules/streamcamel-py
-	url = https://github.com/robinlavallee/streamcamel-py.git
+	url = https://github.com/streamcamel/streamcamel-py.git
