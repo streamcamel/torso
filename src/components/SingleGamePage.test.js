@@ -33,6 +33,26 @@ const dataStats = [{
         "viewers": 112127
 }];
 
+const viewerStats = [   {   "streams_count":34437,
+                            "streams_count_peak":34437,
+                            "time":"2020-05-22T22:50:02Z",
+                            "viewers_count":2935471,
+                            "viewers_count_peak":2935471
+                        },
+                        {   "streams_count":34795,
+                            "streams_count_peak":34795,
+                            "time":"2020-05-22T22:40:01Z",
+                            "viewers_count":3031132,
+                            "viewers_count_peak":3031132
+                        },
+                        {   "streams_count":34372,
+                            "streams_count_peak":34372,
+                            "time":"2020-05-22T22:30:02Z",
+                            "viewers_count":3049136,
+                            "viewers_count_peak":3049136
+                        }
+                    ];
+
 test('SingleGamePage component: Creation', async () => {
 
     fetch.mockResponse(async (req) => {
@@ -40,6 +60,8 @@ test('SingleGamePage component: Creation', async () => {
             return JSON.stringify(data);
         } else if (req.url.match(/games_stats/)) {
             return JSON.stringify(dataStats);
+        } else if (req.url.match(/viewers/)) {
+            return JSON.stringify(viewerStats)
         }
     });
 
@@ -54,7 +76,7 @@ test('SingleGamePage component: Creation', async () => {
         );
     });
 
-    expect(fetch).toHaveBeenCalledTimes(4);
+    expect(fetch).toHaveBeenCalledTimes(5);
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite');
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games_stats?game=fortnite&period=1w');
     expect(fetch).toHaveBeenCalledWith('https://api.streamcamel.com/games/fortnite/clips?limit=12');

@@ -111,12 +111,6 @@
   margin-right: 1em;
 }
 
-
-
-
-
-
-
 .MainBodyWrapper {
   display: flex;
   justify-content: center;
@@ -129,7 +123,6 @@
   width: 90%;
   max-width: 1200px;
 }
-
 
 .SectionHeader{
   font-size: 1.5em;
@@ -173,7 +166,6 @@
   position: absolute;
   right: 0;
 }
-
 
 .CompaniesGrid {
   display: flex;
@@ -223,6 +215,17 @@
   color: #aaa;
   font-size: 0.75em;
   display: inline;
+}
+
+.CompanyStatisticsTable {
+  margin: 30px 0; 
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  clear: both;
+  box-shadow: 0px 1px 1px #999;
+  text-align: center;
+  overflow:hidden;
 }
 
 .TileViewerImage{
@@ -480,9 +483,6 @@
   border-radius: 0.75em;
   cursor: pointer;
 }
-
-
-
 
 .ChartArea {
   width: 100%;
