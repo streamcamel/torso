@@ -29,7 +29,6 @@ const ClipTile = (props) => {
 
     let wrapperClass = "ClipTileIconWrapper";
     if(!props.clip.id) {
-        console.log('wtf')
         wrapperClass += " NoPointerCursor";
     }
     

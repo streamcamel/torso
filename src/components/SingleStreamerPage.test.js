@@ -41,7 +41,7 @@ test('SingleStreamerPage component: Creation', async () => {
         } else if (req.url.match(/users_stats/)) {
             return JSON.stringify(dataStats);
         }
-    });
+    }); 
 
     const history = createMemoryHistory()
     history.push('/streamer/summit1g')

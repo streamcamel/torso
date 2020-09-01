@@ -17,7 +17,7 @@ const SingleGamePage = () => {
     const [prevPath, setPrevPath] = useState('');
     const [gameData, setGameData] = useState([]);
 
-    const [viewerData, setViewerData] = useState([]); // Data state for the Company
+    const [viewerData, setViewerData] = useState([]);
     
     const addLineBreaks = string =>
     string.split('\n').map((text, index) => (
@@ -29,7 +29,6 @@ const SingleGamePage = () => {
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-
         if(prevPath !== location.pathname)
         {
             let slug = utils.pathToSlug(location.pathname);
@@ -44,13 +43,14 @@ const SingleGamePage = () => {
             .then(res => setGameData(res));
 
             let dateFrom = new Date('2020-01-01');
-            let dateTo = new Date();
+            let dateTo = new Date('2020-12-01');
     
             url = URLSearchAddQuery('', 'after', encodeURIComponent(dateFrom.toISOString()));
             url = URLSearchAddQuery(url, 'before', encodeURIComponent(dateTo.toISOString()));
             url = URLSearchAddQuery(url, 'game', encodeURIComponent(slug));
     
-            fetch(appConfig.backendURL('/viewers' + url))
+            url = appConfig.backendURL('/viewers' + url);
+            fetch(url)
                 .then(res => res.json())
                 .then(res => setViewerData(res))
 
