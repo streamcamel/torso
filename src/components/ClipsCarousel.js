@@ -25,14 +25,38 @@ const ClipsCarousel = (props) => {
         }
 
         url += '?limit=12';
+
+        // Intentional that invalid period or non existant will use default
+        if (props.period) {
+            switch (props.period) {
+                case "day":
+                    url += "&period=day";
+                    break;
+                default:
+                case "week":
+                    url += "&period=week";
+                    break;
+                case "month":
+                    url += "&period=month";
+                    break;
+                case "all":
+                    url += "&period=all";
+            }
+        } 
+        
         url = appConfig.backendURL(url);
 
         fetch(url)
             .then(res => res.json())
             .then(res => setData(res))
-    }, [props.context, props.slug]);
+    }, [props.context, props.slug, props.period]);
 
-    let headers = [ {title:'Top Clips', selected:true} ];
+    let title = 'Top Clips';
+    if (props.title) {
+        title = props.title;
+    }
+
+    let headers = [ {title:title, selected:true} ];
 
     return ( !data.length ? null :
                 <div className="TileContainer ClipsCarouselWrapper">
