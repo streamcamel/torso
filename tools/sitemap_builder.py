@@ -56,6 +56,10 @@ class SitemapBuilder:
 def get_all_urls():
     urls = ["https://www.streamcamel.com", "https://www.streamcamel.com/?privacy=1",
             "https://www.streamcamel.com/press/index.php"]
+
+    urls.append("https://www.streamcamel.com/topgames")
+    urls.append("https://www.streamcamel.com/topstreamers")
+    urls.append("https://www.streamcamel.com/clips")
     
     builder = SitemapBuilder()
     urls += builder.top_games()
