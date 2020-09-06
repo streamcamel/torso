@@ -11,6 +11,7 @@ import TopCompaniesPage from './TopCompaniesPage'
 import TopGamesPage from './TopGamesPage'
 import TopStreamersPage from './TopStreamersPage'
 import ClipsCarousel from './ClipsCarousel';
+import ClipsPage from './ClipsPage';
 
 const Carousel = () => {
 
@@ -23,30 +24,39 @@ const Carousel = () => {
                     <IntroText/>
                 </Route>
             </Switch>
-            <MainChart />
             <Switch>
                 <Route exact path="/">
+                    <MainChart />
                     <TopCompaniesPage />
                     <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
+                <Route exact path="/clips">
+                    <ClipsPage />
+                </Route>
                 <Route path="/search">
+                    <MainChart />
                     <SearchPage />
                     <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
                 <Route path="/company">
+                    <MainChart />
                     <SingleCompanyPage />
                 </Route>
                 <Route path="/game">
+                    <MainChart />
                     <SingleGamePage />
                 </Route>
                 <Route path="/streamer">
+                    <MainChart />
                     <SingleStreamerPage />
                 </Route>
                 <Route path="/topgames">
+                    <MainChart />
                     <TopGamesPage />
                     <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
                 <Route path="/topstreamers">
+                    <MainChart />
                     <TopStreamersPage />
                     <ClipsCarousel className="ClipsCarousel"/>
                 </Route>
