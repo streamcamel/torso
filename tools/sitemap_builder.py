@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+import errno
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 import gzip
@@ -9,8 +10,8 @@ import sys
 import os
 
 import sys
-sys.path.insert(1, os.path.abspath('submodules/streamcamel-py'))
-from StreamCamel import StreamCamel
+sys.path.insert(1, os.path.abspath('../submodules/streamcamel-py/streamcamel'))
+from streamcamel import StreamCamel
 
 class SitemapBuilder:
     def __init__(self):
@@ -110,7 +111,7 @@ def xml_pretty_print(root, output_path, compress=False):
 def main(args):
 
     parser = argparse.ArgumentParser(description='Build the website sitemap')    
-    parser.add_argument('--output_path', type=str, default='./public', help="Root path to save sitemap XML files, default to current directory")
+    parser.add_argument('--output_path', type=str, default='../public', help="Root path to save sitemap XML files, default to current directory")
     args = parser.parse_args()
     output_path = args.output_path
     
@@ -118,6 +119,12 @@ def main(args):
 
     print("Getting URLs from api.streamcamel.com")
     urls = get_all_urls()
+
+    try:
+        os.makedirs(output_path)
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
 
     # Delete all previous sitemap files on success
     for filename in os.listdir(output_path):
