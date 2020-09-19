@@ -53,7 +53,7 @@ const SingleCompanyPage = () => {
             url = appConfig.backendURL('/companies/'+slug);
             fetch(url)
                 .then(res => res.json())
-                .then(res => setDataCompanies(res));
+                .then(res => setDataCompanies(res['data']));
 
             setDataCompanyLiveStats([])
             url = appConfig.backendURL('/companies_stats?company='+slug);
@@ -83,18 +83,18 @@ const SingleCompanyPage = () => {
     }, [location, viewerData, dataGames, dataCompanies, dataCompanyLiveStats, dataCompanyWeekStats, prevPath, filter]);
     
     let title = '';
-    if(dataCompanies.length > 0){
+    if(dataCompanies !== null && dataCompanies !== undefined && dataCompanies.length > 0){
         title = dataCompanies[0].name
         document.title = `${title} - Statistics and Charts | StreamCamel`;
     }
     
     let description = '';
-    if(dataCompanies.length>0 && dataCompanies[0].description !== null) {
+    if(dataCompanies !== null && dataCompanies !== undefined && dataCompanies.length>0 && dataCompanies[0].description !== null) {
         description = utils.textToParagraphs(dataCompanies[0].description);
     }
 
     let iconurl = '';
-    if (dataCompanies.length > 0 && dataCompanies[0].url !== null) {
+    if (dataCompanies !== null && dataCompanies !== undefined && dataCompanies.length > 0 && dataCompanies[0].url !== null) {
         if (dataCompanies[0].url !== ".jpg") {
             iconurl = dataCompanies[0].url.replace('t_thumb', 't_cover_big');
             if (dataCompanies[0].alpha_channel === 1) {

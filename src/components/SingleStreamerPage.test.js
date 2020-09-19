@@ -9,17 +9,20 @@ import { enableMocks } from 'jest-fetch-mock'
 enableMocks()
 
 // Mocking data to pass as props
-const data = [{
-    "broadcaster_type":"partner",
-    "description":"I'm a variety streamer(kind of). Been streaming 8 years(another number to change every year).I'm 100% better than you at shooting and puzzle games.@summit1g via Twitter.",
-    "display_name":"summit1g",
-    "id":26490481,
-    "login":"summit1g",
-    "offline_image_url":"https://static-cdn.jtvnw.net/jtv_user_pictures/b1f1f1a6-6b89-475f-8831-cfb9f4a4073a-channel_offline_image-1920x1080.png",
-    "profile_image_url":"https://static-cdn.jtvnw.net/jtv_user_pictures/200cea12142f2384-profile_image-300x300.png",
-    "type":"",
-    "view_count":381719376
-}];
+const data = {
+    "data" : [
+        {   "broadcaster_type":"partner",
+            "description":"I'm a variety streamer(kind of). Been streaming 8 years(another number to change every year).I'm 100% better than you at shooting and puzzle games.@summit1g via Twitter.",
+            "display_name":"summit1g",
+            "id":26490481,
+            "login":"summit1g",
+            "offline_image_url":"https://static-cdn.jtvnw.net/jtv_user_pictures/b1f1f1a6-6b89-475f-8831-cfb9f4a4073a-channel_offline_image-1920x1080.png",
+            "profile_image_url":"https://static-cdn.jtvnw.net/jtv_user_pictures/200cea12142f2384-profile_image-300x300.png",
+            "type":"",
+            "view_count":381719376
+        }
+    ]
+};
 
 const dataStats = [{
     "broadcaster_type":"partner",

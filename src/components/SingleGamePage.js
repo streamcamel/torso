@@ -35,7 +35,9 @@ const SingleGamePage = () => {
             let url = appConfig.backendURL('/games/'+slug);
             fetch(url)
             .then(res => res.json())
-            .then(res => setData(res));
+            .then(res => 
+                setData(res['data']))
+            .then(console.log(data));
 
             url = appConfig.backendURL('/games_stats?game='+slug+'&period=1w');
             fetch(url)
@@ -65,7 +67,7 @@ const SingleGamePage = () => {
     let summary = '';
     let sourceGameSlug = null;
 
-    if(data.length > 0){
+    if(data !== null && data !== undefined && data.length > 0){
         title = data[0].name;
         iconurl = data[0].box_art_url.replace('-{width}x{height}', '-300x400')
         description = utils.textToParagraphs(data[0].storyline);
