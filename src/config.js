@@ -1,6 +1,8 @@
 const hostname = window && window.location && window.location.hostname;
 
 // Replace 'false' with 'true' when testing backend API locally.
+// Note: Tests currently fail when running with `true` since they check against the full backend
+// url.
 const isLocal = false && window && window.location && 
                 (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
 
