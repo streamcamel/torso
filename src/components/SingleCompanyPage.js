@@ -53,7 +53,7 @@ const SingleCompanyPage = () => {
             url = appConfig.backendURL('/companies/'+slug);
             fetch(url)
                 .then(res => res.json())
-                .then(res => setDataCompanies(res));
+                .then(res => setDataCompanies(res['data']));
 
             setDataCompanyLiveStats([])
             url = appConfig.backendURL('/companies_stats?company='+slug);
@@ -94,6 +94,7 @@ const SingleCompanyPage = () => {
     }
 
     let iconurl = '';
+    console.log(dataCompanies);
     if (dataCompanies.length > 0 && dataCompanies[0].url !== null) {
         if (dataCompanies[0].url !== ".jpg") {
             iconurl = dataCompanies[0].url.replace('t_thumb', 't_cover_big');

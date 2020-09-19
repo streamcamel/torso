@@ -30,7 +30,7 @@ const SingleGamePage = () => {
             let url = appConfig.backendURL('/users/'+login);
             fetch(url)
             .then(res => res.json())
-            .then(res => setData(res));
+            .then(res => setData(res['data']));
 
             // url = appConfig.backendURL('/users_stats?user='+login+'&period=1w');
             // fetch(url)
@@ -47,7 +47,7 @@ const SingleGamePage = () => {
     let description = '';
     let summary = '';
 
-    if(data.length > 0){
+    if(data.length){
         title = data[0].display_name;
         iconurl = data[0].profile_image_url.replace('-{width}x{height}', '-300x400')
         description = utils.textToParagraphs(data[0].description);

@@ -35,7 +35,7 @@ const SingleGamePage = () => {
             let url = appConfig.backendURL('/games/'+slug);
             fetch(url)
             .then(res => res.json())
-            .then(res => setData(res));
+            .then(res => setData(res['data']));
 
             url = appConfig.backendURL('/games_stats?game='+slug+'&period=1w');
             fetch(url)
