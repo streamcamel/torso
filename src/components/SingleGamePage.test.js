@@ -9,16 +9,20 @@ import { enableMocks } from 'jest-fetch-mock'
 enableMocks()
 
 // Mocking data to pass as props
-const data = [{
-    "box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-{width}x{height}.jpg",
-    "company_id": 7,
-    "id": 33214,
-    "igdb_game_id": 1905,
-    "name": "Fortnite",
-    "slug": "fortnite",
-    "storyline": "Fortnite is the living, action building game from the developer formerly known as Epic MegaGames. You and your friends will lead a group of Heroes to reclaim and rebuild a homeland that has been left empty by mysterious darkness only known as \"the Storm\". \n \nBand together online to build extravagant forts, find or build insane weapons and traps and protect your towns from the strange monsters that emerge during the Storm. In an action experience from the only company smart enough to attach chainsaws to guns, get out there to push back the Storm and save the world. And don't forget to loot all the things.",
-    "summary": ""
-}];
+const data = {
+    "data" : [
+        {
+        "box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-{width}x{height}.jpg",
+        "company_id": 7,
+        "id": 33214,
+        "igdb_game_id": 1905,
+        "name": "Fortnite",
+        "slug": "fortnite",
+        "storyline": "Fortnite is the living, action building game from the developer formerly known as Epic MegaGames. You and your friends will lead a group of Heroes to reclaim and rebuild a homeland that has been left empty by mysterious darkness only known as \"the Storm\". \n \nBand together online to build extravagant forts, find or build insane weapons and traps and protect your towns from the strange monsters that emerge during the Storm. In an action experience from the only company smart enough to attach chainsaws to guns, get out there to push back the Storm and save the world. And don't forget to loot all the things.",
+        "summary": ""
+        }
+    ]
+};
 
 const dataStats = [{
         "box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-{width}x{height}.jpg",

@@ -47,9 +47,10 @@ const SingleGamePage = () => {
     let description = '';
     let summary = '';
 
-    if (data !== null && data.length){
+    console.log(data);
+    if (data !== undefined && data.length) {
         title = data[0].display_name;
-        iconurl = data[0].profile_image_url.replace('-{width}x{height}', '-300x400')
+        iconurl = data[0].profile_image_url.replace('-{width}x{height}', '-300x400');
         description = utils.textToParagraphs(data[0].description);
         document.title = `${title} - Statistics and Charts | StreamCamel`;
     }
