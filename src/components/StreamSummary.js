@@ -1,23 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import * as appConfig from '../config'
-import GameTile from './GameTile'
+import { useLocation, useHistory } from "react-router-dom";
 
-const flexContainer = {
-    display: 'flex',
-    backgroundColor: 'DodgerBlue'
+// Check for using styled component: https://github.com/rebassjs/rebass/issues/579
+// 
+
+const tableTr = {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: '15px',
+    color: '#808080',
+    lineHeight: '1.2',
+    fontWeight: 'unset',
 };
 
-const flexElement = {
-    margin: '2px',
-    padding: '2px',
-    fontSize: '20px',
+const tableTrOdd = {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: '15px',
+    color: '#808080',
+    lineHeight: '1.2',
+    fontWeight: 'unset',
+    background: '#f5f5f5',
 };
 
-const convertDateToDDMMMMM = (toconvert) => {
+const tableTd = {
+    padding: '10px, 0',
+    textAlign: 'left',
+}
+
+const startTimeTd = {
+    paddingLeft: '40px',
+}
+
+const convertDateToDDMMMMMYYYY = (toconvert) => {
     let adate = new Date(Date.parse(toconvert));
+    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(adate);
     const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(adate);
     const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(adate);
-    return `${da} ${mo}`;
+    return `${da} ${mo} ${ye}`;
 }
 
 const durationDisplay = (data) => {
@@ -39,20 +58,32 @@ const iconurl = (data) => {
 }
 
 const StreamSummary = (props) => {
-    console.log(props);
+    let history = useHistory();
+    let location = useLocation();
+
+    const onClick = (e) => {
+        e.preventDefault();
+    
+        const selection = window.getSelection();
+        if (selection.toString()) {
+            return;
+        }
+        
+        if (props.data.game_slug) {
+            history.push({pathname:('/game/'+props.data.game_slug), search:location.search});
+        }
+    }
+
     return ( props.data ?
-        <>
-            <div style={flexContainer}>
-                <div style={flexElement}>{convertDateToDDMMMMM(props.data.start_time)}</div>
-                <div style={flexElement}>Peak: {props.data.peak_view_count}</div>
-                <div style={flexElement}>Average: {props.data.average_view_count}</div> 
-                <div style={flexElement}>Duration: {durationDisplay(props.data)}</div>
-                <div style={flexElement}>{props.data.game_name}</div>
-                <div style={flexElement}>
-                    <img src={iconurl(props.data)} />
-                </div>
-            </div>
-        </>
+            <tr style={ props.isOdd ? tableTrOdd : tableTr }>
+                <td style={{...tableTd, ...startTimeTd}}>{convertDateToDDMMMMMYYYY(props.data.start_time)}</td>
+                <td style={tableTd}>{props.data.peak_view_count}</td>
+                <td style={tableTd}>{props.data.average_view_count}</td> 
+                <td style={tableTd}>{durationDisplay(props.data)}</td>
+                <td style={tableTd} onClick={onClick}>
+                    {props.data.game_name}<br></br><img src={iconurl(props.data)} height={60}/>
+                </td>
+            </tr>
         : null
     );
 };
