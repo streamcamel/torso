@@ -5,6 +5,7 @@ import * as utils from '../utils'
 import SectionHeader from './SectionHeader';
 import FwdBrowsingDrawer from './FwdBrowsingDrawer';
 import ClipsCarousel from './ClipsCarousel';
+import ChannelStreams from './ChannelStreams';
 
 const SingleGamePage = () => {
     let location = useLocation();
@@ -78,6 +79,7 @@ const SingleGamePage = () => {
                 </div>
                 <div className="SingleStreamerPageDescription">{addLineBreaks(fullDescription)}</div>
             </div>
+            <ChannelStreams slug={slug}/>
             <ClipsCarousel className="ClipsCarousel" context="streamer" slug={slug}></ClipsCarousel>
             <FwdBrowsingDrawer />
         </div>
