@@ -26,7 +26,7 @@ const ChannelStreams = (props) => {
     }, [props.slug]);
 
     var streamsList = data.map( (value, i) => {
-        return <StreamSummary data={value} isOdd={Boolean(i%2)}/>
+        return <StreamSummary data={value}/>
     });
   
     return (

@@ -14,11 +14,11 @@ const convertDateToDDMMMMMYYYY = (toconvert) => {
 }
 
 const durationDisplay = (data) => {
-    let end_date = new Date(Date.parse(data.end_time));
-    let start_date = new Date(Date.parse(data.start_time));
+    let end_time = new Date(Date.parse(data.end_time));
+    let start_time = new Date(Date.parse(data.start_time));
 
     // Resolution is in milliseconds
-    let diff = end_date.getTime() - start_date.getTime();
+    let diff = end_time.getTime() - start_time.getTime();
     
     let hours = Math.floor(diff / (1000 * 60 * 60));
     let minutes = Math.ceil((diff - (hours * 60 * 60 * 1000)) / 1000 / 60);
