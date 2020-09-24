@@ -25,9 +25,9 @@ const ChannelStreams = (props) => {
             .then(res => setData(res['data']))
     }, [props.slug]);
 
-    var streamsList = data.map( (value, i) => {
+    var streamsList = data ? data.map( (value, i) => {
         return <StreamSummary data={value}/>
-    });
+    }) : null;
   
     return (
             <div className="StatsTable">
