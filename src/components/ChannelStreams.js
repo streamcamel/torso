@@ -2,54 +2,14 @@ import React, { useEffect, useState } from 'react';
 import * as appConfig from '../config';
 import StreamSummary from './StreamSummary';
 
-const tableStyle = {
-    borderColor: 'grey',
-    borderSpacing: '2px',
-    borderCollapse: 'collapse',
-    borderRadius: '10px',
-    background: 'white',
-    overflow: 'hidden',
-};
-
-const tableHead = {
-    height: '60px',
-    background: '#36304a',
-};
-
-const tableHeadTh = {
-    fontFamily: 'OpenSans-Regular',
-    fontSize: '18px',
-    color: '#fff',
-    lineHeight: '1.2',
-    fontWeight: 'unset',
-    textAlign: 'left',
-};
 
 const startTimeTh = {
-    paddingLeft: '40px',
-    width: '120px',
-}
-
-const peakViewersTh = {
-    width: '120px',
-}
-
-const averageViewersTh = {
-    width: '120px',
-}
-
-const durationTh = {
-    width: '120px',
+    paddingLeft: '40px'
 }
 
 const ChannelStreams = (props) => {
     const [data, setData] = useState([]); 
-    const [filter, setFilter] = useState('');
     
-    const onFilter = (str) => {
-        setFilter(str);
-    }
-
     useEffect(() => {
         let url = '/users';
 
@@ -65,32 +25,28 @@ const ChannelStreams = (props) => {
             .then(res => setData(res['data']))
     }, [props.slug]);
 
-    let title = 'Recent Streams';
-    if (props.title) {
-        title = props.title;
-    }
-
-    let headers = [ {title:title, selected:true} ];
-
     var streamsList = data.map( (value, i) => {
         return <StreamSummary data={value} isOdd={Boolean(i%2)}/>
     });
   
-    return (<table style={tableStyle}>
-                <thead>
-                    <tr style={tableHead}>
-                        <th style={{...tableHeadTh, ...startTimeTh}}>Stream Date</th>
-                        <th style={{...tableHeadTh, ...peakViewersTh}}>Peak Viewers</th>
-                        <th style={{...tableHeadTh, ...averageViewersTh}}>Average Viewers</th>
-                        <th style={{...tableHeadTh, ...durationTh}}>Duration</th>
-                        <th style={tableHeadTh}>Games</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {streamsList}
-                </tbody>
-                
-            </table>);
+    return (
+            <div className="StatsTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style={startTimeTh}>Stream Date</th>
+                            <th>Peak Viewers</th>
+                            <th>Average Viewers</th>
+                            <th>Duration</th>
+                            <th>Games</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {streamsList}
+                    </tbody>
+                </table>
+            </div>
+            );
 };
 
 export default ChannelStreams;

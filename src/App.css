@@ -6,17 +6,12 @@
   width: 100%;
 }
 
-
-
 .PageFixedTop {
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 500;
 }
-
-
-
 
 .PageHeader {
   background-color: #0B0B0B;
@@ -595,6 +590,47 @@ font-weight: 700;
 
 .NoPointerCursor {
   cursor: inherit;
+}
+
+.StatsTable table {
+  border-color: grey;
+  border-spacing: 2px;
+  border-collapse: collapse;
+  border-radius: 10px;
+  background: white;
+  overflow: hidden;
+}
+
+.StatsTable thead tr {
+  height: 60px;
+  background: #36304a;
+}
+
+.StatsTable thead tr th {
+  font-family: OpenSans-Regular;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: unset;
+  text-align: left;
+  width: 120px;
+}
+
+.StatsTable tbody tr {
+  font-family: OpenSans-Regular;
+  font-size: 15px;
+  color: #808080;
+  line-height: 1.2;
+  font-weight: unset;
+}
+
+.StatsTable tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+
+.StatsTable tbody td {
+  padding: 10px, 0;
+  text-align: left;
 }
 
 @media only screen and (max-width:800px) {

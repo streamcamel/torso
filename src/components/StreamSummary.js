@@ -1,31 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import * as appConfig from '../config'
+import React from 'react';
 import { useLocation, useHistory } from "react-router-dom";
-
-// Check for using styled component: https://github.com/rebassjs/rebass/issues/579
-// 
-
-const tableTr = {
-    fontFamily: 'OpenSans-Regular',
-    fontSize: '15px',
-    color: '#808080',
-    lineHeight: '1.2',
-    fontWeight: 'unset',
-};
-
-const tableTrOdd = {
-    fontFamily: 'OpenSans-Regular',
-    fontSize: '15px',
-    color: '#808080',
-    lineHeight: '1.2',
-    fontWeight: 'unset',
-    background: '#f5f5f5',
-};
-
-const tableTd = {
-    padding: '10px, 0',
-    textAlign: 'left',
-}
 
 const startTimeTd = {
     paddingLeft: '40px',
@@ -75,13 +49,13 @@ const StreamSummary = (props) => {
     }
 
     return ( props.data ?
-            <tr style={ props.isOdd ? tableTrOdd : tableTr }>
-                <td style={{...tableTd, ...startTimeTd}}>{convertDateToDDMMMMMYYYY(props.data.start_time)}</td>
-                <td style={tableTd}>{props.data.peak_view_count}</td>
-                <td style={tableTd}>{props.data.average_view_count}</td> 
-                <td style={tableTd}>{durationDisplay(props.data)}</td>
-                <td style={tableTd} onClick={onClick}>
-                    {props.data.game_name}<br></br><img src={iconurl(props.data)} height={60}/>
+            <tr>
+                <td style={startTimeTd}>{convertDateToDDMMMMMYYYY(props.data.start_time)}</td>
+                <td>{props.data.peak_view_count}</td>
+                <td>{props.data.average_view_count}</td> 
+                <td>{durationDisplay(props.data)}</td>
+                <td onClick={onClick}>
+                    {props.data.game_name}<br></br><img alt={props.data.game_name} src={iconurl(props.data)} height={60}/>
                 </td>
             </tr>
         : null
