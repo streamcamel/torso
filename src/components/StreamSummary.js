@@ -28,7 +28,11 @@ const durationDisplay = (data) => {
 }
 
 const iconurl = (data) => {
-    return data.box_art_url.replace('-{width}x{height}', '-90x120');
+    if (data && data.box_art_url) {
+        return data.box_art_url.replace('-{width}x{height}', '-90x120');
+    } else {
+        return "";
+    }
 }
 
 const StreamSummary = (props) => {
