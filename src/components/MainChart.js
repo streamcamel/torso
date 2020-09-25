@@ -150,6 +150,11 @@ const MainChart = (props) => {
             return command === 'game';
         };
 
+        const isChannelCommand = () => {
+            const command = utils.pathToCommand(location.pathname);
+            return command === 'streamer';
+        };
+
         if(singleRegister) {
             Chart.pluginService.register({ afterDraw: onAfterDraw });
             setSingleRegister(false);
@@ -164,6 +169,7 @@ const MainChart = (props) => {
             let request = utils.URLSearchAddQuery('', 'after', encodeURIComponent(fromTo[0].toISOString()));
             request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(fromTo[1].toISOString()));
 
+            console.log(command);
             switch(command) {
                 case 'company':
                     request = utils.URLSearchAddQuery(request, 'company', slug);
@@ -171,6 +177,10 @@ const MainChart = (props) => {
 
                 case 'game':
                     request = utils.URLSearchAddQuery(request, 'game', slug);
+                    break;
+
+                case 'streamer':
+                    request = utils.URLSearchAddQuery(request, 'user', slug);
                     break;
                 default:
                     break;
@@ -188,6 +198,9 @@ const MainChart = (props) => {
             } else if (isCompanyCommand()) {
                 commandUrl = '/companies/' + slug;
                 titlePrefix = 'Company';
+            } else if (isChannelCommand()) {
+                commandUrl = '/users/' + slug;
+                titlePrefix = 'Channel';
             }
 
             if (commandUrl !== '') {
