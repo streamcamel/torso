@@ -259,7 +259,7 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, prevPath, singleRegister, getChartDatesArrayFromTo]);
+    }, [location, prevPath, singleRegister, getChartDatesArrayFromTo, epoch, forceAll]);
 
        
     const eventToPosition = (evt) => {
