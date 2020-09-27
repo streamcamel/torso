@@ -48,7 +48,6 @@ const SingleGamePage = () => {
     let description = '';
     let summary = '';
 
-    console.log(data);
     if (data !== null && data !== undefined && data.length) {
         title = data[0].display_name;
         iconurl = data[0].profile_image_url.replace('-{width}x{height}', '-300x400');

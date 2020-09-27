@@ -9,6 +9,13 @@ const MainChart = (props) => {
     let location = useLocation();
     let history = useHistory();
 
+    const epoch = new Date('01/01/2020');
+
+    const isStreamer = props.streamer === "true";
+    const forceAll = props.forceRange === "all";
+    const showChannels = props.showChannels === "false" ? false : true;
+    const showButtons = props.showButtons === "false" ? false : true;
+
     const refChart = useRef(null);
     const [data, setData] = useState([]);
     const [title, setTitle] = useState('Viewers')
@@ -17,8 +24,8 @@ const MainChart = (props) => {
 
     const onChangeRangeFromNow = (minutes) => {
         let dateFrom;
-        if(minutes === -1){
-            dateFrom = new Date('01/01/2020');
+        if(minutes === -1 || forceAll){
+            dateFrom = epoch;
         } else {
             dateFrom = new Date();
             dateFrom.setMinutes(dateFrom.getMinutes() - minutes); // 7 days is the default
@@ -87,9 +94,24 @@ const MainChart = (props) => {
         chartData.unshift([])
         toconvert.forEach(d => {
             let adate = new Date(Date.parse(d.time));
-            chartData[0].unshift(adate)
+
+            if (isStreamer) {
+                const month = adate.toLocaleString('default', 
+                { month: 'long', timeZone : 'UTC'});
+                
+                const year = adate.toLocaleString('default', 
+                { year: 'numeric', timeZone : 'UTC'});
+
+                chartData[0].unshift(month + ' ' + year);
+            } else {
+                chartData[0].unshift(adate);
+            }
+            
             chartData[1].unshift(d.viewers_count)
-            chartData[2].unshift(d.streams_count)
+
+            if (showChannels) {
+                chartData[2].unshift(d.streams_count)
+            }
         });
 
         return chartData;
@@ -150,6 +172,11 @@ const MainChart = (props) => {
             return command === 'game';
         };
 
+        const isChannelCommand = () => {
+            const command = utils.pathToCommand(location.pathname);
+            return command === 'streamer';
+        };
+
         if(singleRegister) {
             Chart.pluginService.register({ afterDraw: onAfterDraw });
             setSingleRegister(false);
@@ -161,9 +188,16 @@ const MainChart = (props) => {
             const slug = utils.pathToSlug(location.pathname);
             const fromTo = getChartDatesArrayFromTo();
 
-            let request = utils.URLSearchAddQuery('', 'after', encodeURIComponent(fromTo[0].toISOString()));
-            request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(fromTo[1].toISOString()));
-
+            let request = '';
+            if (forceAll) {
+                request = utils.URLSearchAddQuery(request, 'after', encodeURIComponent(epoch.toISOString()));
+                request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(new Date().toISOString()));
+            } else {
+                request = utils.URLSearchAddQuery(request, 'after', encodeURIComponent(fromTo[0].toISOString()));
+                request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(fromTo[1].toISOString()));
+                
+            }
+            
             switch(command) {
                 case 'company':
                     request = utils.URLSearchAddQuery(request, 'company', slug);
@@ -172,11 +206,24 @@ const MainChart = (props) => {
                 case 'game':
                     request = utils.URLSearchAddQuery(request, 'game', slug);
                     break;
+
+                case 'streamer':
+                    request = utils.URLSearchAddQuery(request, 'basis', 'stream');
+                    request = utils.URLSearchAddQuery(request, 'period', 'month');
+                    break;
+
                 default:
                     break;
             }
 
-            fetch(appConfig.backendURL('/viewers' + request))
+            let fullUrl = '';
+            if (command === 'streamer') {
+                fullUrl = appConfig.backendURL('/users/' + slug + '/viewers' + request)
+            } else {
+                fullUrl = appConfig.backendURL('/viewers' + request);
+            }
+
+            fetch(fullUrl)
                 .then(res => res.json())
                 .then(res => setData(res))
 
@@ -188,14 +235,21 @@ const MainChart = (props) => {
             } else if (isCompanyCommand()) {
                 commandUrl = '/companies/' + slug;
                 titlePrefix = 'Company';
+            } else if (isChannelCommand()) {
+                commandUrl = '/users/' + slug;
+                titlePrefix = 'Channel';
             }
 
             if (commandUrl !== '') {
                 fetch(appConfig.backendURL(commandUrl))
                     .then(res => res.json())
                     .then(res => {
-                        if(res.length > 0) {
-                            setTitle(res[0].name + ' ' + titlePrefix + ' Viewers');
+                        if(res.data && res.data.length > 0) {
+                            if (isChannelCommand()) {
+                                setTitle(res.data[0].display_name + ' ' + titlePrefix + ' Viewers')
+                            } else {
+                                setTitle(res.data[0].name + ' ' + titlePrefix + ' Viewers');
+                            }
                         } else {
                             setTitle('Viewers');
                         }
@@ -206,7 +260,7 @@ const MainChart = (props) => {
 
             setPrevPath(location.pathname+location.search);
         }
-    }, [location, prevPath, singleRegister, getChartDatesArrayFromTo]);
+    }, [location, prevPath, singleRegister, getChartDatesArrayFromTo, epoch, forceAll]);
 
        
     const eventToPosition = (evt) => {
@@ -270,7 +324,7 @@ const MainChart = (props) => {
     
     const safeGetDuration = () => {
         const fromTo = getChartDatesArrayFromTo();
-        const allDate = new Date('01/01/2020');
+        const allDate = epoch;
 
         if( (fromTo[0].toISOString() === allDate.toISOString()) &&
             utils.isDateToday(fromTo[1])) {
@@ -378,12 +432,14 @@ const MainChart = (props) => {
         ]
     };
 
-    if (chartData[0].length <= 50) {
-        viewerData.datasets.push(histogramChannel);
-    } else {
-        viewerData.datasets.push(lineChannel);
+    if (showChannels) {
+        if (chartData[0].length <= 50) {
+            viewerData.datasets.push(histogramChannel);
+        } else {
+            viewerData.datasets.push(lineChannel);
+        }
     }
-
+    
     const options = {
         maintainAspectRatio: false,
         responsive: true,
@@ -403,10 +459,10 @@ const MainChart = (props) => {
         },
         scales: {
             xAxes: [{
-                type: 'time',
-                time: {
-                    unit: timeUnit
-                },
+                type: (isStreamer ? undefined : 'time'),
+                time: (isStreamer ? undefined : {
+                     unit: timeUnit
+                }),
                 labels: chartData[0]
             }],
             yAxes: [{
@@ -451,6 +507,16 @@ const MainChart = (props) => {
         chart.canvas.ontouchend = onMouseUp;
     }
 
+    var selectionButtons = 
+            <div className="MainChartButtons">
+            <div className={"MainChartButton " + (selectedButton===0?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(8*60)}>8 Hours</div>
+            <div className={"MainChartButton " + (selectedButton===1?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(24*60)}>1 Day</div>
+            <div className={"MainChartButton " + (selectedButton===2?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(7*24*60)}>7 Days</div>
+            <div className={"MainChartButton " + (selectedButton===3?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(30*24*60)}>1 Month</div>
+            <div className={"MainChartButton " + (selectedButton===4?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(3*30*24*60)}>3 Months</div>
+            <div className={"MainChartButton " + (selectedButton===5?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(-1)}>All</div>
+            </div>;
+
     return (
         <div className="ChartArea">
             <h2 className="ChartTitle">{title}</h2>
@@ -459,14 +525,7 @@ const MainChart = (props) => {
                 <Line ref={refChart} data={viewerData} options={options} />
             </div>
 
-            <div className="MainChartButtons">
-                <div className={"MainChartButton " + (selectedButton===0?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(8*60)}>8 Hours</div>
-                <div className={"MainChartButton " + (selectedButton===1?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(24*60)}>1 Day</div>
-                <div className={"MainChartButton " + (selectedButton===2?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(7*24*60)}>7 Days</div>
-                <div className={"MainChartButton " + (selectedButton===3?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(30*24*60)}>1 Month</div>
-                <div className={"MainChartButton " + (selectedButton===4?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(3*30*24*60)}>3 Months</div>
-                <div className={"MainChartButton " + (selectedButton===5?'MainChartButtonSelected':'')}  onClick={() => onChangeRangeFromNow(-1)}>All</div>
-            </div>
+            {showButtons ? selectionButtons : null}
         </div>
     )
 }
