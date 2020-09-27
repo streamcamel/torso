@@ -97,7 +97,11 @@ const MainChart = (props) => {
             if (isStreamer) {
                 const month = adate.toLocaleString('default', 
                 { month: 'long', timeZone : 'UTC'});
-                chartData[0].unshift(month)
+                
+                const year = adate.toLocaleString('default', 
+                { year: 'numeric', timeZone : 'UTC'});
+
+                chartData[0].unshift(month + ' ' + year);
             } else {
                 chartData[0].unshift(adate);
             }
