@@ -14,6 +14,7 @@ const MainChart = (props) => {
     const isStreamer = props.streamer === "true";
     const forceAll = props.forceRange === "all";
     const showChannels = props.showChannels === "false" ? false : true;
+    const showButtons = props.showButtons === "false" ? false : true;
 
     const refChart = useRef(null);
     const [data, setData] = useState([]);
@@ -524,7 +525,7 @@ const MainChart = (props) => {
                 <Line ref={refChart} data={viewerData} options={options} />
             </div>
 
-            {forceAll ? null : selectionButtons}
+            {showButtons ? selectionButtons : null}
         </div>
     )
 }
