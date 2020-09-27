@@ -81,16 +81,33 @@ const MainChart = (props) => {
     }
 
     const convertDataToChartData = (toconvert) => {
-        let chartData = []
-        chartData.unshift([])
-        chartData.unshift([])
-        chartData.unshift([])
+        let chartData = [];
+        chartData.unshift([]);
+        chartData.unshift([]);
+        //chartData.unshift([]);
+
+        // A user channel will have multiple disjointed graphs, so we push multiple graphs
+        var lastId = -1;
+        var idToIndex = {};
+
+        toconvert.forEach(d => {
+            if (d.id !== lastId) {
+                lastId = d.id;
+                chartData[0].unshift([]);
+                chartData[1].unshift([]);
+                idToIndex[lastId] = chartData[1].length-1;
+            }
+        });
+
         toconvert.forEach(d => {
             let adate = new Date(Date.parse(d.time));
-            chartData[0].unshift(adate)
-            chartData[1].unshift(d.viewers_count)
-            chartData[2].unshift(d.streams_count)
+
+            chartData[0][idToIndex[d.id]].unshift(adate);
+            chartData[1][idToIndex[d.id]].unshift(d.viewers_count);
+            //chartData[2].unshift(d.streams_count);
         });
+
+        console.log(chartData);
 
         return chartData;
     }
@@ -352,59 +369,71 @@ const MainChart = (props) => {
         data: chartData[2]
     };
 
-    const lineChannel = {
-        type: 'line',
-        label: 'Channels',
-        fill: false,
-        yAxisID: 'y-axis-2',
-        backgroundColor: 'rgba(0, 145, 255, 0.5)',
-        borderColor: 'rgba(67, 187, 157, 0.85)',
-        borderCapStyle: 'round',
-        borderJoinStyle: 'round',
-        pointBorderColor: 'rgba(67, 187, 157, 0.85)',
-        pointBackgroundColor: 'rgba(67, 187, 157, 0.85)',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(67, 187, 157, 0.85)',
-        pointHoverBorderColor: 'rgba(220,220,220,1)',
-        pointHoverBorderWidth: 2,
-        pointRadius: 1.5,
-        pointHitRadius: 10,
+    // const lineChannel = {
+    //     type: 'line',
+    //     label: 'Channels',
+    //     fill: false,
+    //     yAxisID: 'y-axis-2',
+    //     backgroundColor: 'rgba(0, 145, 255, 0.5)',
+    //     borderColor: 'rgba(67, 187, 157, 0.85)',
+    //     borderCapStyle: 'round',
+    //     borderJoinStyle: 'round',
+    //     pointBorderColor: 'rgba(67, 187, 157, 0.85)',
+    //     pointBackgroundColor: 'rgba(67, 187, 157, 0.85)',
+    //     pointBorderWidth: 1,
+    //     pointHoverRadius: 5,
+    //     pointHoverBackgroundColor: 'rgba(67, 187, 157, 0.85)',
+    //     pointHoverBorderColor: 'rgba(220,220,220,1)',
+    //     pointHoverBorderWidth: 2,
+    //     pointRadius: 1.5,
+    //     pointHitRadius: 10,
 
-        data: chartData[2]
-    }
+    //     data: chartData[2]
+    // }
 
+    var nullsRequired = 0;
     const viewerData = {
-        labels: chartData[0],
-        datasets: [{
-            type: 'line',
-            label: 'Viewers',
-            fill: true,
-            backgroundColor: 'rgba(0, 145, 255, 0.5)',
-            borderDashOffset: 0.0,
-            borderColor: 'rgba(0, 145, 255, 0.85)',
-            borderCapStyle: 'round',
-            borderJoinStyle: 'round',
-            pointBorderColor: 'rgba(0, 145, 255, 0.85)',
-            pointBackgroundColor: 'rgba(0, 145, 255, 0.85)',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(0, 145, 255, 0.85)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1.5,
-            pointHitRadius: 10,
-            yAxisID: 'y-axis-1',
-            data: chartData[1]
-          }
-        ]
+        labels: chartData[0].flat(),
+        datasets: chartData[1].map( (value, index) => {
+            var arr = new Array(nullsRequired + value.length);
+            for (var i = 0; i < value.length; i++) {
+                arr[nullsRequired + i] = value[i];
+            }
+            console.log(arr);
+            nullsRequired += value.length;
+
+            return {
+                type: 'line',
+                label: 'Viewers ' + index,
+                fill: true,
+                backgroundColor: 'rgba(0, 145, 255, 0.5)',
+                borderDashOffset: 0.0,
+                borderColor: 'rgba(0, 145, 255, 0.85)',
+                borderCapStyle: 'round',
+                borderJoinStyle: 'round',
+                pointBorderColor: 'rgba(0, 145, 255, 0.85)',
+                pointBackgroundColor: 'rgba(0, 145, 255, 0.85)',
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(0, 145, 255, 0.85)',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1.5,
+                pointHitRadius: 10,
+                yAxisID: 'y-axis-1',
+                data: arr,
+            };
+        })
     };
 
-    if (chartData[0].length <= 50) {
-        viewerData.datasets.push(histogramChannel);
-    } else {
-        viewerData.datasets.push(lineChannel);
-    }
+    console.log(viewerData);
+
+    // console.log(chartData[0].flat());
+    // if (chartData[0].length <= 50) {
+    //     viewerData.datasets.push(histogramChannel);
+    // } else {
+    //     viewerData.datasets.push(lineChannel);
+    // }
 
     const options = {
         maintainAspectRatio: false,
@@ -429,7 +458,7 @@ const MainChart = (props) => {
                 time: {
                     unit: timeUnit
                 },
-                labels: chartData[0]
+                labels: chartData[0].flat()
             }],
             yAxes: [{
                 type: 'linear',
