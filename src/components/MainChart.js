@@ -10,8 +10,11 @@ const MainChart = (props) => {
     let history = useHistory();
 
     const epoch = new Date('01/01/2020');
+
+    const isStreamer = props.streamer === "true";
     const forceAll = props.forceRange === "all";
-    const forceHistogram = props.forceHistogram === "true";
+    const showChannels = props.showChannels === "false" ? false : true;
+
     const refChart = useRef(null);
     const [data, setData] = useState([]);
     const [title, setTitle] = useState('Viewers')
@@ -90,9 +93,20 @@ const MainChart = (props) => {
         chartData.unshift([])
         toconvert.forEach(d => {
             let adate = new Date(Date.parse(d.time));
-            chartData[0].unshift(adate)
+
+            if (isStreamer) {
+                const month = adate.toLocaleString('default', 
+                { month: 'long', timeZone : 'UTC'});
+                chartData[0].unshift(month)
+            } else {
+                chartData[0].unshift(adate);
+            }
+            
             chartData[1].unshift(d.viewers_count)
-            chartData[2].unshift(d.streams_count)
+
+            if (showChannels) {
+                chartData[2].unshift(d.streams_count)
+            }
         });
 
         return chartData;
@@ -220,8 +234,6 @@ const MainChart = (props) => {
                 commandUrl = '/users/' + slug;
                 titlePrefix = 'Channel';
             }
-
-            console.log(commandUrl);
 
             if (commandUrl !== '') {
                 fetch(appConfig.backendURL(commandUrl))
@@ -392,7 +404,7 @@ const MainChart = (props) => {
     const viewerData = {
         labels: chartData[0],
         datasets: [{
-            type: forceHistogram ? 'bar' : 'line',
+            type: 'line',
             label: 'Viewers',
             fill: true,
             backgroundColor: 'rgba(0, 145, 255, 0.5)',
@@ -415,12 +427,16 @@ const MainChart = (props) => {
         ]
     };
 
-    if (chartData[0].length <= 50) {
-        viewerData.datasets.push(histogramChannel);
-    } else {
-        viewerData.datasets.push(lineChannel);
-    }
+    console.log(chartData[0]);
 
+    if (showChannels) {
+        if (chartData[0].length <= 50) {
+            viewerData.datasets.push(histogramChannel);
+        } else {
+            viewerData.datasets.push(lineChannel);
+        }
+    }
+    
     const options = {
         maintainAspectRatio: false,
         responsive: true,
@@ -440,10 +456,10 @@ const MainChart = (props) => {
         },
         scales: {
             xAxes: [{
-                type: 'time',
-                time: {
-                    unit: timeUnit
-                },
+                // type: 'time',
+                // time: {
+                //     unit: timeUnit
+                // },
                 labels: chartData[0]
             }],
             yAxes: [{

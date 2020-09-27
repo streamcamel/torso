@@ -47,7 +47,7 @@ const Carousel = () => {
                     <SingleGamePage />
                 </Route>
                 <Route path="/streamer">
-                    <MainChart forceRange="all" forceHistogram="true"/>
+                    <MainChart forceRange="all" showChannels="false" streamer="true"/>
                     <SingleStreamerPage />
                 </Route>
                 <Route path="/topgames">
