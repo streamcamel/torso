@@ -427,8 +427,6 @@ const MainChart = (props) => {
         ]
     };
 
-    console.log(chartData[0]);
-
     if (showChannels) {
         if (chartData[0].length <= 50) {
             viewerData.datasets.push(histogramChannel);
@@ -456,10 +454,10 @@ const MainChart = (props) => {
         },
         scales: {
             xAxes: [{
-                // type: 'time',
-                // time: {
-                //     unit: timeUnit
-                // },
+                type: (isStreamer ? undefined : 'time'),
+                time: (isStreamer ? undefined : {
+                     unit: timeUnit
+                }),
                 labels: chartData[0]
             }],
             yAxes: [{
