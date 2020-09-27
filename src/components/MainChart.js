@@ -169,7 +169,6 @@ const MainChart = (props) => {
             let request = utils.URLSearchAddQuery('', 'after', encodeURIComponent(fromTo[0].toISOString()));
             request = utils.URLSearchAddQuery(request, 'before', encodeURIComponent(fromTo[1].toISOString()));
 
-            console.log(command);
             switch(command) {
                 case 'company':
                     request = utils.URLSearchAddQuery(request, 'company', slug);
@@ -179,14 +178,18 @@ const MainChart = (props) => {
                     request = utils.URLSearchAddQuery(request, 'game', slug);
                     break;
 
-                case 'streamer':
-                    request = utils.URLSearchAddQuery(request, 'user', slug);
-                    break;
                 default:
                     break;
             }
 
-            fetch(appConfig.backendURL('/viewers' + request))
+            let fullUrl = '';
+            if (command === 'streamer') {
+                fullUrl = appConfig.backendURL('/users/' + slug + '/viewers' + request)
+            } else {
+                fullUrl = appConfig.backendURL('/viewers' + request);
+            }
+
+            fetch(fullUrl)
                 .then(res => res.json())
                 .then(res => setData(res))
 
@@ -203,12 +206,18 @@ const MainChart = (props) => {
                 titlePrefix = 'Channel';
             }
 
+            console.log(commandUrl);
+
             if (commandUrl !== '') {
                 fetch(appConfig.backendURL(commandUrl))
                     .then(res => res.json())
                     .then(res => {
-                        if(res.length > 0) {
-                            setTitle(res[0].name + ' ' + titlePrefix + ' Viewers');
+                        if(res.data && res.data.length > 0) {
+                            if (isChannelCommand()) {
+                                setTitle(res.data[0].display_name + ' ' + titlePrefix + ' Viewers')
+                            } else {
+                                setTitle(res.data[0].name + ' ' + titlePrefix + ' Viewers');
+                            }
                         } else {
                             setTitle('Viewers');
                         }
