@@ -44,8 +44,6 @@ const userStreams = {
 		"peak_view_count": 21482,
 		"average_view_count": 17377,
 		"game_id": 509658,
-		"type": "live",
-		"language": "en",
 		"game_name": "Just Chatting",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Just%20Chatting-{width}x{height}.jpg",
 		"game_slug": null
@@ -56,8 +54,6 @@ const userStreams = {
 		"peak_view_count": 22078,
 		"average_view_count": 19042,
 		"game_id": 509658,
-		"type": "live",
-		"language": "en",
 		"game_name": "Just Chatting",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Just%20Chatting-{width}x{height}.jpg",
 		"game_slug": null
@@ -68,8 +64,8 @@ const userStreams = {
 		"peak_view_count": 26311,
 		"average_view_count": 21410,
 		"game_id": 509658,
-		"type": "live",
-		"language": "en",
+
+
 		"game_name": "Just Chatting",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Just%20Chatting-{width}x{height}.jpg",
 		"game_slug": null
@@ -80,8 +76,6 @@ const userStreams = {
 		"peak_view_count": 27372,
 		"average_view_count": 21181,
 		"game_id": 509658,
-		"type": "live",
-		"language": "en",
 		"game_name": "Just Chatting",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Just%20Chatting-{width}x{height}.jpg",
 		"game_slug": null
@@ -92,8 +86,6 @@ const userStreams = {
 		"peak_view_count": 27486,
 		"average_view_count": 20337,
 		"game_id": 509658,
-		"type": "live",
-		"language": "en",
 		"game_name": "Just Chatting",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Just%20Chatting-{width}x{height}.jpg",
 		"game_slug": null
@@ -104,8 +96,6 @@ const userStreams = {
 		"peak_view_count": 28063,
 		"average_view_count": 17147,
 		"game_id": 263490,
-		"type": "live",
-		"language": "en",
 		"game_name": "Rust",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Rust-{width}x{height}.jpg",
 		"game_slug": "rust"
@@ -116,8 +106,6 @@ const userStreams = {
 		"peak_view_count": 27301,
 		"average_view_count": 18377,
 		"game_id": 263490,
-		"type": "live",
-		"language": "en",
 		"game_name": "Rust",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Rust-{width}x{height}.jpg",
 		"game_slug": "rust"
@@ -128,8 +116,6 @@ const userStreams = {
 		"peak_view_count": 25865,
 		"average_view_count": 17289,
 		"game_id": 498859,
-		"type": "live",
-		"language": "en",
 		"game_name": "Mordhau",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Mordhau-{width}x{height}.jpg",
 		"game_slug": "mordhau"
@@ -140,8 +126,6 @@ const userStreams = {
 		"peak_view_count": 23808,
 		"average_view_count": 14889,
 		"game_id": 383341,
-		"type": "live",
-		"language": "en",
 		"game_name": "Miscreated",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Miscreated-{width}x{height}.jpg",
 		"game_slug": "miscreated"
@@ -152,8 +136,6 @@ const userStreams = {
 		"peak_view_count": 22639,
 		"average_view_count": 18611,
 		"game_id": 383341,
-		"type": "live",
-		"language": "en",
 		"game_name": "Miscreated",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Miscreated-{width}x{height}.jpg",
 		"game_slug": "miscreated"
@@ -164,8 +146,6 @@ const userStreams = {
 		"peak_view_count": 22820,
 		"average_view_count": 19278,
 		"game_id": 383341,
-		"type": "live",
-		"language": "en",
 		"game_name": "Miscreated",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/Miscreated-{width}x{height}.jpg",
 		"game_slug": "miscreated"
@@ -176,8 +156,6 @@ const userStreams = {
 		"peak_view_count": 27327,
 		"average_view_count": 21274,
 		"game_id": 65632,
-		"type": "live",
-		"language": "en",
 		"game_name": "DayZ",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/DayZ-{width}x{height}.jpg",
 		"game_slug": "dayz"
@@ -188,8 +166,6 @@ const userStreams = {
 		"peak_view_count": 27026,
 		"average_view_count": 19079,
 		"game_id": 65632,
-		"type": "live",
-		"language": "en",
 		"game_name": "DayZ",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/DayZ-{width}x{height}.jpg",
 		"game_slug": "dayz"
@@ -200,8 +176,6 @@ const userStreams = {
 		"peak_view_count": 29685,
 		"average_view_count": 22431,
 		"game_id": 65632,
-		"type": "live",
-		"language": "en",
 		"game_name": "DayZ",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/DayZ-{width}x{height}.jpg",
 		"game_slug": "dayz"
@@ -212,8 +186,6 @@ const userStreams = {
 		"peak_view_count": 31376,
 		"average_view_count": 25746,
 		"game_id": 65632,
-		"type": "live",
-		"language": "en",
 		"game_name": "DayZ",
 		"box_art_url": "https://static-cdn.jtvnw.net/ttv-boxart/DayZ-{width}x{height}.jpg",
 		"game_slug": "dayz"
